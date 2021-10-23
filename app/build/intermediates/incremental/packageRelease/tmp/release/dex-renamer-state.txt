@@ -1,4 +1,4 @@
-#Sat Oct 23 15:48:04 CEST 2021
+#Sat Oct 23 16:03:07 CEST 2021
 base.1=/Users/dominicwenzel/Documents/uni/GSE/Projekt/app/build/intermediates/desugar_lib_dex/release/classes1000.dex
 path.1=classes1000.dex
 base.0=/Users/dominicwenzel/Documents/uni/GSE/Projekt/app/build/intermediates/dex/release/mergeDexRelease/classes.dex
