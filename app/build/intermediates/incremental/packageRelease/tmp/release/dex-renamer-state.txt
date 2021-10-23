@@ -1,0 +1,7 @@
+#Sat Oct 23 14:35:50 CEST 2021
+base.1=/Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/build/intermediates/desugar_lib_dex/release/classes1000.dex
+path.1=classes1000.dex
+base.0=/Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/build/intermediates/dex/release/mergeDexRelease/classes.dex
+renamed.1=classes2.dex
+renamed.0=classes.dex
+path.0=classes.dex

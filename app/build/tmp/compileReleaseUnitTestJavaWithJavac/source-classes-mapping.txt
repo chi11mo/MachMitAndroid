@@ -1,0 +1,2 @@
+de/techfak/gse/template/ExampleUnitTest.java
+ de.techfak.gse.template.ExampleUnitTest

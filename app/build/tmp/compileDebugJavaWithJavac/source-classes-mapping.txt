@@ -1,0 +1,4 @@
+de/techfak/gse/template/BuildConfig.java
+ de.techfak.gse.template.BuildConfig
+de/techfak/gse/template/MainActivity.java
+ de.techfak.gse.template.MainActivity
