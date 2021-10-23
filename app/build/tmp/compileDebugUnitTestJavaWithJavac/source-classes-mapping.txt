@@ -1,2 +1,0 @@
-de/techfak/gse/dwenzel/ExampleUnitTest.java
- de.techfak.gse.dwenzel.ExampleUnitTest

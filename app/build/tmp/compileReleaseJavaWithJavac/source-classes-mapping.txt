@@ -1,4 +1,0 @@
-de/techfak/gse/dwenzel/BuildConfig.java
- de.techfak.gse.dwenzel.BuildConfig
-de/techfak/gse/dwenzel/MainActivity.java
- de.techfak.gse.dwenzel.MainActivity

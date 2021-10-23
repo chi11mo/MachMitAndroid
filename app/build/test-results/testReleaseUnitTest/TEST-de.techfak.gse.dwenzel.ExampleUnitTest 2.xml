@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.techfak.gse.dwenzel.ExampleUnitTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-10-23T13:48:02" hostname="Dominics-MBP" time="0.005">
-  <properties/>
-  <testcase name="addition_isCorrect" classname="de.techfak.gse.dwenzel.ExampleUnitTest" time="0.005"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
