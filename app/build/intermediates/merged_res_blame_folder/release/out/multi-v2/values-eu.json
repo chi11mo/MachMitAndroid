@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-eu/values-eu.xml",
+            "outputFile": "/Users/dominicwenzel/Documents/uni/GSE/Projekt/app/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-eu/values-eu.xml",
             "map": [
                 {
                     "source": "/Users/dominicwenzel/.gradle/caches/transforms-3/9661e4882ab75158dcef7da5ac4a4529/transformed/material-1.4.0/res/values-eu/values-eu.xml",

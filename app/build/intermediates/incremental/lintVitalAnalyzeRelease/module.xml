@@ -1,9 +1,9 @@
 <lint-module
     format="1"
-    dir="/Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app"
+    dir="/Users/dominicwenzel/Documents/uni/GSE/Projekt/app"
     name=":app"
     type="APP"
-    maven="ProjectTemplate:app:"
+    maven="dwenzel:app:"
     gradle="7.0.3"
     buildFolder="build"
     bootClassPath="/Users/dominicwenzel/Library/Android/sdk/platforms/android-31/android.jar:/Users/dominicwenzel/Library/Android/sdk/build-tools/30.0.2/core-lambda-stubs.jar"

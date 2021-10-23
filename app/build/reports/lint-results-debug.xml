@@ -12,7 +12,7 @@
         errorLine1="    implementation &apos;androidx.appcompat:appcompat:1.2.0&apos;"
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="/Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/build.gradle"
+            file="/Users/dominicwenzel/Documents/uni/GSE/Projekt/app/build.gradle"
             line="37"
             column="20"/>
     </issue>
@@ -28,7 +28,7 @@
         errorLine1="    implementation &apos;androidx.constraintlayout:constraintlayout:2.1.0&apos;"
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="/Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/build.gradle"
+            file="/Users/dominicwenzel/Documents/uni/GSE/Projekt/app/build.gradle"
             line="39"
             column="20"/>
     </issue>
@@ -44,7 +44,7 @@
         errorLine1="    testImplementation &apos;junit:junit:4.+&apos;"
         errorLine2="                       ~~~~~~~~~~~~~~~~~">
         <location
-            file="/Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/build.gradle"
+            file="/Users/dominicwenzel/Documents/uni/GSE/Projekt/app/build.gradle"
             line="40"
             column="24"/>
     </issue>
@@ -58,7 +58,7 @@
         summary="Obsolete SDK_INT Version Check"
         explanation="This check flags version checks that are not necessary, because the `minSdkVersion` (or surrounding known API level) is already at least as high as the version checked for.&#xA;&#xA;Similarly, it also looks for resources in `-vNN` folders, such as `values-v14` where the version qualifier is less than or equal to the `minSdkVersion`, where the contents should be merged into the best folder.">
         <location
-            file="/Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/res/drawable-v24"/>
+            file="/Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/res/drawable-v24"/>
     </issue>
 
     <issue
@@ -72,9 +72,25 @@
         errorLine1="    &lt;color name=&quot;purple_200&quot;>#FFBB86FC&lt;/color>"
         errorLine2="           ~~~~~~~~~~~~~~~~~">
         <location
-            file="/Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/res/values/colors.xml"
+            file="/Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/res/values/colors.xml"
             line="3"
             column="12"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        severity="Warning"
+        message="Hardcoded string &quot;Welcome to Encore!&quot;, should use `@string` resource"
+        category="Internationalization"
+        priority="5"
+        summary="Hardcoded text"
+        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:&#xA;&#xA;* When creating configuration variations (for example for landscape or portrait) you have to repeat the actual text (and keep it up to date when making changes)&#xA;&#xA;* The application cannot be translated to other languages by just adding new translations for existing string resources.&#xA;&#xA;There are quickfixes to automatically extract this hardcoded string into a resource lookup."
+        errorLine1="        android:text=&quot;Welcome to Encore!&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/res/layout/activity_main.xml"
+            line="12"
+            column="9"/>
     </issue>
 
 </issues>

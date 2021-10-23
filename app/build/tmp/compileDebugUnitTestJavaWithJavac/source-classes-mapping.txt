@@ -1,2 +1,2 @@
-de/techfak/gse/template/ExampleUnitTest.java
- de.techfak.gse.template.ExampleUnitTest
+de/techfak/gse/dwenzel/ExampleUnitTest.java
+ de.techfak.gse.dwenzel.ExampleUnitTest

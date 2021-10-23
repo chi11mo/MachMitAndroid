@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml:2:1-24:12
-INJECTED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml:2:1-24:12
-INJECTED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml:2:1-24:12
-INJECTED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml:2:1-24:12
+ADDED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml:2:1-24:12
+INJECTED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml:2:1-24:12
+INJECTED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml:2:1-24:12
+INJECTED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml:2:1-24:12
 MERGED from [com.google.android.material:material:1.4.0] /Users/dominicwenzel/.gradle/caches/transforms-3/9661e4882ab75158dcef7da5ac4a4529/transformed/material-1.4.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.0] /Users/dominicwenzel/.gradle/caches/transforms-3/79470be61944f5745c2aee355159bd42/transformed/constraintlayout-2.1.0/AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.appcompat:appcompat:1.2.0] /Users/dominicwenzel/.gradle/caches/transforms-3/ea51317ce265902ef05ad661fb6a608a/transformed/appcompat-1.2.0/AndroidManifest.xml:17:1-24:12
@@ -37,25 +37,25 @@ MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /Users/dominicwenzel/.
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /Users/dominicwenzel/.gradle/caches/transforms-3/1e50499e2f267cd4f8c15f044bb861f6/transformed/lifecycle-livedata-core-2.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.arch.core:core-runtime:2.0.0] /Users/dominicwenzel/.gradle/caches/transforms-3/4278fe42d3f634ea32c7539ab8b9a129/transformed/core-runtime-2.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.annotation:annotation-experimental:1.0.0] /Users/dominicwenzel/.gradle/caches/transforms-3/b50129c7e46250244841b074b264f19b/transformed/jetified-annotation-experimental-1.0.0/AndroidManifest.xml:17:1-24:12
-INJECTED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml:2:1-24:12
-INJECTED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml:2:1-24:12
-INJECTED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml:2:1-24:12
+INJECTED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml:2:1-24:12
+INJECTED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml:2:1-24:12
+INJECTED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml:2:1-24:12
 	package
-		ADDED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml:3:5-38
-		INJECTED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml
-		INJECTED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml
+		ADDED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml:3:5-37
+		INJECTED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml
 	android:versionName
-		INJECTED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml
-		ADDED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml:2:1-24:12
-		INJECTED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml
+		ADDED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml:2:1-24:12
+		INJECTED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml
 	android:versionCode
-		INJECTED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml
-		ADDED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml:2:1-24:12
-		INJECTED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml
+		ADDED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml:2:1-24:12
+		INJECTED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml
 	xmlns:android
-		ADDED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml:2:11-69
+		ADDED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml:2:11-69
 application
-ADDED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml:5:5-22:19
+ADDED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml:5:5-22:19
 MERGED from [com.google.android.material:material:1.4.0] /Users/dominicwenzel/.gradle/caches/transforms-3/9661e4882ab75158dcef7da5ac4a4529/transformed/material-1.4.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.4.0] /Users/dominicwenzel/.gradle/caches/transforms-3/9661e4882ab75158dcef7da5ac4a4529/transformed/material-1.4.0/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.0] /Users/dominicwenzel/.gradle/caches/transforms-3/79470be61944f5745c2aee355159bd42/transformed/constraintlayout-2.1.0/AndroidManifest.xml:9:5-20
@@ -67,39 +67,39 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/domi
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.5.0] /Users/dominicwenzel/.gradle/caches/transforms-3/b93aa3552165ba84850ae6f123818720/transformed/core-1.5.0/AndroidManifest.xml:24:18-86
 	android:supportsRtl
-		ADDED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml:10:9-36
+		ADDED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml:10:9-36
 	android:label
-		ADDED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml:8:9-33
+		ADDED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml:8:9-32
 	android:roundIcon
-		ADDED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml:9:9-54
+		ADDED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml:9:9-54
 	android:icon
-		ADDED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml:7:9-43
+		ADDED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml:7:9-43
 	android:allowBackup
-		ADDED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml:6:9-36
+		ADDED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml:6:9-36
 	android:theme
-		ADDED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml:11:9-53
-activity#de.techfak.gse.template.MainActivity
-ADDED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml:12:9-21:20
+		ADDED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml:11:9-53
+activity#de.techfak.gse.dwenzel.MainActivity
+ADDED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml:12:9-21:20
 	android:screenOrientation
-		ADDED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml:15:13-50
+		ADDED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml:15:13-50
 	android:exported
-		ADDED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml:14:13-36
+		ADDED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml:14:13-36
 	android:name
-		ADDED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml:13:13-64
+		ADDED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml:13:13-63
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml:16:13-20:29
+ADDED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml:16:13-20:29
 action#android.intent.action.MAIN
-ADDED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml:17:17-69
+ADDED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml:17:17-69
 	android:name
-		ADDED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml:17:25-66
+		ADDED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml:17:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml:19:17-77
+ADDED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml:19:17-77
 	android:name
-		ADDED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml:19:27-74
+		ADDED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml:19:27-74
 uses-sdk
-INJECTED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml
-INJECTED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml
+INJECTED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml
+INJECTED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml
 MERGED from [com.google.android.material:material:1.4.0] /Users/dominicwenzel/.gradle/caches/transforms-3/9661e4882ab75158dcef7da5ac4a4529/transformed/material-1.4.0/AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.material:material:1.4.0] /Users/dominicwenzel/.gradle/caches/transforms-3/9661e4882ab75158dcef7da5ac4a4529/transformed/material-1.4.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.0] /Users/dominicwenzel/.gradle/caches/transforms-3/79470be61944f5745c2aee355159bd42/transformed/constraintlayout-2.1.0/AndroidManifest.xml:5:5-7:41
@@ -166,13 +166,13 @@ MERGED from [androidx.arch.core:core-runtime:2.0.0] /Users/dominicwenzel/.gradle
 MERGED from [androidx.arch.core:core-runtime:2.0.0] /Users/dominicwenzel/.gradle/caches/transforms-3/4278fe42d3f634ea32c7539ab8b9a129/transformed/core-runtime-2.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.annotation:annotation-experimental:1.0.0] /Users/dominicwenzel/.gradle/caches/transforms-3/b50129c7e46250244841b074b264f19b/transformed/jetified-annotation-experimental-1.0.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.annotation:annotation-experimental:1.0.0] /Users/dominicwenzel/.gradle/caches/transforms-3/b50129c7e46250244841b074b264f19b/transformed/jetified-annotation-experimental-1.0.0/AndroidManifest.xml:20:5-22:41
-INJECTED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml
-INJECTED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml
+INJECTED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml
+INJECTED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml
-		ADDED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml
-		INJECTED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml
+		ADDED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml
-		ADDED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml
-		INJECTED from /Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml
+		ADDED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/dominicwenzel/Documents/uni/GSE/Projekt/app/src/main/AndroidManifest.xml

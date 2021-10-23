@@ -445,8 +445,8 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
-      name="/Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel@@:app::debug"
-      jars="/Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/build/intermediates/app_classes/debug/classes.jar"
+      name="/Users/dominicwenzel/Documents/uni/GSE/Projekt@@:app::debug"
+      jars="/Users/dominicwenzel/Documents/uni/GSE/Projekt/app/build/intermediates/app_classes/debug/classes.jar"
       resolved="::"/>
   <library
       name="org.hamcrest:hamcrest-core:1.3@jar"

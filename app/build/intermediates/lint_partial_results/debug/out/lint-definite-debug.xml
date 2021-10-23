@@ -11,6 +11,20 @@
     </incident>
 
     <incident
+        id="HardcodedText"
+        severity="warning"
+        message="Hardcoded string &quot;Welcome to Encore!&quot;, should use `@string` resource">
+        <location
+            file="$APP/src/main/res/layout/activity_main.xml"
+            line="12"
+            column="9"
+            startOffset="484"
+            endLine="12"
+            endColumn="42"
+            endOffset="517"/>
+    </incident>
+
+    <incident
         id="GradleDynamicVersion"
         severity="warning"
         message="Avoid using + in version numbers; can lead to unpredictable and unrepeatable builds (junit:junit:4.+)">
@@ -19,10 +33,10 @@
             file="$APP/build.gradle"
             line="40"
             column="24"
-            startOffset="1071"
+            startOffset="1075"
             endLine="40"
             endColumn="41"
-            endOffset="1088"/>
+            endOffset="1092"/>
     </incident>
 
     <incident
@@ -38,10 +52,10 @@
             file="$APP/build.gradle"
             line="37"
             column="20"
-            startOffset="877"
+            startOffset="881"
             endLine="37"
             endColumn="56"
-            endOffset="913"/>
+            endOffset="917"/>
     </incident>
 
     <incident
@@ -57,10 +71,10 @@
             file="$APP/build.gradle"
             line="39"
             column="20"
-            startOffset="997"
+            startOffset="1001"
             endLine="39"
             endColumn="70"
-            endOffset="1047"/>
+            endOffset="1051"/>
     </incident>
 
 </incidents>

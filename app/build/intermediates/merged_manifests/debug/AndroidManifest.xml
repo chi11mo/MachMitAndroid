@@ -17,7 +17,6 @@
         android:label="dwenzel"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
-        android:testOnly="true"
         android:theme="@style/Theme.ProjectTemplate" >
         <activity
             android:name="de.techfak.gse.dwenzel.MainActivity"

@@ -1,6 +1,6 @@
 <variant
     name="debug"
-    package="de.techfak.gse.template"
+    package="de.techfak.gse.dwenzel"
     minSdkVersion="24"
     targetSdkVersion="31"
     debuggable="true"

@@ -449,8 +449,8 @@
       jars="/Users/dominicwenzel/.gradle/caches/modules-2/files-2.1/androidx.constraintlayout/constraintlayout-core/1.0.0/3b64bb29201ac1b5cb418bee55e9ae3d7940486/constraintlayout-core-1.0.0.jar"
       resolved="androidx.constraintlayout:constraintlayout-core:1.0.0"/>
   <library
-      name="/Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel@@:app::release"
-      jars="/Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/build/intermediates/app_classes/release/classes.jar"
+      name="/Users/dominicwenzel/Documents/uni/GSE/Projekt@@:app::release"
+      jars="/Users/dominicwenzel/Documents/uni/GSE/Projekt/app/build/intermediates/app_classes/release/classes.jar"
       resolved="::"/>
   <library
       name="junit:junit:4.13.2@jar"
