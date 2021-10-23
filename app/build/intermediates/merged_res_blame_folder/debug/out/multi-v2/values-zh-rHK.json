@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/dominicwenzel/Documents/uni/GSE/g-se-ws-2021-dwenzel/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-zh-rHK/values-zh-rHK.xml",
+            "outputFile": "/Users/dominicwenzel/Documents/uni/GSE/Projekt/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-zh-rHK/values-zh-rHK.xml",
             "map": [
                 {
                     "source": "/Users/dominicwenzel/.gradle/caches/transforms-3/b93aa3552165ba84850ae6f123818720/transformed/core-1.5.0/res/values-zh-rHK/values-zh-rHK.xml",
