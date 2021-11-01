@@ -61,7 +61,7 @@ public class ReadBoardLayout {
         // let's loop through array to populate board
         for (int row = 0; row < pgGrid.length; row++) {
             for (int col = 0; col < pgGrid[row].length; col++) {
-                field[row][col] = new Field(row, col, pgGrid[row][col], false);
+                field[row][col] = new Field(row, col, pgGrid[row][col], Character.isUpperCase(pgGrid[row][col].charAt(0)));
             }
         }
 

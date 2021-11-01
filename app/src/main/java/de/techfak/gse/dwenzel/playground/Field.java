@@ -26,7 +26,7 @@ public class Field {
 
     /**
      * get Field Color as a String.
-     * @return
+     * @return String of field color.
      */
     public String getFieldColor() {
         return fieldColor;
@@ -34,7 +34,7 @@ public class Field {
 
     /**
      * setting up Corssedfield.
-     * @param cross
+     * @param cross set true if is crossed or false if it isnt crossed field.
      */
     public void setIsCrossed(boolean cross) {
         isCrossed = cross;
