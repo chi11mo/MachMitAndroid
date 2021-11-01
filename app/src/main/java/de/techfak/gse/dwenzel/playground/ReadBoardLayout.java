@@ -7,8 +7,6 @@ import java.io.InputStreamReader;
 import de.techfak.gse.dwenzel.exception.InvalidBoardLayoutException;
 import de.techfak.gse.dwenzel.exception.InvalidFieldException;
 
-import static java.lang.System.exit;
-
 public class ReadBoardLayout {
     /**
      * Exitcode for BoardLayout.
@@ -31,7 +29,10 @@ public class ReadBoardLayout {
     /**
      * field array for playground description.
      */
-    final Field[][] field = new Field[PLAYGROUND_ROW_SIZE][PLAYGROUND_COL_SIZE];
+    private final Field[][] field = new Field[PLAYGROUND_ROW_SIZE][PLAYGROUND_COL_SIZE];
+
+
+    private  Playground playground = new Playground(PLAYGROUND_ROW_SIZE,PLAYGROUND_COL_SIZE);
 
     /**
      * Board layout file.
@@ -39,7 +40,7 @@ public class ReadBoardLayout {
     private final InputStream boardFile;
 
     /**
-     * Spielflaeche alls Array.
+     * Playground als Array.
      */
     private final String[][] pgGrid =
             new String[PLAYGROUND_ROW_SIZE]
@@ -47,7 +48,6 @@ public class ReadBoardLayout {
 
     /**
      * save Exceptions.
-     * @param file
      */
     String exception;
 
@@ -56,12 +56,20 @@ public class ReadBoardLayout {
 
         pgGrid[0][0] = " ";
 
+        Field newField;
 
         validBoardLayout();
         // let's loop through array to populate board
         for (int row = 0; row < pgGrid.length; row++) {
             for (int col = 0; col < pgGrid[row].length; col++) {
-                field[row][col] = new Field(row, col, pgGrid[row][col], Character.isUpperCase(pgGrid[row][col].charAt(0)));
+
+                char letter = pgGrid[row][col].charAt(0);
+                if (Character.isUpperCase(letter))
+                   newField = new Field(row, col, pgGrid[row][col], true);
+                else
+                    newField = new Field(row, col, pgGrid[row][col], false);
+
+                playground.addField(row , col , newField);
             }
         }
 
@@ -72,8 +80,8 @@ public class ReadBoardLayout {
     /**
      * @return all fields from playground.
      */
-    public Field[][] getPlayground() {
-        return field;
+    public Playground getPlayground() {
+        return playground;
     }
 
     /**
@@ -95,7 +103,7 @@ public class ReadBoardLayout {
 
 
                     if (!letter.matches(".*([bBgGoOrRyY]).*")) {
-                        exception= "InvalidFieldException";
+                        exception = "InvalidFieldException";
                         throw new InvalidFieldException(
                                 "InvalidFieldException");
                     }
@@ -109,7 +117,7 @@ public class ReadBoardLayout {
                 }
 
                 if (rowCounter != PLAYGROUND_ROW_SIZE) {
-                    exception= "InvalidBoardLayout";
+                    exception = "InvalidBoardLayout";
                     throw new InvalidBoardLayoutException(
                             "InvalidBoardLayout");
                 }
@@ -119,19 +127,25 @@ public class ReadBoardLayout {
                 colCounter++;
             }
             if (colCounter != PLAYGROUND_COL_SIZE) {
-                exception= "InvalidBoardLayout";
+                exception = "InvalidBoardLayout";
                 throw new InvalidBoardLayoutException(
                         "InvalidBoardLayout");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-           // exit(EXITCODE);
+            // exit(EXITCODE);
         }
 
 
     }
-    public String getException(){
+
+    /**
+     * get Exception String.
+     *
+     * @return getting exception as a string.
+     */
+    public String getException() {
         return exception;
     }
 

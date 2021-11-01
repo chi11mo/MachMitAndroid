@@ -3,8 +3,9 @@ package de.techfak.gse.dwenzel;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 
@@ -12,15 +13,22 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+import de.techfak.gse.dwenzel.board.BoardMainActivity;
 import de.techfak.gse.dwenzel.playground.Field;
+import de.techfak.gse.dwenzel.playground.Playground;
 import de.techfak.gse.dwenzel.playground.ReadBoardLayout;
 
 /**
  * Entry point activity for the app.
  */
-public class GameStartActivity extends AppCompatActivity {
+public class GameStartActivity extends AppCompatActivity implements Serializable {
     private static final String TAG = "GameStartActivity";
+
 
 
     @Override
@@ -32,14 +40,14 @@ public class GameStartActivity extends AppCompatActivity {
     /**
      * Method to Start the game and get Input of playground data.
      *
-     * @param view
+     * @param view view information
      */
 
     public void onClickGamestart(View view) {
 
-        TextInputEditText textInputPlaygroudInput = findViewById(R.id.playgroundInput);
+        TextInputEditText textInputPlaygroundInput = findViewById(R.id.playgroundInput);
 
-        String playgroundInputString = String.valueOf(textInputPlaygroudInput.getText());
+        String playgroundInputString = String.valueOf(textInputPlaygroundInput.getText());
         Log.i(TAG, playgroundInputString);
 
 
@@ -50,25 +58,34 @@ public class GameStartActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         ReadBoardLayout readBoard = new ReadBoardLayout(file);
-         if(readBoard.getException()!=null){
-        popUpExceptionAlert(readBoard.getException(), view);
-         }
+        if (readBoard.getException() != null) {
+            popUpExceptionAlert(readBoard.getException(), view);
+        } else {
+           Playground playground = readBoard.getPlayground();
 
-        Field[][] field = readBoard.getPlayground();
 
-        for (Field[] fields : field) {
-            for (Field value : fields) {
-                System.out.println(value.getFieldColor());
-            }
+
+            Intent myIntent = new Intent(GameStartActivity.this, BoardMainActivity.class);
+            myIntent.putExtra("Board", (Parcelable) playground); //Optional parameters
+            startActivity(myIntent);
+
         }
+
+
+        //for (Field[] fields : field) {
+         //   for (Field value : fields) {
+          //      System.out.println(value.getFieldColor());
+          //  }
+       // }
 
 
     }
 
     /**
-     * Pop up if board file isnt valid.
-     * @param exception
-     * @param view
+     * Pop up if board file isn't valid.
+     *
+     * @param exception which exception is threw.
+     * @param view      view of xml.
      */
     private void popUpExceptionAlert(String exception, View view) {
         if (exception.equals("InvalidBoardException"))

@@ -36,7 +36,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             tools:ignore="TextContrastCheck" />
 
-        <TextView
+        <Button
             android:id="@+id/textViewGameStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

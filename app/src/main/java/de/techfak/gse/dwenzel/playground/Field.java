@@ -3,18 +3,18 @@ package de.techfak.gse.dwenzel.playground;
 public class Field {
 
     /**
-     * value of Cordinates.
+     * value of Coordinates.
      */
-    int rowCord,colCord;
+    private final int rowCord, colCord;
 
     /**
      * field Color in a String (small letter).
      */
-    final String fieldColor;
+    private final String fieldColor;
     /**
      * if a field is validCrossed.
      */
-    boolean isCrossed;
+    private boolean isCrossed;
 
     public Field(int row, int col, String color, boolean cross) {
         fieldColor = color;
@@ -26,6 +26,7 @@ public class Field {
 
     /**
      * get Field Color as a String.
+     *
      * @return String of field color.
      */
     public String getFieldColor() {
@@ -33,8 +34,9 @@ public class Field {
     }
 
     /**
-     * setting up Corssedfield.
-     * @param cross set true if is crossed or false if it isnt crossed field.
+     * setting up Crossed field.
+     *
+     * @param cross set true if is crossed or false if it isn't crossed field.
      */
     public void setIsCrossed(boolean cross) {
         isCrossed = cross;
@@ -43,7 +45,8 @@ public class Field {
 
     /**
      * Getting value of field isCrossed.
-     * @return
+     *
+     * @return boolean if field is crossed or not.
      */
     public boolean isCrossed() {
         return isCrossed;
