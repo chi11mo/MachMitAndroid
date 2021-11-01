@@ -45,6 +45,11 @@ public class ReadBoardLayout {
             new String[PLAYGROUND_ROW_SIZE]
                     [PLAYGROUND_COL_SIZE];
 
+    /**
+     * save Exceptions.
+     * @param file
+     */
+    String exception;
 
     public ReadBoardLayout(final InputStream file) {
         boardFile = file;
@@ -90,6 +95,7 @@ public class ReadBoardLayout {
 
 
                     if (!letter.matches(".*([bBgGoOrRyY]).*")) {
+                        exception= "InvalidFieldException";
                         throw new InvalidFieldException(
                                 "InvalidFieldException");
                     }
@@ -102,24 +108,31 @@ public class ReadBoardLayout {
 
                 }
 
-                if (rowCounter != PLAYGROUND_ROW_SIZE)
+                if (rowCounter != PLAYGROUND_ROW_SIZE) {
+                    exception= "InvalidBoardLayout";
                     throw new InvalidBoardLayoutException(
                             "InvalidBoardLayout");
+                }
 
 
                 line = reader.readLine();
                 colCounter++;
             }
-            if (colCounter != PLAYGROUND_COL_SIZE)
+            if (colCounter != PLAYGROUND_COL_SIZE) {
+                exception= "InvalidBoardLayout";
                 throw new InvalidBoardLayoutException(
                         "InvalidBoardLayout");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
-            exit(EXITCODE);
+           // exit(EXITCODE);
         }
 
 
+    }
+    public String getException(){
+        return exception;
     }
 
 

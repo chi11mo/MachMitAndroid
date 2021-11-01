@@ -1,7 +1,9 @@
 package de.techfak.gse.dwenzel;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -48,6 +50,10 @@ public class GameStartActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         ReadBoardLayout readBoard = new ReadBoardLayout(file);
+         if(readBoard.getException()!=null){
+        popUpExceptionAlert(readBoard.getException(), view);
+         }
+
         Field[][] field = readBoard.getPlayground();
 
         for (Field[] fields : field) {
@@ -57,5 +63,24 @@ public class GameStartActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    /**
+     * Pop up if board file isnt valid.
+     * @param exception
+     * @param view
+     */
+    private void popUpExceptionAlert(String exception, View view) {
+        if (exception.equals("InvalidBoardException"))
+            exception = "Board Structure is Invalid :  do 15 rows and 7 columns.";
+        if (exception.equals("InvalidFieldException"))
+            exception = "Board Structure is Invalid :   do b, B, g, G, o, O, r, R, y, Y ";
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Invalid Board Layout Try Another txt Data.")
+                .setCancelable(false)
+                .setMessage(exception)
+                .setPositiveButton("Okay", null);
+        builder.show();
     }
 }
