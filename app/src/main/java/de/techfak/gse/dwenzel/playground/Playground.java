@@ -3,17 +3,17 @@ package de.techfak.gse.dwenzel.playground;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
 
 public class Playground implements Parcelable {
     private  Field[][] field;
-    private int maxRow;
-    private int maxCol;
+    private final int maxRow;
+    private final int maxCol;
 
     public Playground(int row, int col) {
         maxCol = col;
         maxRow = row;
         field = new Field[maxRow][maxCol];
+        PlaygroundView pView = new PlaygroundView(maxRow, maxCol);
     }
     public int getMaxRow(){
         return maxRow;

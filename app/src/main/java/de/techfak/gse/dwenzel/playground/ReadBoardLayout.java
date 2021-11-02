@@ -8,10 +8,7 @@ import de.techfak.gse.dwenzel.exception.InvalidBoardLayoutException;
 import de.techfak.gse.dwenzel.exception.InvalidFieldException;
 
 public class ReadBoardLayout {
-    /**
-     * Exitcode for BoardLayout.
-     */
-    private static final int EXITCODE = 101;
+
     /**
      * Max Row Size.
      */
@@ -29,10 +26,7 @@ public class ReadBoardLayout {
     /**
      * field array for playground description.
      */
-    private final Field[][] field = new Field[PLAYGROUND_ROW_SIZE][PLAYGROUND_COL_SIZE];
-
-
-    private  Playground playground = new Playground(PLAYGROUND_ROW_SIZE,PLAYGROUND_COL_SIZE);
+    private static final Playground playground = new Playground(PLAYGROUND_ROW_SIZE,PLAYGROUND_COL_SIZE);
 
     /**
      * Board layout file.
