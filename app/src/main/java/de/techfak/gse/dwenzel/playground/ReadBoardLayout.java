@@ -26,7 +26,7 @@ public class ReadBoardLayout {
     /**
      * field array for playground description.
      */
-    private static final Playground playground = new Playground(PLAYGROUND_ROW_SIZE,PLAYGROUND_COL_SIZE);
+    private static final Field[][] field = new Field[PLAYGROUND_ROW_SIZE][PLAYGROUND_COL_SIZE];
 
     /**
      * Board layout file.
@@ -58,12 +58,9 @@ public class ReadBoardLayout {
             for (int col = 0; col < pgGrid[row].length; col++) {
 
                 char letter = pgGrid[row][col].charAt(0);
-                if (Character.isUpperCase(letter))
-                   newField = new Field(row, col, pgGrid[row][col], true);
-                else
-                    newField = new Field(row, col, pgGrid[row][col], false);
 
-                playground.addField(row , col , newField);
+                field[row][col] = new Field(row,col,pgGrid[row][col],Character.isUpperCase(letter));//.addField(row, col, pgGrid[row][col], Character.isUpperCase(letter));
+
             }
         }
 
@@ -74,8 +71,8 @@ public class ReadBoardLayout {
     /**
      * @return all fields from playground.
      */
-    public Playground getPlayground() {
-        return playground;
+    public Field[][] getFields() {
+        return field;
     }
 
     /**
@@ -91,40 +88,16 @@ public class ReadBoardLayout {
             reader = new BufferedReader(new InputStreamReader(boardFile));
             String line = reader.readLine();
             while (line != null) {
-                rowCounter = 0;
                 for (int i = 0; i < line.length(); i++) {
-                    String letter = String.valueOf(line.charAt(i));
 
-
-                    if (!letter.matches(".*([bBgGoOrRyY]).*")) {
-                        exception = "InvalidFieldException";
-                        throw new InvalidFieldException(
-                                "InvalidFieldException");
-                    }
-                    if (Character.isLetter(line.charAt(i)))
-                        rowCounter++;
-
-                    //save Fields in 2d array pgGrid.
                     pgGrid[i][colCounter] = String.valueOf(line.charAt(i));
 
 
                 }
-
-                if (rowCounter != PLAYGROUND_ROW_SIZE) {
-                    exception = "InvalidBoardLayout";
-                    throw new InvalidBoardLayoutException(
-                            "InvalidBoardLayout");
-                }
-
-
                 line = reader.readLine();
                 colCounter++;
             }
-            if (colCounter != PLAYGROUND_COL_SIZE) {
-                exception = "InvalidBoardLayout";
-                throw new InvalidBoardLayoutException(
-                        "InvalidBoardLayout");
-            }
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -134,14 +107,6 @@ public class ReadBoardLayout {
 
     }
 
-    /**
-     * get Exception String.
-     *
-     * @return getting exception as a string.
-     */
-    public String getException() {
-        return exception;
-    }
 
 
 }

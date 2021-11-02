@@ -3,35 +3,25 @@ package de.techfak.gse.dwenzel.playground;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.File;
+import java.io.InputStream;
+
 
 public class Playground implements Parcelable {
-    private  Field[][] field;
-    private final int maxRow;
-    private final int maxCol;
+    private Field[][] field;
 
-    public Playground(int row, int col) {
-        maxCol = col;
-        maxRow = row;
-        field = new Field[maxRow][maxCol];
-        PlaygroundView pView = new PlaygroundView(maxRow, maxCol);
-    }
-    public int getMaxRow(){
-        return maxRow;
-    }
-    public int getMaxCol(){
-        return maxCol;
-    }
-    public  void addField(int row, int col, Field newField) {
-        field[row][col] = newField;
+
+    public Playground(InputStream boardFile) {
+        ReadBoardLayout readBoardLayout = new ReadBoardLayout(boardFile);
+        field = readBoardLayout.getFields();
+
     }
 
-    public Field getField(int row,int col) {
-        return field[row][col];
+    public String getFieldColor(int row, int col) {
+        return field[row][col].getFieldColor();
     }
 
     protected Playground(Parcel in) {
-        maxRow = in.readInt();
-        maxCol = in.readInt();
     }
 
     public static final Creator<Playground> CREATOR = new Creator<Playground>() {
@@ -47,7 +37,6 @@ public class Playground implements Parcelable {
     };
 
 
-
     @Override
     public int describeContents() {
         return 0;
@@ -55,7 +44,7 @@ public class Playground implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(maxRow);
-        dest.writeInt(maxCol);
+
     }
+
 }

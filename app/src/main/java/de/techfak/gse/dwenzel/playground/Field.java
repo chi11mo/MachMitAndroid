@@ -1,5 +1,7 @@
 package de.techfak.gse.dwenzel.playground;
 
+import android.widget.Button;
+
 public class Field {
 
     /**
@@ -10,11 +12,19 @@ public class Field {
     /**
      * field Color in a String (small letter).
      */
-    private final String fieldColor;
+    private String fieldColor;
     /**
      * if a field is validCrossed.
      */
     private boolean isCrossed;
+    private Button fieldButton;
+    /**
+     *
+     * @param row
+     * @param col
+     * @param color
+     * @param cross
+     */
 
     public Field(int row, int col, String color, boolean cross) {
         fieldColor = color;
@@ -22,6 +32,12 @@ public class Field {
         rowCord = row;
         colCord = col;
 
+    }
+    public void setButton(Button button){
+        fieldButton = button;
+    }
+    public Button getButton(){
+        return fieldButton;
     }
 
     /**
@@ -32,6 +48,8 @@ public class Field {
     public String getFieldColor() {
         return fieldColor;
     }
+
+
 
     /**
      * setting up Crossed field.
@@ -50,5 +68,9 @@ public class Field {
      */
     public boolean isCrossed() {
         return isCrossed;
+    }
+
+    public void setColor(String s) {
+        fieldColor =s;
     }
 }

@@ -3,6 +3,8 @@ package de.techfak.gse.dwenzel.start;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -17,15 +19,16 @@ import java.io.Serializable;
 
 import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.board.BoardMainActivity;
+import de.techfak.gse.dwenzel.board.ParcelableClass;
 import de.techfak.gse.dwenzel.playground.Playground;
 import de.techfak.gse.dwenzel.playground.ReadBoardLayout;
+import de.techfak.gse.dwenzel.validation.BoardValidation;
 
 /**
  * Entry point activity for the app.
  */
 public class GameStartActivity extends AppCompatActivity implements Serializable {
     private static final String TAG = "GameStartActivity";
-
 
 
     @Override
@@ -46,37 +49,49 @@ public class GameStartActivity extends AppCompatActivity implements Serializable
 
         String playgroundInputString = String.valueOf(textInputPlaygroundInput.getText());
         Log.i(TAG, playgroundInputString);
-
-
         InputStream file = null;
+
+
         try {
             file = getAssets().open(playgroundInputString);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ReadBoardLayout readBoard = new ReadBoardLayout(file);
-        if (readBoard.getException() != null) {
-            popUpExceptionAlert(readBoard.getException(), view);
+        Context context = getApplicationContext();
+        String exception = BoardValidation.fileValidation(
+                file, getResources().getInteger(R.integer.PlaygroundRow), getResources().getInteger(R.integer.PlaygroundCol));
+        if (exception != "Valid") {
+            popUpExceptionAlert(exception, view);
         } else {
-           Playground playground = readBoard.getPlayground();
-
-
-
+            System.out.println(exception);
             Intent myIntent = new Intent(GameStartActivity.this, BoardMainActivity.class);
-            myIntent.putExtra("Board", (Parcelable) playground); //Optional parameters
+
+            myIntent.putExtra("File",playgroundInputString);
             startActivity(myIntent);
-
         }
-
-
-        //for (Field[] fields : field) {
-         //   for (Field value : fields) {
-          //      System.out.println(value.getFieldColor());
-          //  }
-       // }
-
-
     }
+
+/**
+ * ReadBoardLayout readBoard = new ReadBoardLayout(file);
+ * if (readBoard.getException() != null) {
+ * popUpExceptionAlert(readBoard.getException(), view);
+ * } else {
+ * Playground playground = readBoard.getPlayground();
+ * <p>
+ * <p>
+ * <p>
+ * Intent myIntent = new Intent(GameStartActivity.this, BoardMainActivity.class);
+ * myIntent.putExtra("Board", (Parcelable) playground); //Optional parameters
+ * startActivity(myIntent);
+ * <p>
+ * }
+ **/
+//for (Field[] fields : field) {
+//   for (Field value : fields) {
+//      System.out.println(value.getFieldColor());
+//  }
+// }
+
 
     /**
      * Pop up if board file isn't valid.
@@ -98,3 +113,5 @@ public class GameStartActivity extends AppCompatActivity implements Serializable
         builder.show();
     }
 }
+
+
