@@ -1,15 +1,12 @@
 package de.techfak.gse.dwenzel.start;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Application;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -19,9 +16,6 @@ import java.io.Serializable;
 
 import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.board.BoardMainActivity;
-import de.techfak.gse.dwenzel.board.ParcelableClass;
-import de.techfak.gse.dwenzel.playground.Playground;
-import de.techfak.gse.dwenzel.playground.ReadBoardLayout;
 import de.techfak.gse.dwenzel.validation.BoardValidation;
 
 /**
@@ -57,10 +51,9 @@ public class GameStartActivity extends AppCompatActivity implements Serializable
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Context context = getApplicationContext();
         String exception = BoardValidation.fileValidation(
                 file, getResources().getInteger(R.integer.PlaygroundRow), getResources().getInteger(R.integer.PlaygroundCol));
-        if (exception != "Valid") {
+        if (!exception.equals("Valid")) {
             popUpExceptionAlert(exception, view);
         } else {
             System.out.println(exception);
@@ -71,26 +64,7 @@ public class GameStartActivity extends AppCompatActivity implements Serializable
         }
     }
 
-/**
- * ReadBoardLayout readBoard = new ReadBoardLayout(file);
- * if (readBoard.getException() != null) {
- * popUpExceptionAlert(readBoard.getException(), view);
- * } else {
- * Playground playground = readBoard.getPlayground();
- * <p>
- * <p>
- * <p>
- * Intent myIntent = new Intent(GameStartActivity.this, BoardMainActivity.class);
- * myIntent.putExtra("Board", (Parcelable) playground); //Optional parameters
- * startActivity(myIntent);
- * <p>
- * }
- **/
-//for (Field[] fields : field) {
-//   for (Field value : fields) {
-//      System.out.println(value.getFieldColor());
-//  }
-// }
+
 
 
     /**

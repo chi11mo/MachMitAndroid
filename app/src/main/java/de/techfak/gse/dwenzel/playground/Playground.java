@@ -2,8 +2,8 @@ package de.techfak.gse.dwenzel.playground;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.Button;
 
-import java.io.File;
 import java.io.InputStream;
 
 
@@ -16,6 +16,15 @@ public class Playground implements Parcelable {
         field = readBoardLayout.getFields();
 
     }
+
+    public void setButton(Button button, int row, int col) {
+        field[row][col].setButton(button);
+    }
+
+    public Button getFieldButton(int row, int col) {
+        return field[row][col].getButton();
+    }
+
 
     public String getFieldColor(int row, int col) {
         return field[row][col].getFieldColor();
@@ -46,5 +55,6 @@ public class Playground implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
 
     }
+
 
 }

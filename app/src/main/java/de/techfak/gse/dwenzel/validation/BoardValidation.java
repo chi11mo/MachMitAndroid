@@ -8,20 +8,16 @@ import de.techfak.gse.dwenzel.exception.InvalidBoardLayoutException;
 import de.techfak.gse.dwenzel.exception.InvalidFieldException;
 
 public class BoardValidation {
-    private static String[][] pgGrid;
-    private static InputStream boardFile;
-    /**
-     * Board layout file.
-     */
-
 
     /**
      * Playground als Array.
      */
+    private static String[][] pgGrid;
+    /**
+     * Board layout file.
+     */
+    private static InputStream boardFile;
 
-    public static void fileValidation(InputStream file) {
-
-    }
 
     public static String fileValidation(InputStream file, int playgroundRowSize, int playgroundColSize) {
         pgGrid = new String[playgroundRowSize][playgroundColSize];

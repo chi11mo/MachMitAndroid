@@ -20,10 +20,10 @@ public class Field {
     private Button fieldButton;
     /**
      *
-     * @param row
-     * @param col
-     * @param color
-     * @param cross
+     * @param row row coordinate.
+     * @param col col coordinate.
+     * @param color color as a String.
+     * @param cross is Field crossed.
      */
 
     public Field(int row, int col, String color, boolean cross) {

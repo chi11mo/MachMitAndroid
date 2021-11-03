@@ -4,9 +4,6 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import de.techfak.gse.dwenzel.exception.InvalidBoardLayoutException;
-import de.techfak.gse.dwenzel.exception.InvalidFieldException;
-
 public class ReadBoardLayout {
 
     /**
@@ -40,17 +37,12 @@ public class ReadBoardLayout {
             new String[PLAYGROUND_ROW_SIZE]
                     [PLAYGROUND_COL_SIZE];
 
-    /**
-     * save Exceptions.
-     */
-    String exception;
 
     public ReadBoardLayout(final InputStream file) {
         boardFile = file;
 
         pgGrid[0][0] = " ";
 
-        Field newField;
 
         validBoardLayout();
         // let's loop through array to populate board
@@ -59,7 +51,7 @@ public class ReadBoardLayout {
 
                 char letter = pgGrid[row][col].charAt(0);
 
-                field[row][col] = new Field(row,col,pgGrid[row][col],Character.isUpperCase(letter));//.addField(row, col, pgGrid[row][col], Character.isUpperCase(letter));
+                field[row][col] = new Field(row, col, pgGrid[row][col], Character.isUpperCase(letter));//.addField(row, col, pgGrid[row][col], Character.isUpperCase(letter));
 
             }
         }
@@ -81,7 +73,6 @@ public class ReadBoardLayout {
      */
     void validBoardLayout() {
         BufferedReader reader;
-        int rowCounter;
         int colCounter = 0;
         try {
 
@@ -101,12 +92,11 @@ public class ReadBoardLayout {
 
         } catch (Exception e) {
             e.printStackTrace();
-            // exit(EXITCODE);
+
         }
 
 
     }
-
 
 
 }
