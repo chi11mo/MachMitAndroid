@@ -21,7 +21,7 @@ import de.techfak.gse.dwenzel.playground.PlaygroundView;
 public class BoardMainActivity extends AppCompatActivity implements Serializable {
     public static final long serialVersionUID = 4328742;
     //private static final String TAG = "BoardMainActivity";
-    private final int buttonSize = 700 / getResources().getInteger(R.integer.PlaygroundCol);
+    private final int buttonSize = 700 / 7;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
