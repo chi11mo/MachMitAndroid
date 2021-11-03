@@ -16,6 +16,33 @@ public class PlaygroundView {
      */
     private final int maxCol;
 
+    /**
+     * Color Green for Button.
+     */
+    private final float[] floatGreenHSV = new float[]{122f, 95f, 97f};
+    /**
+     * Color Blue for Button.
+     */
+    private final float[] floatBlueHSV = new float[]{242f, 95f, 97f};
+    /**
+     * Color yellow for Button.
+     */
+    private final float[] floatYellowHSV = new float[]{60f, 100f, 100f};
+    /**
+     * Color Red for Button.
+     */
+    private final float[] floatRedHSV = new float[]{357f, 95f, 97f};
+    /**
+     * Color Orange for Button.
+     */
+    private final float[] floatOrangeHSV = new float[]{40f, 95f, 97f};
+
+    /**
+     * Playground View for GUI Playground.
+     *
+     * @param maxRow get MaxRow.
+     * @param maxCol get MaxCol.
+     */
     public PlaygroundView(int maxRow, int maxCol) {
 
 
@@ -33,7 +60,7 @@ public class PlaygroundView {
      */
     public Button setFieldColor(Button button, String color) {
         if (color.equals("g")) {
-            button.setBackgroundColor(Color.HSVToColor(new float[]{122f, 95f, 97f}));
+            button.setBackgroundColor(Color.HSVToColor(floatGreenHSV));
             return button;
         }
         if (color.equals("G")) {
@@ -41,7 +68,7 @@ public class PlaygroundView {
             return button;
         }
         if (color.equals("b")) {
-            button.setBackgroundColor(Color.HSVToColor(new float[]{242f, 95f, 97f}));
+            button.setBackgroundColor(Color.HSVToColor(floatBlueHSV));
             return button;
         }
         if (color.equals("B")) {
@@ -50,7 +77,7 @@ public class PlaygroundView {
         }
 
         if (color.equals("y")) {
-            button.setBackgroundColor(Color.HSVToColor(new float[]{60f, 100f, 100f}));
+            button.setBackgroundColor(Color.HSVToColor(floatYellowHSV));
             return button;
         }
         if (color.equals("Y")) {
@@ -58,7 +85,7 @@ public class PlaygroundView {
             return button;
         }
         if (color.equals("o")) {
-            button.setBackgroundColor(Color.HSVToColor(new float[]{40f, 95f, 97f}));
+            button.setBackgroundColor(Color.HSVToColor(floatOrangeHSV));
             return button;
         }
         if (color.equals("O")) {
@@ -66,7 +93,7 @@ public class PlaygroundView {
             return button;
         }
         if (color.equals("r")) {
-            button.setBackgroundColor(Color.HSVToColor(new float[]{357f, 95f, 97f}));
+            button.setBackgroundColor(Color.HSVToColor(floatRedHSV));
             return button;
         }
         if (color.equals("R")) {

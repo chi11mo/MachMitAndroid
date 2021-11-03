@@ -4,7 +4,6 @@
 package de.techfak.gse.dwenzel.exception;
 
 
-
 /**
  * The type Invalid field exception.
  */

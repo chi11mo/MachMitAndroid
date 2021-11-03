@@ -7,7 +7,11 @@ public class Field {
     /**
      * value of Coordinates.
      */
-    private final int rowCord, colCord;
+    private final int colCord;
+    /**
+     * value of Coordinates.
+     */
+    private final int rowCord;
 
     /**
      * field Color in a String (small letter).
@@ -18,14 +22,15 @@ public class Field {
      */
     private boolean isCrossed;
     private Button fieldButton;
+
     /**
+     * Creating a field for the Playground.
      *
-     * @param row row coordinate.
-     * @param col col coordinate.
+     * @param row   row coordinate.
+     * @param col   col coordinate.
      * @param color color as a String.
      * @param cross is Field crossed.
      */
-
     public Field(int row, int col, String color, boolean cross) {
         fieldColor = color;
         isCrossed = cross;
@@ -33,10 +38,12 @@ public class Field {
         colCord = col;
 
     }
-    public void setButton(Button button){
+
+    public void setButton(Button button) {
         fieldButton = button;
     }
-    public Button getButton(){
+
+    public Button getButton() {
         return fieldButton;
     }
 
@@ -48,7 +55,6 @@ public class Field {
     public String getFieldColor() {
         return fieldColor;
     }
-
 
 
     /**
@@ -70,7 +76,10 @@ public class Field {
         return isCrossed;
     }
 
-    public void setColor(String s) {
-        fieldColor =s;
+    /**
+     * Setting the color.
+     */
+    public void setColor(String color) {
+        fieldColor = color;
     }
 }

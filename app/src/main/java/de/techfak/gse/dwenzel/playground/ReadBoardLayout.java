@@ -1,9 +1,14 @@
 package de.techfak.gse.dwenzel.playground;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+/**
+ * This Class read all the Stuff from valid data board file.
+ */
 public class ReadBoardLayout {
 
     /**
@@ -51,7 +56,7 @@ public class ReadBoardLayout {
 
                 char letter = pgGrid[row][col].charAt(0);
 
-                field[row][col] = new Field(row, col, pgGrid[row][col], Character.isUpperCase(letter));//.addField(row, col, pgGrid[row][col], Character.isUpperCase(letter));
+                field[row][col] = new Field(row, col, pgGrid[row][col], Character.isUpperCase(letter));
 
             }
         }
@@ -61,6 +66,8 @@ public class ReadBoardLayout {
 
 
     /**
+     * get the fields for Playground class from data file.
+     *
      * @return all fields from playground.
      */
     public Field[][] getFields() {
@@ -71,12 +78,12 @@ public class ReadBoardLayout {
      * board and field validation.
      * Saves fields in 2d Array pgGrid[][].
      */
-    void validBoardLayout() {
-        BufferedReader reader;
+    private void validBoardLayout() {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(boardFile));
+
         int colCounter = 0;
         try {
 
-            reader = new BufferedReader(new InputStreamReader(boardFile));
             String line = reader.readLine();
             while (line != null) {
                 for (int i = 0; i < line.length(); i++) {
@@ -91,8 +98,14 @@ public class ReadBoardLayout {
 
 
         } catch (Exception e) {
-            e.printStackTrace();
+           Log.d("Exception", String.valueOf(e));
 
+        } finally {
+            try {
+                reader.close(); //Here it says unreported exception IOException; must be caught or declared to be thrown
+            } catch (Exception exp) {
+                Log.d("Exception", String.valueOf(exp));
+            }
         }
 
 

@@ -6,7 +6,9 @@ import android.widget.Button;
 
 import java.io.InputStream;
 
-
+/**
+ * Playground class to get all information of playground fields.
+ */
 public class Playground implements Parcelable {
     private Field[][] field;
 
@@ -30,9 +32,19 @@ public class Playground implements Parcelable {
         return field[row][col].getFieldColor();
     }
 
-    protected Playground(Parcel in) {
+
+
+
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+    }
     public static final Creator<Playground> CREATOR = new Creator<Playground>() {
         @Override
         public Playground createFromParcel(Parcel in) {
@@ -45,16 +57,7 @@ public class Playground implements Parcelable {
         }
     };
 
-
-    @Override
-    public int describeContents() {
-        return 0;
+    protected Playground(Parcel in) {
     }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-    }
-
 
 }

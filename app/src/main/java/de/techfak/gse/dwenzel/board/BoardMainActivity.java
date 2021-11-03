@@ -15,10 +15,13 @@ import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.playground.Playground;
 import de.techfak.gse.dwenzel.playground.PlaygroundView;
 
+/**
+ * This activity controls all the stuff on the main game card.
+ */
 public class BoardMainActivity extends AppCompatActivity implements Serializable {
-
+    public static final long serialVersionUID = 4328742;
     //private static final String TAG = "BoardMainActivity";
-
+    private final int buttonSize = 700 / getResources().getInteger(R.integer.PlaygroundCol);
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -43,7 +46,9 @@ public class BoardMainActivity extends AppCompatActivity implements Serializable
 
     void getGridViewFromPlaygroundView(Playground playground) {
 
-        PlaygroundView playgroundView = new PlaygroundView(getResources().getInteger(R.integer.PlaygroundRow), getResources().getInteger(R.integer.PlaygroundCol));
+        PlaygroundView playgroundView = new PlaygroundView(
+                getResources().getInteger(R.integer.PlaygroundRow),
+                getResources().getInteger(R.integer.PlaygroundCol));
 
         //Display display = getWindowManager().getDefaultDisplay();
         GridLayout gridLayout = findViewById(R.id.playground_grid);
@@ -57,7 +62,8 @@ public class BoardMainActivity extends AppCompatActivity implements Serializable
                 playground.setButton(btn[k][i], k, i);
                 Button button = playground.getFieldButton(k, i);
                 button.setWidth(1);
-                button.setLayoutParams(new LinearLayout.LayoutParams(70, 80));
+                button.setLayoutParams(
+                        new LinearLayout.LayoutParams(buttonSize, buttonSize));
 
                 button = playgroundView.setFieldColor(btn[k][i], playground.getFieldColor(k, i));
                 // btn[k][i].setBackground(getResources().getDrawable(R.drawable.button_dark_gradient));

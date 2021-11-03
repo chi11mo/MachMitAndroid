@@ -23,7 +23,7 @@ import de.techfak.gse.dwenzel.validation.BoardValidation;
  */
 public class GameStartActivity extends AppCompatActivity implements Serializable {
     private static final String TAG = "GameStartActivity";
-
+    public static final long serialVersionUID = 4328743;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -36,7 +36,6 @@ public class GameStartActivity extends AppCompatActivity implements Serializable
      *
      * @param view view information
      */
-
     public void onClickGamestart(View view) {
 
         TextInputEditText textInputPlaygroundInput = findViewById(R.id.playgroundInput);

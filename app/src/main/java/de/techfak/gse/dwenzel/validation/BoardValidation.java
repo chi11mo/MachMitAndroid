@@ -1,5 +1,7 @@
 package de.techfak.gse.dwenzel.validation;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -7,8 +9,18 @@ import java.io.InputStreamReader;
 import de.techfak.gse.dwenzel.exception.InvalidBoardLayoutException;
 import de.techfak.gse.dwenzel.exception.InvalidFieldException;
 
+/**
+ * check if data has a Valid board.
+ */
 public class BoardValidation {
-
+    /**
+     * field Exception message.
+     */
+    private final static String fieldException = "InvalidFieldException";
+    /**
+     * board Exception message.
+     */
+    private final static String boardException = "InvalidBoardException";
     /**
      * Playground als Array.
      */
@@ -18,17 +30,28 @@ public class BoardValidation {
      */
     private static InputStream boardFile;
 
+    public BoardValidation() {
 
+    }
+
+    /**
+     * Checks validation of right data. For the game Playground.
+     *
+     * @param file              file of data.
+     * @param playgroundRowSize row size.
+     * @param playgroundColSize column size.
+     * @return exception of valid or invalid data.
+     */
     public static String fileValidation(InputStream file, int playgroundRowSize, int playgroundColSize) {
         pgGrid = new String[playgroundRowSize][playgroundColSize];
         boardFile = file;
         String exception = null;
-        BufferedReader reader;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(boardFile));
+
         int rowCounter;
         int colCounter = 0;
         try {
 
-            reader = new BufferedReader(new InputStreamReader(boardFile));
             String line = reader.readLine();
 
             while (line != null) {
@@ -38,12 +61,13 @@ public class BoardValidation {
 
 
                     if (!letter.matches(".*([bBgGoOrRyY]).*")) {
-                        exception = "InvalidFieldException";
+                        exception = fieldException;
                         throw new InvalidFieldException(
-                                "InvalidFieldException");
+                                fieldException);
                     }
-                    if (Character.isLetter(line.charAt(i)))
+                    if (Character.isLetter(line.charAt(i))) {
                         rowCounter++;
+                    }
 
                     //save Fields in 2d array pgGrid.
                     pgGrid[i][colCounter] = String.valueOf(line.charAt(i));
@@ -52,9 +76,9 @@ public class BoardValidation {
                 }
 
                 if (rowCounter != playgroundRowSize) {
-                    exception = "InvalidBoardLayout";
+                    exception = boardException;
                     throw new InvalidBoardLayoutException(
-                            "InvalidBoardLayout");
+                            boardException);
                 }
 
 
@@ -62,15 +86,20 @@ public class BoardValidation {
                 colCounter++;
             }
             if (colCounter != playgroundColSize) {
-                exception = "InvalidBoardLayout";
+                exception = boardException;
                 throw new InvalidBoardLayoutException(
-                        "InvalidBoardLayout");
+                        boardException);
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
-            // exit(EXITCODE);
+            Log.d("Exception", String.valueOf(e));
             return exception;
+        } finally {
+            try {
+                reader.close(); //Here it says unreported exception IOException; must be caught or declared to be thrown
+            } catch (Exception exp) {
+                Log.d("Exception", String.valueOf(exp));
+            }
         }
         return "Valid";
     }
