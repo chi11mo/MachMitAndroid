@@ -10,7 +10,7 @@
         android:supportsRtl="false"
         android:theme="@style/Theme.ProjectTemplate">
         <activity
-            android:name="de.techfak.gse.dwenzel.start.GameStartActivity"
+            android:name="de.techfak.gse.dwenzel.start_screen.view.GameStartActivity"
             android:exported="true"
             android:screenOrientation="landscape">
             <intent-filter>
