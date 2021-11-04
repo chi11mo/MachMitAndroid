@@ -8,12 +8,12 @@ import java.io.InputStreamReader;
 
 import de.techfak.gse.dwenzel.exception.InvalidBoardLayoutException;
 import de.techfak.gse.dwenzel.exception.InvalidFieldException;
-import de.techfak.gse.dwenzel.start_screen.model.BoardFileInterface;
+import de.techfak.gse.dwenzel.start_screen.model.IBoardFile;
 
 /**
  * check if data has a Valid board.
  */
-public class BoardValidator implements BoardValidatorInterface {
+public class BoardValidator implements IBoardValidator {
     /**
      * field Exception message.
      */
@@ -22,29 +22,27 @@ public class BoardValidator implements BoardValidatorInterface {
      * board Exception message.
      */
     private final static String boardException = "InvalidBoardException";
+
+
     /**
-     * Playground als Array.
+     * BoardFile to check validation.
      */
-    private static String[][] pgGrid;
+    private final IBoardFile iBoardFile;
 
-    private BoardFileInterface boardFileInterface;
-
-    public BoardValidator(BoardFileInterface boardFileInterface) {
-        this.boardFileInterface = boardFileInterface;
+    public BoardValidator(IBoardFile boardFileInterface)  {
+        this.iBoardFile = boardFileInterface;
 
     }
 
 
     /**
      * Checks validation of right data. For the game Playground.
-     *
-     * @param boardFileInterface file of data.
+
      * @return exception of valid or invalid data.
      */
     @Override
     public String isValidBoardFile() {
-        pgGrid = new String[boardFileInterface.getMaxRow()][boardFileInterface.getMaxCol()];
-        InputStream boardFileIS = boardFileInterface.getBoardFile();
+        InputStream boardFileIS = iBoardFile.getBoardFile();
         String exception = null;
         BufferedReader reader = new BufferedReader(new InputStreamReader(boardFileIS));
 
@@ -69,13 +67,12 @@ public class BoardValidator implements BoardValidatorInterface {
                         rowCounter++;
                     }
 
-                    //save Fields in 2d array pgGrid.
-                    pgGrid[i][colCounter] = String.valueOf(line.charAt(i));
+
 
 
                 }
 
-                if (rowCounter != boardFileInterface.getMaxRow()) {
+                if (rowCounter != iBoardFile.getMaxRow()) {
                     exception = boardException;
                     throw new InvalidBoardLayoutException(
                             boardException);
@@ -85,7 +82,7 @@ public class BoardValidator implements BoardValidatorInterface {
                 line = reader.readLine();
                 colCounter++;
             }
-            if (colCounter != boardFileInterface.getMaxCol()) {
+            if (colCounter != iBoardFile.getMaxCol()) {
                 exception = boardException;
                 throw new InvalidBoardLayoutException(
                         boardException);

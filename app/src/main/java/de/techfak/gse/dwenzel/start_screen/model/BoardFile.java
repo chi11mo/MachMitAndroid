@@ -2,7 +2,7 @@ package de.techfak.gse.dwenzel.start_screen.model;
 
 import java.io.InputStream;
 
-public class BoardFile implements BoardFileInterface {
+public class BoardFile implements IBoardFile {
    private InputStream boardFile;
    private int maxRow;
    private int maxCol;

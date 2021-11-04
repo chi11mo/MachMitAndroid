@@ -15,22 +15,32 @@ import java.io.InputStream;
 import java.io.Serializable;
 
 import de.techfak.gse.dwenzel.R;
-import de.techfak.gse.dwenzel.board.BoardMainActivity;
+import de.techfak.gse.dwenzel.game_screen.view.BoardMainActivity;
 import de.techfak.gse.dwenzel.start_screen.controller.LoginController;
 
 /**
  * Entry point activity for the app.
  */
 public class GameStartActivity extends AppCompatActivity implements Serializable, LoginView {
-    private static final String TAG = "GameStartActivity";
+    /**
+     * UID GameStartActivity.
+     */
     public static final long serialVersionUID = 4328743;
 
+    /**
+     * Text intput from playground data.
+     */
     TextInputEditText textInputPlaygroundInput;
 
+    /**
+     * Controller for the data validation.
+     */
     LoginController loginController;
 
 
-
+    /**
+     * to store data path in String.
+     */
     String playgroundInputString;
 
     Button loginButton;
@@ -70,7 +80,7 @@ public class GameStartActivity extends AppCompatActivity implements Serializable
 
 
     @Override
-    public void OnLoginSucces(String message,InputStream board) {
+    public void OnLoginSuccess(String message, InputStream board) {
         Intent myIntent = new Intent(GameStartActivity.this, BoardMainActivity.class);
 
         myIntent.putExtra("File", playgroundInputString);

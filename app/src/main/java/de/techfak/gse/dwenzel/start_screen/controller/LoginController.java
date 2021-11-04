@@ -5,7 +5,7 @@ import java.io.InputStream;
 import de.techfak.gse.dwenzel.start_screen.model.BoardFile;
 import de.techfak.gse.dwenzel.start_screen.view.LoginView;
 
-public class LoginController implements LoginControllerInterface{
+public class LoginController implements ILoginController {
     LoginView loginView;
     BoardValidator boardValidator;
 
@@ -24,7 +24,7 @@ public class LoginController implements LoginControllerInterface{
             loginView.OnLoginError(exception);
         } else {
 
-           loginView.OnLoginSucces(exception,file);
+           loginView.OnLoginSuccess(exception,file);
         }
     }
 }

@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="de.techfak.gse.dwenzel.board.BoardMainActivity"
+            android:name="de.techfak.gse.dwenzel.game_screen.view.BoardMainActivity"
             android:exported="true"
             android:screenOrientation="landscape">
             <intent-filter>
