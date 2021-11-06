@@ -30,7 +30,7 @@ public class PlaygroundController implements IPlaygroundController {
      * @param maxCol    maxCol range.
      */
     @Override
-    public void createPlayground(InputStream boardFile, int maxRow, int maxCol) {
+    public void createPlayground(String boardFile, int maxRow, int maxCol) {
         BoardFile board = new BoardFile(boardFile, maxRow, maxCol);
         playgroundModel = new PlaygroundModel(board);
 

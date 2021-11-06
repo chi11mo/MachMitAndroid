@@ -1,10 +1,5 @@
 package de.techfak.gse.dwenzel.game_screen.controller;
 
-import android.util.Log;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
 import de.techfak.gse.dwenzel.game_screen.model.Field;
 import de.techfak.gse.dwenzel.start_screen.model.BoardFile;
 
@@ -23,20 +18,20 @@ public class BoardReader implements IBoardReader {
      */
     BoardFile board;
 
-    public BoardReader( BoardFile board) {
+    public BoardReader(BoardFile board) {
         this.board = board;
 
         field = new Field[board.getMaxRow()][board.getMaxCol()];
         pgGrid = new String[board.getMaxRow()][board.getMaxCol()];
 
-        validBoardLayout();
+        readBoard();
         fieldInit();
     }
 
     /**
      * Init the fields.
      */
-    private void fieldInit(){
+    private void fieldInit() {
         // let's loop through array to populate board
         for (int row = 0; row < pgGrid.length; row++) {
             for (int col = 0; col < pgGrid[row].length; col++) {
@@ -49,44 +44,39 @@ public class BoardReader implements IBoardReader {
         }
     }
 
+
     /**
-     * Read the lines from data and save it.
+     * Checks validation of right data. For the game Playground.
+     *
+     * @return exception of valid or invalid data.
      */
-    private void validBoardLayout() {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(board.getBoardFile()));
-
+    public String readBoard() {
+        String boardString = board.getBoardString();
         int colCounter = 0;
-        try {
-
-            String line = reader.readLine();
-            while (line != null) {
-                for (int i = 0; i < line.length(); i++) {
-
-                    pgGrid[i][colCounter] = String.valueOf(line.charAt(i));
 
 
-                }
-                line = reader.readLine();
-                colCounter++;
+        String[] splited = boardString.split(",");
+
+        for (String rowString : splited) {
+
+            for (int rowCounter = 0; rowCounter < rowString.length(); rowCounter++) {
+
+
+                pgGrid[rowCounter][colCounter] = String.valueOf(rowString.charAt(rowCounter));
+
+
             }
+            colCounter++;
 
-
-        } catch (Exception e) {
-            Log.d("Exception", String.valueOf(e));
-
-        } finally {
-            try {
-                reader.close(); //Here it says unreported exception IOException; must be caught or declared to be thrown
-            } catch (Exception exp) {
-                Log.d("Exception", String.valueOf(exp));
-            }
         }
 
 
+        return "Valid";
     }
 
     /**
      * to get the saved fields.
+     *
      * @return saved fields from data.
      */
     @Override

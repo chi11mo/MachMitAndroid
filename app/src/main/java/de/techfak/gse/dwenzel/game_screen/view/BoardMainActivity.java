@@ -52,18 +52,13 @@ public class BoardMainActivity extends AppCompatActivity implements Serializable
         setContentView(R.layout.activity_board);
 
         if (getIntent().getExtras() != null) {
-            String boardFile = getIntent().getStringExtra("File");
+            String board = getIntent().getStringExtra("File");
 
-            InputStream file = null;
-            try {
-                file = getAssets().open(boardFile);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
             playgroundController = new PlaygroundController(this);
 
 
-            playgroundController.createPlayground(file
+            playgroundController.createPlayground(board
                     , getResources().getInteger(R.integer.PlaygroundRow)
                     , getResources().getInteger(R.integer.PlaygroundCol));
 

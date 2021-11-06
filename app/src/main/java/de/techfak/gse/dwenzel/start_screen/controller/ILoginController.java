@@ -5,5 +5,5 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.io.InputStream;
 
 public interface ILoginController {
-    void OnLogin(InputStream boardFile, int maxRow, int maxCol);
+    void OnLogin(String boardFile, int maxRow, int maxCol);
 }

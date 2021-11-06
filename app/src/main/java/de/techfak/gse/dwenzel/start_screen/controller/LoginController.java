@@ -13,18 +13,18 @@ public class LoginController implements ILoginController {
         this.loginView = loginView;
     }
     @Override
-    public void OnLogin(InputStream file, int maxRow, int maxCol) {
+    public void OnLogin(String board, int maxRow, int maxCol) {
 
-        BoardFile boardFile = new BoardFile(file,
+        BoardFile boardFile = new BoardFile(board,
                 maxRow,maxCol);
         boardValidator = new BoardValidator(boardFile);
-        String exception = boardValidator.isValidBoardFile();
+        String exception = boardValidator.isValidBoard();
 
         if (!exception.equals("Valid")) {
             loginView.OnLoginError(exception);
         } else {
 
-           loginView.OnLoginSuccess(exception,file);
+           loginView.OnLoginSuccess(exception);
         }
     }
 }

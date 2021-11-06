@@ -3,19 +3,17 @@ package de.techfak.gse.dwenzel.start_screen.model;
 import java.io.InputStream;
 
 public class BoardFile implements IBoardFile {
-   private InputStream boardFile;
-   private int maxRow;
-   private int maxCol;
+   private final String boardString;
+   private final int maxRow;
+   private final int maxCol;
 
-    public BoardFile(InputStream boardFile, int maxRow, int maxCol) {
-        this.boardFile = boardFile;
+
+    public BoardFile(String boardString, final int maxRow,final int maxCol) {
+        this.boardString = boardString;
         this.maxRow = maxRow;
         this.maxCol = maxCol;
     }
 
-    public InputStream getBoardFile() {
-        return boardFile;
-    }
 
 
     public int getMaxRow() {
@@ -25,5 +23,10 @@ public class BoardFile implements IBoardFile {
 
     public int getMaxCol() {
         return maxCol;
+    }
+
+    @Override
+    public String getBoardString() {
+        return boardString;
     }
 }

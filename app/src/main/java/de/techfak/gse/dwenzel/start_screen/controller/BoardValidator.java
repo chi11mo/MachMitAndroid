@@ -29,33 +29,35 @@ public class BoardValidator implements IBoardValidator {
      */
     private final IBoardFile iBoardFile;
 
-    public BoardValidator(IBoardFile boardFileInterface)  {
+    public BoardValidator(IBoardFile boardFileInterface) {
         this.iBoardFile = boardFileInterface;
 
     }
 
 
+
     /**
      * Checks validation of right data. For the game Playground.
-
+     *
      * @return exception of valid or invalid data.
      */
-    @Override
-    public String isValidBoardFile() {
-        InputStream boardFileIS = iBoardFile.getBoardFile();
+    public String isValidBoard() {
+        String boardString = iBoardFile.getBoardString();
         String exception = null;
-        BufferedReader reader = new BufferedReader(new InputStreamReader(boardFileIS));
+        int rowCounter = 0;
 
-        int rowCounter;
-        int colCounter = 0;
+        String[] splited = boardString.split(",");
+
         try {
-
-            String line = reader.readLine();
-
-            while (line != null) {
+            if (splited.length != iBoardFile.getMaxCol()) {
+                exception = boardException;
+                throw new InvalidBoardLayoutException(
+                        boardException);
+            }
+            for (String rowString : splited) {
                 rowCounter = 0;
-                for (int i = 0; i < line.length(); i++) {
-                    String letter = String.valueOf(line.charAt(i));
+                for (int i = 0; i < rowString.length(); i++) {
+                    String letter = String.valueOf(rowString.charAt(i));
 
 
                     if (!letter.matches(".*([bBgGoOrRyY]).*")) {
@@ -63,11 +65,9 @@ public class BoardValidator implements IBoardValidator {
                         throw new InvalidFieldException(
                                 fieldException);
                     }
-                    if (Character.isLetter(line.charAt(i))) {
+                    if (Character.isLetter(rowString.charAt(i))) {
                         rowCounter++;
                     }
-
-
 
 
                 }
@@ -79,24 +79,12 @@ public class BoardValidator implements IBoardValidator {
                 }
 
 
-                line = reader.readLine();
-                colCounter++;
             }
-            if (colCounter != iBoardFile.getMaxCol()) {
-                exception = boardException;
-                throw new InvalidBoardLayoutException(
-                        boardException);
-            }
+
 
         } catch (Exception e) {
             Log.d("Exception", String.valueOf(e));
             return exception;
-        } finally {
-            try {
-                reader.close(); //Here it says unreported exception IOException; must be caught or declared to be thrown
-            } catch (Exception exp) {
-                Log.d("Exception", String.valueOf(exp));
-            }
         }
         return "Valid";
     }
