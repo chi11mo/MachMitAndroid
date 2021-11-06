@@ -1,5 +1,6 @@
 package de.techfak.gse.dwenzel.game_screen.view;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,10 +8,9 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 
 import de.techfak.gse.dwenzel.R;
@@ -21,30 +21,14 @@ import de.techfak.gse.dwenzel.game_screen.model.PlaygroundModel;
  * This activity controls all the stuff on the main game card.
  */
 public class BoardMainActivity extends AppCompatActivity implements Serializable, IPlaygroundView {
-    /**
-     * UID.
-     */
-    public static final long serialVersionUID = 4328742;
 
-    /**
-     * Button Size.
-     */
-    private final static int buttonSize = 700 / 7;
+    /* UID.*/public static final long serialVersionUID = 4328742;
 
-    /**
-     * to order the Button for the Playground.
-     */
-    private GridLayout gridLayoutButtons;
 
-    /**
-     * Buttons for the Playground.
-     */
-    Button[][] playgroundButtons;
-
-    /**
-     * to get control of the playground.
-     */
-    private PlaygroundController playgroundController;
+    /* Button Size.*/ private final static int buttonSize = 700 / 7;
+    /* Buttons for the Playground.*/ private Button[][] playgroundButtons;
+    /* to order the Button for the Playground.*/ private GridLayout gridLayoutButtons;
+    /* to get control of the playground.*/ private PlaygroundController playgroundController;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -73,7 +57,8 @@ public class BoardMainActivity extends AppCompatActivity implements Serializable
                     playgroundButtons[k][i].setLayoutParams(
                             new LinearLayout.LayoutParams(buttonSize, buttonSize));
 
-                    Button button = setFieldColor(playgroundButtons[k][i], playgroundController.getPlayground().getFieldColor(k, i));
+                    Button button = setFieldColor(playgroundButtons[k][i],
+                            playgroundController.getPlayground().getFieldColor(k, i));
 
 
                     gridLayoutButtons.addView(button);
@@ -88,9 +73,34 @@ public class BoardMainActivity extends AppCompatActivity implements Serializable
 
     }
 
+    /**
+     * Listener for android toolbar back listener.
+     * give a dialog if you want to go back to game_start_activity.
+     */
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Back")
+                .setCancelable(false)
+                .setMessage("You want to Exit your current game ?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        finish();
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.dismiss();
+                    }
+                });
+        builder.show();
+    }
+
 
     /**
      * get the Update Model.
+     *
      * @param playgroundModel updated Model from View.
      */
     @Override
