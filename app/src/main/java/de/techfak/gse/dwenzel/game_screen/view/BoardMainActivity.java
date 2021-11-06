@@ -1,11 +1,11 @@
 package de.techfak.gse.dwenzel.game_screen.view;
 
 import android.content.DialogInterface;
-import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AlertDialog;
@@ -15,6 +15,7 @@ import java.io.Serializable;
 
 import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.game_screen.controller.PlaygroundController;
+import de.techfak.gse.dwenzel.game_screen.model.DataLoader;
 import de.techfak.gse.dwenzel.game_screen.model.PlaygroundModel;
 
 /**
@@ -26,15 +27,25 @@ public class BoardMainActivity extends AppCompatActivity implements Serializable
 
 
     /* Button Size.*/ private final static int buttonSize = 700 / 7;
-    /* Buttons for the Playground.*/ private Button[][] playgroundButtons;
+    /* Buttons for the Playground.*/ private ImageButton[][] playgroundButtons;
     /* to order the Button for the Playground.*/ private GridLayout gridLayoutButtons;
     /* to get control of the playground.*/ private PlaygroundController playgroundController;
+    /*Drawable for button Images*/private Drawable iconNotPressedRed;
+    /*Drawable for button Images*/private Drawable iconNotPressedYellow;
+    /*Drawable for button Images*/private Drawable iconNotPressedGreen;
+    /*Drawable for button Images*/private Drawable iconNotPressedBlue;
+    /*Drawable for button Images*/private Drawable iconNotPressedOrange;
+    /*Drawable for button Images*/private Drawable iconPressedRed;
+    /*Drawable for button Images*/private Drawable iconPressedYellow;
+    /*Drawable for button Images*/private Drawable iconPressedGreen;
+    /*Drawable for button Images*/private Drawable iconPressedBlue;
+    /*Drawable for button Images*/private Drawable iconPressedOrange;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
-
+        loadButtonImages();
         if (getIntent().getExtras() != null) {
             String board = getIntent().getStringExtra("File");
 
@@ -48,19 +59,20 @@ public class BoardMainActivity extends AppCompatActivity implements Serializable
 
             gridLayoutButtons = findViewById(R.id.playground_grid);
             gridLayoutButtons.setColumnCount(getResources().getInteger(R.integer.PlaygroundRow));
-            playgroundButtons = new Button[getResources().getInteger(R.integer.PlaygroundRow)][getResources().getInteger(R.integer.PlaygroundCol)];
+            playgroundButtons = new ImageButton[getResources().getInteger(R.integer.PlaygroundRow)][getResources().getInteger(R.integer.PlaygroundCol)];
             for (int i = 0; i < getResources().getInteger(R.integer.PlaygroundCol); i++) {
                 for (int k = 0; k < getResources().getInteger(R.integer.PlaygroundRow); k++) {
-                    playgroundButtons[k][i] = new Button(this);
-                    playgroundButtons[k][i].setWidth(1);
-                    playgroundButtons[k][i].setWidth(1);
+                    playgroundButtons[k][i] = new ImageButton(this);
+
                     playgroundButtons[k][i].setLayoutParams(
                             new LinearLayout.LayoutParams(buttonSize, buttonSize));
 
-                    Button button = setFieldColor(playgroundButtons[k][i],
+                    ImageButton button = setFieldColor(playgroundButtons[k][i],
                             playgroundController.getPlayground().getFieldColor(k, i));
-
-
+                    button.setBackground(null);
+                    button.setAdjustViewBounds(true);
+                    button.setPadding(0, 0, 0, 0);
+                    button.setScaleType(ImageButton.ScaleType.FIT_START);
                     gridLayoutButtons.addView(button);
 
 
@@ -122,51 +134,83 @@ public class BoardMainActivity extends AppCompatActivity implements Serializable
      * @param color  color as aString from playground.
      * @return the colored button.
      */
-    public Button setFieldColor(Button button, String color) {
+    public ImageButton setFieldColor(ImageButton button, String color) {
         if (color.equals("g")) {
-            button.setBackgroundColor(getResources().getColor(R.color.green));
+            button.setImageDrawable(iconNotPressedGreen);
             return button;
         }
         if (color.equals("G")) {
-            button.setBackgroundColor(Color.GRAY);
+            button.setImageDrawable(iconPressedGreen);
             return button;
         }
         if (color.equals("b")) {
-            button.setBackgroundColor(getResources().getColor(R.color.blue));
+            button.setImageDrawable(iconNotPressedBlue);
             return button;
         }
         if (color.equals("B")) {
-            button.setBackgroundColor(Color.GRAY);
+            button.setImageDrawable(iconPressedBlue);
             return button;
         }
 
         if (color.equals("y")) {
-            button.setBackgroundColor(getResources().getColor(R.color.yellow));
+            button.setImageDrawable(iconNotPressedYellow);
             return button;
         }
         if (color.equals("Y")) {
-            button.setBackgroundColor(Color.GRAY);
+            button.setImageDrawable(iconPressedYellow);
             return button;
         }
         if (color.equals("o")) {
-            button.setBackgroundColor(getResources().getColor(R.color.orange));
+            button.setImageDrawable(iconNotPressedOrange);
             return button;
         }
         if (color.equals("O")) {
-            button.setBackgroundColor(Color.GRAY);
+            button.setImageDrawable(iconPressedOrange);
             return button;
         }
         if (color.equals("r")) {
-            button.setBackgroundColor(getResources().getColor(R.color.red));
+            button.setImageDrawable(iconNotPressedRed);
             return button;
         }
         if (color.equals("R")) {
-            button.setBackgroundColor(Color.GRAY);
+            button.setImageDrawable(iconPressedRed);
             return button;
         }
 
 
         return button;
+    }
+
+    /**
+     * Load athe needed png pictures for button usage.
+     */
+    public void loadButtonImages() {
+        DataLoader dataLoader = new DataLoader();
+        iconPressedYellow = dataLoader.loadDrawableFromAssets(getApplicationContext(), "icon_pressed_yellow.png");
+        iconPressedYellow.setBounds(0, 0, buttonSize, buttonSize);
+        iconNotPressedYellow = dataLoader.loadDrawableFromAssets(getApplicationContext(), "icon_notPressed_yellow.png");
+        iconNotPressedYellow.setBounds(0, 0, buttonSize, buttonSize);
+
+        iconPressedGreen = dataLoader.loadDrawableFromAssets(getApplicationContext(), "icon_pressed_green.png");
+        iconPressedGreen.setBounds(0, 0, buttonSize, buttonSize);
+        iconNotPressedGreen = dataLoader.loadDrawableFromAssets(getApplicationContext(), "icon_notPressed_green.png");
+        iconNotPressedGreen.setBounds(0, 0, buttonSize, buttonSize);
+
+        iconPressedRed = dataLoader.loadDrawableFromAssets(getApplicationContext(), "icon_pressed_red.png");
+        iconPressedRed.setBounds(0, 0, buttonSize, buttonSize);
+        iconNotPressedRed = dataLoader.loadDrawableFromAssets(getApplicationContext(), "icon_notPressed_red.png");
+        iconNotPressedRed.setBounds(0, 0, buttonSize, buttonSize);
+
+        iconPressedOrange = dataLoader.loadDrawableFromAssets(getApplicationContext(), "icon_pressed_orange.png");
+        iconPressedOrange.setBounds(0, 0, buttonSize, buttonSize);
+        iconNotPressedOrange = dataLoader.loadDrawableFromAssets(getApplicationContext(), "icon_notPressed_orange.png");
+        iconNotPressedOrange.setBounds(0, 0, buttonSize, buttonSize);
+
+        iconPressedBlue = dataLoader.loadDrawableFromAssets(getApplicationContext(), "icon_pressed_blue.png");
+        iconPressedBlue.setBounds(0, 0, buttonSize, buttonSize);
+        iconNotPressedBlue = dataLoader.loadDrawableFromAssets(getApplicationContext(), "icon_notPressed_blue.png");
+        iconNotPressedBlue.setBounds(0, 0, buttonSize, buttonSize);
+
     }
 
 

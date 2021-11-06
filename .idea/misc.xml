@@ -8,6 +8,8 @@
         <entry key="app/src/main/res/drawable/button_dark_gradient.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/drawable/my_button_bg.xml" value="0.22447916666666667" />
+        <entry key="app/src/main/res/drawable/notPressed_green_button_icon_background.xml" value="0.24322916666666666" />
+        <entry key="app/src/main/res/drawable/pressed_green_button_icon_background.xml" value="0.21770833333333334" />
         <entry key="app/src/main/res/layout/activity_board.xml" value="0.1859375" />
         <entry key="app/src/main/res/layout/activity_gamestart.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.5" />
