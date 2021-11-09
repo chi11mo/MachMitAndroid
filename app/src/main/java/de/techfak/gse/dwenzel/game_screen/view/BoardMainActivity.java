@@ -4,12 +4,16 @@ import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.io.Serializable;
 
@@ -21,15 +25,18 @@ import de.techfak.gse.dwenzel.game_screen.model.PlaygroundModel;
 /**
  * This activity controls all the stuff on the main game card.
  */
-public class BoardMainActivity extends AppCompatActivity implements Serializable, IPlaygroundView {
+public class BoardMainActivity extends AppCompatActivity implements Serializable, PlaygroundView {
 
     /* UID.*/public static final long serialVersionUID = 4328742;
 
 
-    /* Button Size.*/ private final static int buttonSize = 700 / 7;
+    /* Button Size.*/ private static int buttonSize;
     /* Buttons for the Playground.*/ private ImageButton[][] playgroundButtons;
     /* to order the Button for the Playground.*/ private GridLayout gridLayoutButtons;
     /* to get control of the playground.*/ private PlaygroundController playgroundController;
+    LinearLayout verticalLayout;
+    LinearLayout horizontalLayout;
+    ConstraintLayout gameBoardLayout;
     /*Drawable for button Images*/private Drawable iconNotPressedRed;
     /*Drawable for button Images*/private Drawable iconNotPressedYellow;
     /*Drawable for button Images*/private Drawable iconNotPressedGreen;
@@ -40,12 +47,22 @@ public class BoardMainActivity extends AppCompatActivity implements Serializable
     /*Drawable for button Images*/private Drawable iconPressedGreen;
     /*Drawable for button Images*/private Drawable iconPressedBlue;
     /*Drawable for button Images*/private Drawable iconPressedOrange;
+    /*Drawable for button Background*/private Drawable corkBoard;
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
         loadButtonImages();
+        buttonSize = getResources().getInteger(R.integer.ButtonSize);
+        gameBoardLayout =findViewById(R.id.gameBoard);
+        gameBoardLayout.setBackground(corkBoard);
+        //tableLayout =findViewById(R.id.table);
+       // tableLayout.setBackground(corkBoard);
+      //  playgroundLayout.setBackground(corkBoard);
+        verticalLayout = findViewById(R.id.verticaLayout);
+        horizontalLayout = findViewById(R.id.horizontalLayout);
         if (getIntent().getExtras() != null) {
             String board = getIntent().getStringExtra("File");
 
@@ -58,6 +75,7 @@ public class BoardMainActivity extends AppCompatActivity implements Serializable
                     , getResources().getInteger(R.integer.PlaygroundCol));
 
             gridLayoutButtons = findViewById(R.id.playground_grid);
+          //  gridLayoutButtons.setBackground(corkBoard);
             gridLayoutButtons.setColumnCount(getResources().getInteger(R.integer.PlaygroundRow));
             playgroundButtons = new ImageButton[getResources().getInteger(R.integer.PlaygroundRow)][getResources().getInteger(R.integer.PlaygroundCol)];
             for (int i = 0; i < getResources().getInteger(R.integer.PlaygroundCol); i++) {
@@ -65,7 +83,8 @@ public class BoardMainActivity extends AppCompatActivity implements Serializable
                     playgroundButtons[k][i] = new ImageButton(this);
 
                     playgroundButtons[k][i].setLayoutParams(
-                            new LinearLayout.LayoutParams(buttonSize, buttonSize));
+                            new LinearLayout.LayoutParams(getResources().getInteger(R.integer.ButtonSize),
+                                    getResources().getInteger(R.integer.ButtonSize)));
 
                     ImageButton button = setFieldColor(playgroundButtons[k][i],
                             playgroundController.getPlayground().getFieldColor(k, i));
@@ -80,9 +99,31 @@ public class BoardMainActivity extends AppCompatActivity implements Serializable
 
 
             }
+           initCoordinates();
 
         }
 
+    }
+    public void initCoordinates(){
+        TextView[][] buttons = new TextView[16][16];
+        for(int i = 0; i < getResources().getInteger(R.integer.PlaygroundCol)+1;i++){
+            buttons[i][0] =new TextView(this);
+            buttons[i][0].setBackgroundColor(getResources().getColor(R.color.green));
+            buttons[i][0].setLayoutParams(
+                   new LinearLayout.LayoutParams(getResources().getInteger(R.integer.ButtonSize),
+                           getResources().getInteger(R.integer.ButtonSize)));
+            buttons[i][0].setText(String.valueOf(i));
+           verticalLayout.addView( buttons[i][0]);
+       }
+        for(int i = 0; i < getResources().getInteger(R.integer.PlaygroundRow)+1;i++){
+            buttons[0][i] =new TextView(this);
+            buttons[0][i].setLayoutParams(
+                    new LinearLayout.LayoutParams(getResources().getInteger(R.integer.ButtonSize),
+                            getResources().getInteger(R.integer.ButtonSize)));
+            buttons[0][i].setBackgroundColor(getResources().getColor(R.color.green));
+            buttons[0][i].setText(Character.toString((char)(i+64)));
+            horizontalLayout.addView( buttons[0][i]);
+        }
     }
 
     /**
@@ -210,6 +251,8 @@ public class BoardMainActivity extends AppCompatActivity implements Serializable
         iconPressedBlue.setBounds(0, 0, buttonSize, buttonSize);
         iconNotPressedBlue = dataLoader.loadDrawableFromAssets(getApplicationContext(), "icon_notPressed_blue.png");
         iconNotPressedBlue.setBounds(0, 0, buttonSize, buttonSize);
+
+        corkBoard = dataLoader.loadDrawableFromAssets(getApplicationContext(), "cork_board.png");
 
     }
 

@@ -1,26 +1,24 @@
 package de.techfak.gse.dwenzel.game_screen.controller;
 
-import java.io.InputStream;
-
 import de.techfak.gse.dwenzel.game_screen.model.PlaygroundModel;
-import de.techfak.gse.dwenzel.game_screen.view.IPlaygroundView;
+import de.techfak.gse.dwenzel.game_screen.view.PlaygroundView;
 import de.techfak.gse.dwenzel.start_screen.model.BoardFile;
 
 public class PlaygroundController implements IPlaygroundController {
     /**
      * Playground view.
      */
-    IPlaygroundView iPlaygroundView;
+    PlaygroundView playgroundView;
     /**
      * playgroundModel to fill it with the data.
      */
     PlaygroundModel playgroundModel;
 
     /**
-     * @param iPlaygroundView to send stuff to the view.
+     * @param playgroundView to send stuff to the view.
      */
-    public PlaygroundController(IPlaygroundView iPlaygroundView) {
-        this.iPlaygroundView = iPlaygroundView;
+    public PlaygroundController(PlaygroundView playgroundView) {
+        this.playgroundView = playgroundView;
 
     }
 
@@ -35,7 +33,7 @@ public class PlaygroundController implements IPlaygroundController {
         playgroundModel = new PlaygroundModel(board);
 
 
-        iPlaygroundView.updatePlayground(playgroundModel);
+        playgroundView.updatePlayground(playgroundModel);
 
     }
 
