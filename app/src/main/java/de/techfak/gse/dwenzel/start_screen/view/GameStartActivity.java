@@ -24,15 +24,18 @@ public class GameStartActivity extends AppCompatActivity implements Serializable
     /*UID GameStartActivity.*/ public static final long serialVersionUID = 4328743;
     /*field Exception message.*/ private final static String fieldException = "InvalidFieldException";
     /*board Exception message.*/ private final static String boardException = "InvalidBoardException";
-    /*Text input from playground data.*/ TextInputEditText textInputPlaygroundInput;
+    /*Text input from playground data.*/ private TextInputEditText textInputPlaygroundInput;
 
-    /*Controller for the data validation.*/ LoginController loginController;
+    /*Controller for the data validation.*/private LoginController loginController;
 
-    /*to store data path in String.*/ String playgroundInputString;
+    /*to store data path in String.*/private  String playgroundInputString;
 
-    /*Button to check validation.*/ Button loginButton;
+    /*Button to check validation.*/private Button loginButton;
 
-
+    /**
+     * Creates activity on first start.
+     * @param savedInstanceState instances saved .
+     */
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,9 +58,12 @@ public class GameStartActivity extends AppCompatActivity implements Serializable
         });
     }
 
-
+    /**
+     * method  to go in next activity because board is valid.
+     * @param message validation message.
+     */
     @Override
-    public void OnLoginSuccess(String message) {
+    public void OnLoginSuccess(final String message) {
         Intent myIntent = new Intent(GameStartActivity.this, BoardMainActivity.class);
         Log.d("Board is :", message);
         myIntent.putExtra("File", playgroundInputString);
@@ -65,13 +71,18 @@ public class GameStartActivity extends AppCompatActivity implements Serializable
 
     }
 
+    /**
+     * method  to go in next activity because board is invalid.
+     * @param exception validation message.
+     */
     @Override
     public void OnLoginError(String exception) {
-        if (exception.equals(boardException))
+        if (exception.equals(boardException)) {
             exception = "Board Structure is Invalid :  do 15 rows and 7 columns.";
-        if (exception.equals(fieldException))
+        }
+        if (exception.equals(fieldException)) {
             exception = "Board Structure is Invalid :   do b, B, g, G, o, O, r, R, y, Y ";
-
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Invalid Board Layout Try Another txt Data.")
                 .setCancelable(false)
