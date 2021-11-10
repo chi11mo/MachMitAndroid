@@ -61,8 +61,7 @@ public class GameStartActivity extends AppCompatActivity implements Serializable
      */
     @Override
     public void onLoginSuccess(final String message) {
-        final GameStartActivity gameStartActivity = GameStartActivity.this;
-        final Intent myIntent = new Intent(gameStartActivity, BoardMainActivity.class);
+        final Intent myIntent = new Intent(this, BoardMainActivity.class);
         Log.d("Board is :", message);
         myIntent.putExtra("File", playgroundInputString);
         startActivity(myIntent);

@@ -24,7 +24,7 @@ public class BoardMainActivity extends AppCompatActivity implements PlaygroundVi
 
     /* UID.*/                                       public static final long serialVersionUID = 4328742;
 
-    /*Char to begin with big Letter ABC */              private static int AINASCII = 64;
+    /*Char to begin with big Letter ABC */          private final static int AINASCII = 64;
     /* Button Size.*/                               private static int buttonSize;
     /*vertical Layout for coordinate on board*/     private LinearLayout verticalLayout;
     /*vertical Layout for coordinate on board*/     private LinearLayout horizontalLayout;
@@ -64,8 +64,8 @@ public class BoardMainActivity extends AppCompatActivity implements PlaygroundVi
             final PlaygroundController playgroundController = new PlaygroundController(this);
 
 
-            playgroundController.createPlayground(
-                    board, getResources().getInteger(R.integer.PlaygroundRow), getResources().getInteger(R.integer.PlaygroundCol));
+            playgroundController.createPlayground(board, getResources().getInteger(R.integer.PlaygroundRow),
+                    getResources().getInteger(R.integer.PlaygroundCol));
 
             /* to order the Button for the Playground.*/
             final GridLayout gridLayoutButtons = findViewById(R.id.playground_grid);
@@ -73,7 +73,8 @@ public class BoardMainActivity extends AppCompatActivity implements PlaygroundVi
             gridLayoutButtons.setColumnCount(getResources().getInteger(R.integer.PlaygroundRow));
             /* Buttons for the Playground.*/
             final ImageButton[][] playgroundButtons =
-                    new ImageButton[getResources().getInteger(R.integer.PlaygroundRow)][getResources().getInteger(R.integer.PlaygroundCol)];
+                    new ImageButton[getResources().getInteger(R.integer.PlaygroundRow)]
+                            [getResources().getInteger(R.integer.PlaygroundCol)];
             for (int i = 0; i < getResources().getInteger(R.integer.PlaygroundCol); i++) {
                 for (int k = 0; k < getResources().getInteger(R.integer.PlaygroundRow); k++) {
                     playgroundButtons[k][i] = new ImageButton(this);
@@ -170,50 +171,46 @@ public class BoardMainActivity extends AppCompatActivity implements PlaygroundVi
      * @return the colored button.
      */
     public ImageButton getFieldColor(final ImageButton button, final String color) {
-        if (color.equals("g")) {
-            button.setImageDrawable(iconNotPressedGreen);
-            return button;
-        }
-        if (color.equals("G")) {
-            button.setImageDrawable(iconPressedGreen);
-            return button;
-        }
-        if (color.equals("b")) {
-            button.setImageDrawable(iconNotPressedBlue);
-            return button;
-        }
-        if (color.equals("B")) {
-            button.setImageDrawable(iconPressedBlue);
-            return button;
-        }
 
-        if (color.equals("y")) {
-            button.setImageDrawable(iconNotPressedYellow);
-            return button;
-        }
-        if (color.equals("Y")) {
-            button.setImageDrawable(iconPressedYellow);
-            return button;
-        }
-        if (color.equals("o")) {
-            button.setImageDrawable(iconNotPressedOrange);
-            return button;
-        }
-        if (color.equals("O")) {
-            button.setImageDrawable(iconPressedOrange);
-            return button;
-        }
-        if (color.equals("r")) {
-            button.setImageDrawable(iconNotPressedRed);
-            return button;
-        }
-        if (color.equals("R")) {
-            button.setImageDrawable(iconPressedRed);
-            return button;
-        }
+        switch (color) {
+            case "g":
+                button.setImageDrawable(iconNotPressedGreen);
+                break;
+            case "G":
+                button.setImageDrawable(iconPressedGreen);
+                break;
+            case "b":
+                button.setImageDrawable(iconNotPressedBlue);
+                break;
+            case "B":
+                button.setImageDrawable(iconPressedBlue);
+                break;
+            case "y":
+                button.setImageDrawable(iconNotPressedYellow);
+                break;
+            case "Y":
+                button.setImageDrawable(iconPressedYellow);
+                break;
+            case "o":
+                button.setImageDrawable(iconNotPressedOrange);
+                break;
+            case"O":
+                button.setImageDrawable(iconPressedOrange);
+                break;
+            case "r":
+                button.setImageDrawable(iconNotPressedRed);
+                break;
+            case"R":
+                button.setImageDrawable(iconPressedRed);
+                break;
 
 
+
+        }
         return button;
+
+
+
     }
 
     /**

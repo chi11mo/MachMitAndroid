@@ -1,7 +1,5 @@
 package de.techfak.gse.dwenzel.game_screen.controller;
 
-import android.util.Log;
-
 import de.techfak.gse.dwenzel.game_screen.model.Field;
 import de.techfak.gse.dwenzel.start_screen.model.BoardFile;
 
@@ -27,8 +25,8 @@ public class BoardReader {
 
         field = new Field[board.getMaxRow()][board.getMaxCol()];
         pgGrid = new String[board.getMaxRow()][board.getMaxCol()];
-        final String validation = readBoard();
-        Log.d("Read Board :", validation);
+
+        readBoard();
         fieldInit();
     }
 
@@ -51,10 +49,8 @@ public class BoardReader {
 
     /**
      * Checks validation of right data. For the game Playground.
-     *
-     * @return exception of valid or invalid data.
      */
-    public String readBoard() {
+    public void readBoard() {
         final String boardString = board.getBoardString();
         int colCounter = 0;
 
@@ -75,7 +71,6 @@ public class BoardReader {
         }
 
 
-        return "Valid";
     }
 
     /**
