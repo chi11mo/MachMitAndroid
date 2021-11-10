@@ -2,7 +2,9 @@ package de.techfak.gse.dwenzel.game_screen.model;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -19,7 +21,8 @@ public class DataLoader {
     public Drawable loadDrawableFromAssets(final Context context, final String path) {
         try (InputStream stream = context.getAssets().open(path)) {
             return Drawable.createFromStream(stream, null);
-        } catch (Exception ignored) {
+        } catch (IOException e) {
+            Log.d("Image Data Loader", String.valueOf(e));
         }
         return null;
     }

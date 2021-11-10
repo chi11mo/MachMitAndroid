@@ -3,6 +3,9 @@ package de.techfak.gse.dwenzel.start_screen.controller;
 import de.techfak.gse.dwenzel.start_screen.model.BoardFile;
 import de.techfak.gse.dwenzel.start_screen.view.LoginView;
 
+/**
+ * Control the happenings on the login activity.
+ */
 public class LoginController {
     /*Login View.*/             private final LoginView loginView;
     /*Board validator class*/   private BoardValidator boardValidator;
@@ -24,18 +27,19 @@ public class LoginController {
      * @param maxRow max row size of the Board.
      * @param maxCol max column size of the Board.
      */
-    public void OnLogin(String board, int maxRow, int maxCol) {
+    public void onLogin(final String board, final int maxRow, final int maxCol) {
 
-        BoardFile boardFile = new BoardFile(board,
+        final BoardFile boardFile = new BoardFile(board,
                 maxRow, maxCol);
         boardValidator = new BoardValidator(boardFile);
-        String exception = boardValidator.isValidBoard();
+        final String exception = boardValidator.boardValidation();
 
-        if (!exception.equals("Valid")) {
-            loginView.OnLoginError(exception);
+        if (exception.equals("Valid")) {
+            loginView.onLoginSuccess(exception);
+
         } else {
+            loginView.onLoginError(exception);
 
-            loginView.OnLoginSuccess(exception);
         }
     }
 }

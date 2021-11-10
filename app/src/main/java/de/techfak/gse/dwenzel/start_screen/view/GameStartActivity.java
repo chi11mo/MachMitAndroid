@@ -21,19 +21,14 @@ import de.techfak.gse.dwenzel.start_screen.controller.LoginController;
  */
 public class GameStartActivity extends AppCompatActivity implements Serializable, LoginView {
 
-    /*UID GameStartActivity.*/ public static final long serialVersionUID = 4328743;
-    /*field Exception message.*/ private final static String fieldException = "InvalidFieldException";
-    /*board Exception message.*/ private final static String boardException = "InvalidBoardException";
-    /*Text input from playground data.*/ private TextInputEditText textInputPlaygroundInput;
-
-    /*Controller for the data validation.*/private LoginController loginController;
-
-    /*to store data path in String.*/private  String playgroundInputString;
-
-    /*Button to check validation.*/private Button loginButton;
+    /*UID GameStartActivity.*/              public static final long serialVersionUID = 4328743;
+    /*Text input from playground data.*/    private TextInputEditText textInputPlaygroundInput;
+    /*Controller for the data validation.*/ private LoginController loginController;
+    /*to store data path in String.*/       private String playgroundInputString;
 
     /**
      * Creates activity on first start.
+     *
      * @param savedInstanceState instances saved .
      */
     @Override
@@ -47,24 +42,27 @@ public class GameStartActivity extends AppCompatActivity implements Serializable
         textInputPlaygroundInput = findViewById(R.id.playgroundInput);
 
 
-        loginButton = findViewById(R.id.loginButton);
+        /*Button to check validation.*/
+        Button loginButton = findViewById(R.id.loginButton);
 
 
         loginButton.setOnClickListener(v -> {
             playgroundInputString = String.valueOf(textInputPlaygroundInput.getText());
 
-            loginController.OnLogin(playgroundInputString, getResources().getInteger(R.integer.PlaygroundRow),
+            loginController.onLogin(playgroundInputString, getResources().getInteger(R.integer.PlaygroundRow),
                     getResources().getInteger(R.integer.PlaygroundCol));
         });
     }
 
     /**
      * method  to go in next activity because board is valid.
+     *
      * @param message validation message.
      */
     @Override
-    public void OnLoginSuccess(final String message) {
-        Intent myIntent = new Intent(GameStartActivity.this, BoardMainActivity.class);
+    public void onLoginSuccess(final String message) {
+        final GameStartActivity gameStartActivity = GameStartActivity.this;
+        final Intent myIntent = new Intent(gameStartActivity, BoardMainActivity.class);
         Log.d("Board is :", message);
         myIntent.putExtra("File", playgroundInputString);
         startActivity(myIntent);
@@ -73,20 +71,26 @@ public class GameStartActivity extends AppCompatActivity implements Serializable
 
     /**
      * method  to go in next activity because board is invalid.
+     *
      * @param exception validation message.
      */
     @Override
-    public void OnLoginError(String exception) {
-        if (exception.equals(boardException)) {
-            exception = "Board Structure is Invalid :  do 15 rows and 7 columns.";
+    public void onLoginError(final String exception) {
+        String message = exception;
+        /*board Exception message.*/
+        final String boardException = "InvalidBoardException";
+        if (message.equals(boardException)) {
+            message = "Board Structure is Invalid :  do 15 rows and 7 columns.";
         }
-        if (exception.equals(fieldException)) {
-            exception = "Board Structure is Invalid :   do b, B, g, G, o, O, r, R, y, Y ";
+        /*field Exception message.*/
+        final String fieldException = "InvalidFieldException";
+        if (message.equals(fieldException)) {
+            message = "Board Structure is Invalid :   do b, B, g, G, o, O, r, R, y, Y ";
         }
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Invalid Board Layout Try Another txt Data.")
                 .setCancelable(false)
-                .setMessage(exception)
+                .setMessage(message)
                 .setPositiveButton("Okay", null);
         builder.show();
     }

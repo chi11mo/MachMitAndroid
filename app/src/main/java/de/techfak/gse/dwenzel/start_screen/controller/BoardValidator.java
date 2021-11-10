@@ -11,14 +11,11 @@ import de.techfak.gse.dwenzel.start_screen.model.BoardFile;
  */
 public class BoardValidator {
 
-    /* field Exception message.*/           private final static String fieldException = "InvalidFieldException";
-
-    /*board Exception message.*/            private final static String boardException = "InvalidBoardException";
-
     /*BoardFile to check validation.*/      private final BoardFile boardFile;
 
     /**
      * BoardValidator checck if board accept the board Rules.
+     *
      * @param boardFile baordfile to validate board value.
      */
     public BoardValidator(final BoardFile boardFile) {
@@ -32,14 +29,16 @@ public class BoardValidator {
      *
      * @return exception of valid or invalid data.
      */
-    public String isValidBoard() {
-        String boardString = boardFile.getBoardString();
+    public String boardValidation() {
+        final String boardString = boardFile.getBoardString();
         String exception = null;
         int rowCounter;
 
-        String[] spliced = boardString.split(",");
+        final String[] spliced = boardString.split(",");
 
         try {
+            /*board Exception message.*/
+            final String boardException = "InvalidBoardException";
             if (spliced.length != boardFile.getMaxCol()) {
                 exception = boardException;
                 throw new InvalidBoardLayoutException(
@@ -52,6 +51,8 @@ public class BoardValidator {
 
 
                     if (!letter.matches(".*([bBgGoOrRyY]).*")) {
+                        /* field Exception message.*/
+                        final String fieldException = "InvalidFieldException";
                         exception = fieldException;
                         throw new InvalidFieldException(
                                 fieldException);
@@ -67,13 +68,14 @@ public class BoardValidator {
                     exception = boardException;
                     throw new InvalidBoardLayoutException(
                             boardException);
+
                 }
 
 
             }
 
 
-        } catch (Exception e) {
+        } catch (InvalidFieldException | InvalidBoardLayoutException e) {
             Log.d("Exception", String.valueOf(e));
             return exception;
         }

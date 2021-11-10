@@ -27,8 +27,8 @@ public class BoardReader {
 
         field = new Field[board.getMaxRow()][board.getMaxCol()];
         pgGrid = new String[board.getMaxRow()][board.getMaxCol()];
-
-        Log.d("Read Board :", readBoard());
+        final String validation = readBoard();
+        Log.d("Read Board :", validation);
         fieldInit();
     }
 

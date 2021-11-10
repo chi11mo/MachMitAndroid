@@ -12,8 +12,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import java.io.Serializable;
-
 import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.game_screen.controller.PlaygroundController;
 import de.techfak.gse.dwenzel.game_screen.model.DataLoader;
@@ -22,18 +20,14 @@ import de.techfak.gse.dwenzel.game_screen.model.PlaygroundModel;
 /**
  * This activity controls all the stuff on the main game card.
  */
-public class BoardMainActivity extends AppCompatActivity implements Serializable, PlaygroundView {
+public class BoardMainActivity extends AppCompatActivity implements PlaygroundView {
 
     /* UID.*/                                       public static final long serialVersionUID = 4328742;
 
-
+    /*Char to begin with big Letter ABC */              private static int AINASCII = 64;
     /* Button Size.*/                               private static int buttonSize;
     /*vertical Layout for coordinate on board*/     private LinearLayout verticalLayout;
     /*vertical Layout for coordinate on board*/     private LinearLayout horizontalLayout;
-    /*Layout for board.*/                           private ConstraintLayout gameBoardLayout;
-    /* Buttons for the Playground.*/                private ImageButton[][] playgroundButtons;
-    /* to order the Button for the Playground.*/    private GridLayout gridLayoutButtons;
-    /* to get control of the playground.*/          private PlaygroundController playgroundController;
     /*Drawable for button Images*/                  private Drawable iconNotPressedRed;
     /*Drawable for button Images*/                  private Drawable iconNotPressedYellow;
     /*Drawable for button Images*/                  private Drawable iconNotPressedGreen;
@@ -48,6 +42,7 @@ public class BoardMainActivity extends AppCompatActivity implements Serializable
 
     /**
      * on Create method for do things when activity starts.
+     *
      * @param savedInstanceState instances of activity.
      */
     @Override
@@ -56,25 +51,29 @@ public class BoardMainActivity extends AppCompatActivity implements Serializable
         setContentView(R.layout.activity_board);
         loadButtonImages();
         buttonSize = getResources().getInteger(R.integer.ButtonSize);
-        gameBoardLayout = findViewById(R.id.gameBoard);
+        /*Layout for board.*/
+        ConstraintLayout gameBoardLayout = findViewById(R.id.gameBoard);
         gameBoardLayout.setBackground(corkBoard);
         verticalLayout = findViewById(R.id.verticaLayout);
         horizontalLayout = findViewById(R.id.horizontalLayout);
         if (getIntent().getExtras() != null) {
-            String board = getIntent().getStringExtra("File");
+            final String board = getIntent().getStringExtra("File");
 
 
-            playgroundController = new PlaygroundController(this);
+            /* to get control of the playground.*/
+            final PlaygroundController playgroundController = new PlaygroundController(this);
 
 
-            playgroundController.createPlayground(board
-                    , getResources().getInteger(R.integer.PlaygroundRow)
-                    , getResources().getInteger(R.integer.PlaygroundCol));
+            playgroundController.createPlayground(
+                    board, getResources().getInteger(R.integer.PlaygroundRow), getResources().getInteger(R.integer.PlaygroundCol));
 
-            gridLayoutButtons = findViewById(R.id.playground_grid);
-            //  gridLayoutButtons.setBackground(corkBoard);
+            /* to order the Button for the Playground.*/
+            final GridLayout gridLayoutButtons = findViewById(R.id.playground_grid);
+
             gridLayoutButtons.setColumnCount(getResources().getInteger(R.integer.PlaygroundRow));
-            playgroundButtons = new ImageButton[getResources().getInteger(R.integer.PlaygroundRow)][getResources().getInteger(R.integer.PlaygroundCol)];
+            /* Buttons for the Playground.*/
+            final ImageButton[][] playgroundButtons =
+                    new ImageButton[getResources().getInteger(R.integer.PlaygroundRow)][getResources().getInteger(R.integer.PlaygroundCol)];
             for (int i = 0; i < getResources().getInteger(R.integer.PlaygroundCol); i++) {
                 for (int k = 0; k < getResources().getInteger(R.integer.PlaygroundRow); k++) {
                     playgroundButtons[k][i] = new ImageButton(this);
@@ -83,7 +82,8 @@ public class BoardMainActivity extends AppCompatActivity implements Serializable
                             new LinearLayout.LayoutParams(getResources().getInteger(R.integer.ButtonSize),
                                     getResources().getInteger(R.integer.ButtonSize)));
 
-                    ImageButton button = setFieldColor(playgroundButtons[k][i],
+                    ImageButton button;
+                    button = getFieldColor(playgroundButtons[k][i],
                             playgroundController.getPlayground().getFieldColor(k, i));
                     button.setBackground(null);
                     button.setAdjustViewBounds(true);
@@ -121,7 +121,7 @@ public class BoardMainActivity extends AppCompatActivity implements Serializable
             coordinatesBoard[0][i].setLayoutParams(
                     new LinearLayout.LayoutParams(getResources().getInteger(R.integer.ButtonSize),
                             getResources().getInteger(R.integer.ButtonSize)));
-            coordinatesBoard[0][i].setText(Character.toString((char) (i + 64)));
+            coordinatesBoard[0][i].setText(Character.toString((char) (i + AINASCII)));
             horizontalLayout.addView(coordinatesBoard[0][i]);
         }
     }
@@ -132,7 +132,7 @@ public class BoardMainActivity extends AppCompatActivity implements Serializable
      */
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Back")
                 .setCancelable(false)
                 .setMessage("You want to Exit your current game ?")
@@ -151,7 +151,7 @@ public class BoardMainActivity extends AppCompatActivity implements Serializable
      * @param playgroundModel updated Model from View.
      */
     @Override
-    public void updatePlayground(PlaygroundModel playgroundModel) {
+    public void updatePlayground(final PlaygroundModel playgroundModel) {
         for (int i = 0; i < getResources().getInteger(R.integer.PlaygroundCol); i++) {
             for (int k = 0; k < getResources().getInteger(R.integer.PlaygroundRow); k++) {
                 if (playgroundModel.isFieldCrossed(k, i)) {
@@ -169,7 +169,7 @@ public class BoardMainActivity extends AppCompatActivity implements Serializable
      * @param color  color as aString from playground.
      * @return the colored button.
      */
-    public ImageButton setFieldColor(ImageButton button, String color) {
+    public ImageButton getFieldColor(final ImageButton button, final String color) {
         if (color.equals("g")) {
             button.setImageDrawable(iconNotPressedGreen);
             return button;
@@ -220,7 +220,7 @@ public class BoardMainActivity extends AppCompatActivity implements Serializable
      * Load athe needed png pictures for button usage.
      */
     public void loadButtonImages() {
-        DataLoader dataLoader = new DataLoader();
+        final DataLoader dataLoader = new DataLoader();
         iconPressedYellow = dataLoader.loadDrawableFromAssets(getApplicationContext(), "icon_pressed_yellow.png");
         iconPressedYellow.setBounds(0, 0, buttonSize, buttonSize);
         iconNotPressedYellow = dataLoader.loadDrawableFromAssets(getApplicationContext(), "icon_notPressed_yellow.png");

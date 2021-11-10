@@ -9,7 +9,7 @@ public class Field {
 
     /*field Color in a String (small letter).*/ private String fieldColor;
 
-    /*if a field is validCrossed.*/             private boolean isCrossed;
+    /*if a field is validCrossed.*/             private boolean crossed;
     /*field buttons*/                           private Button fieldButton;
 
     /**
@@ -20,7 +20,7 @@ public class Field {
      */
     public Field(final String color, final boolean cross) {
         fieldColor = color;
-        isCrossed = cross;
+        crossed = cross;
 
     }
 
@@ -38,7 +38,7 @@ public class Field {
      *
      * @param button to set the field Button.
      */
-    public void setButton(Button button) {
+    public void setButton(final Button button) {
         fieldButton = button;
     }
 
@@ -57,8 +57,8 @@ public class Field {
      *
      * @param cross set true if is crossed or false if it isn't crossed field.
      */
-    public void setIsCrossed(boolean cross) {
-        isCrossed = cross;
+    public void setIsCrossed(final boolean cross) {
+        crossed = cross;
 
     }
 
@@ -68,13 +68,14 @@ public class Field {
      * @return boolean if field is crossed or not.
      */
     public boolean isCrossed() {
-        return isCrossed;
+        return crossed;
     }
 
     /**
-     * Setting the color.
+     * Setting up the field color.
+     * @param color color as a string.
      */
-    public void setColor(String color) {
+    public void setColor(final String color) {
         fieldColor = color;
     }
 }

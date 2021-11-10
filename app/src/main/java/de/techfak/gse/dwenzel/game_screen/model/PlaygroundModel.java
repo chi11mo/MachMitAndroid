@@ -9,11 +9,9 @@ import de.techfak.gse.dwenzel.start_screen.model.BoardFile;
  * Model to describe the field layout from the game board.
  */
 public class PlaygroundModel {
-
+    /*boardFile with InputStream file and maxRow and maxCol.*/  BoardFile board;
     /*filled with field information.*/                          private final Field[][] field;
 
-
-    /*boardFile with InputStream file and maxRow and maxCol.*/ BoardFile board;
 
 
     /**
@@ -23,45 +21,52 @@ public class PlaygroundModel {
      */
     public PlaygroundModel(final BoardFile board) {
         this.board = board;
-        BoardReader boardReader = new BoardReader(board);
+        final BoardReader boardReader = new BoardReader(board);
         field = boardReader.getFields();
 
     }
 
     /**
      * setting up the color of the field.
+     *
      * @param button button.
      * @param row    for button location.
      * @param col    for button location.
      */
-    public void setFieldButton(Button button, int row, int col) {
+    public void setFieldButton(final Button button, final int row, final int col) {
         field[row][col].setButton(button);
     }
 
     /**
      * get the button of the field.
+     *
      * @param row for button location.
      * @param col for button location.
+     * @return field with the button.
      */
-    public Button getFieldButton(int row, int col) {
+    public Button getFieldButton(final int row, final int col) {
         return field[row][col].getButton();
     }
 
     /**
      * get the color of the field.
+     *
      * @param row for button location.
      * @param col for button location.
+     * @return field color.
      */
-    public String getFieldColor(int row, int col) {
+    public String getFieldColor(final int row, final int col) {
         return field[row][col].getFieldColor();
     }
 
     /**
      * get information of field is already crossed.
+     *
      * @param row for button location.
      * @param col for button location.
+     * @return is the field crossed.
      */
-    public boolean isFieldCrossed(int row, int col) {
+    public boolean isFieldCrossed(final int row, final int col) {
         return field[row][col].isCrossed();
     }
 
