@@ -24,7 +24,7 @@ public class BoardMainActivity extends AppCompatActivity implements PlaygroundVi
 
     /* UID.*/                                       public static final long serialVersionUID = 4328742;
 
-    /*Char to begin with big Letter ABC */          private final static int AINASCII = 64;
+    /*Char to begin with big Letter ABC */          private static final int AINASCII = 64;
     /* Button Size.*/                               private static int buttonSize;
     /*vertical Layout for coordinate on board*/     private LinearLayout verticalLayout;
     /*vertical Layout for coordinate on board*/     private LinearLayout horizontalLayout;
@@ -194,21 +194,21 @@ public class BoardMainActivity extends AppCompatActivity implements PlaygroundVi
             case "o":
                 button.setImageDrawable(iconNotPressedOrange);
                 break;
-            case"O":
+            case "O":
                 button.setImageDrawable(iconPressedOrange);
                 break;
             case "r":
                 button.setImageDrawable(iconNotPressedRed);
                 break;
-            case"R":
+            case "R":
                 button.setImageDrawable(iconPressedRed);
                 break;
-
+            default:
+                Log.d("getColor Board Activity", "no Color found for Button.");
 
 
         }
         return button;
-
 
 
     }

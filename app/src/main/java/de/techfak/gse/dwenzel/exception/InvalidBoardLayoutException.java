@@ -1,6 +1,3 @@
-/**
- * Exception for invalid board layout.
- */
 package de.techfak.gse.dwenzel.exception;
 
 

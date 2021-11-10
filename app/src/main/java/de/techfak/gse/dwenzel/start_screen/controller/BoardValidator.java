@@ -50,15 +50,16 @@ public class BoardValidator {
                     String letter = String.valueOf(rowString.charAt(i));
 
 
-                    if (!letter.matches(".*([bBgGoOrRyY]).*")) {
+                    if (letter.matches(".*([bBgGoOrRyY]).*")) {
+                        if (Character.isLetter(rowString.charAt(i))) {
+                            rowCounter++;
+                        }
+                    } else {
                         /* field Exception message.*/
                         final String fieldException = "InvalidFieldException";
                         exception = fieldException;
                         throw new InvalidFieldException(
                                 fieldException);
-                    }
-                    if (Character.isLetter(rowString.charAt(i))) {
-                        rowCounter++;
                     }
 
 

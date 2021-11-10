@@ -1,6 +1,3 @@
-/**
- * Exception for Invalid Fields.
- */
 package de.techfak.gse.dwenzel.exception;
 
 

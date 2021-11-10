@@ -8,7 +8,6 @@ import de.techfak.gse.dwenzel.start_screen.view.LoginView;
  */
 public class LoginController {
     /*Login View.*/             private final LoginView loginView;
-    /*Board validator class*/   private BoardValidator boardValidator;
 
     /**
      * Controls the login route.
@@ -31,7 +30,8 @@ public class LoginController {
 
         final BoardFile boardFile = new BoardFile(board,
                 maxRow, maxCol);
-        boardValidator = new BoardValidator(boardFile);
+        /*Board validator class*/
+        final BoardValidator boardValidator = new BoardValidator(boardFile);
         final String exception = boardValidator.boardValidation();
 
         if (exception.equals("Valid")) {

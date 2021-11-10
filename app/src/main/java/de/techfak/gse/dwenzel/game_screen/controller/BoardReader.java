@@ -50,7 +50,7 @@ public class BoardReader {
     /**
      * Checks validation of right data. For the game Playground.
      */
-    public void readBoard() {
+    private void readBoard() {
         final String boardString = board.getBoardString();
         int colCounter = 0;
 
