@@ -12,7 +12,7 @@ public class LoginController {
      *
      * @param loginView get login view class.
      */
-    public LoginController(LoginView loginView) {
+    public LoginController(final LoginView loginView) {
         this.loginView = loginView;
     }
 

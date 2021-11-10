@@ -21,7 +21,7 @@ public class BoardValidator {
      * BoardValidator checck if board accept the board Rules.
      * @param boardFile baordfile to validate board value.
      */
-    public BoardValidator(BoardFile boardFile) {
+    public BoardValidator(final BoardFile boardFile) {
         this.boardFile = boardFile;
 
     }

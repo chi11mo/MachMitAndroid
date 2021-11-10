@@ -2,6 +2,9 @@ package de.techfak.gse.dwenzel.game_screen.model;
 
 import android.widget.Button;
 
+/**
+ * Class to describe single fields in the playground.
+ */
 public class Field {
 
     /*field Color in a String (small letter).*/ private String fieldColor;
@@ -15,13 +18,15 @@ public class Field {
      * @param color color as a String.
      * @param cross is Field crossed.
      */
-    public Field(String color, boolean cross) {
+    public Field(final String color, final boolean cross) {
         fieldColor = color;
         isCrossed = cross;
 
     }
 
     /**
+     * get Button from the single field.
+     *
      * @return to get the field button.
      */
     public Button getButton() {
@@ -29,6 +34,8 @@ public class Field {
     }
 
     /**
+     * set the Button from the single field.
+     *
      * @param button to set the field Button.
      */
     public void setButton(Button button) {

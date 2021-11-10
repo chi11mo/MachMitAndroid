@@ -1,8 +1,14 @@
 package de.techfak.gse.dwenzel.game_screen.controller;
 
+import android.util.Log;
+
 import de.techfak.gse.dwenzel.game_screen.model.Field;
 import de.techfak.gse.dwenzel.start_screen.model.BoardFile;
 
+
+/**
+ * Read input string from start page to validate or save Board.
+ */
 public class BoardReader {
 
     /* field array for playground description.*/        private final Field[][] field;
@@ -13,15 +19,16 @@ public class BoardReader {
 
     /**
      * Creates class for BoardFile.
+     *
      * @param board board values as a class.
      */
-    public BoardReader(BoardFile board) {
+    public BoardReader(final BoardFile board) {
         this.board = board;
 
         field = new Field[board.getMaxRow()][board.getMaxCol()];
         pgGrid = new String[board.getMaxRow()][board.getMaxCol()];
 
-        readBoard();
+        Log.d("Read Board :", readBoard());
         fieldInit();
     }
 
@@ -33,7 +40,7 @@ public class BoardReader {
         for (int row = 0; row < pgGrid.length; row++) {
             for (int col = 0; col < pgGrid[row].length; col++) {
 
-                char letter = pgGrid[row][col].charAt(0);
+                final char letter = pgGrid[row][col].charAt(0);
 
                 field[row][col] = new Field(pgGrid[row][col], Character.isUpperCase(letter));
 
@@ -48,13 +55,13 @@ public class BoardReader {
      * @return exception of valid or invalid data.
      */
     public String readBoard() {
-        String boardString = board.getBoardString();
+        final String boardString = board.getBoardString();
         int colCounter = 0;
 
 
-        String[] spliced = boardString.split(",");
+        final String[] spliced = boardString.split(",");
 
-        for (String rowString : spliced) {
+        for (final String rowString : spliced) {
 
             for (int rowCounter = 0; rowCounter < rowString.length(); rowCounter++) {
 

@@ -5,6 +5,9 @@ import android.widget.Button;
 import de.techfak.gse.dwenzel.game_screen.controller.BoardReader;
 import de.techfak.gse.dwenzel.start_screen.model.BoardFile;
 
+/**
+ * Model to describe the field layout from the game board.
+ */
 public class PlaygroundModel {
 
     /*filled with field information.*/                          private final Field[][] field;
@@ -18,7 +21,7 @@ public class PlaygroundModel {
      *
      * @param board boardFile
      */
-    public PlaygroundModel(BoardFile board) {
+    public PlaygroundModel(final BoardFile board) {
         this.board = board;
         BoardReader boardReader = new BoardReader(board);
         field = boardReader.getFields();
@@ -26,6 +29,7 @@ public class PlaygroundModel {
     }
 
     /**
+     * setting up the color of the field.
      * @param button button.
      * @param row    for button location.
      * @param col    for button location.
@@ -35,6 +39,7 @@ public class PlaygroundModel {
     }
 
     /**
+     * get the button of the field.
      * @param row for button location.
      * @param col for button location.
      */
@@ -43,6 +48,7 @@ public class PlaygroundModel {
     }
 
     /**
+     * get the color of the field.
      * @param row for button location.
      * @param col for button location.
      */
@@ -51,6 +57,7 @@ public class PlaygroundModel {
     }
 
     /**
+     * get information of field is already crossed.
      * @param row for button location.
      * @param col for button location.
      */
