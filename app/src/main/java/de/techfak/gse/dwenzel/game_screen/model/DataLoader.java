@@ -6,23 +6,17 @@ import android.graphics.drawable.Drawable;
 import java.io.InputStream;
 
 public class DataLoader {
-    public Drawable loadDrawableFromAssets(Context context, String path)
-    {
-        InputStream stream = null;
-        try
-        {
-            stream = context.getAssets().open(path);
+    /**
+     * This method loads Drawables from the Assets folder.
+     *
+     * @param context context is Activity
+     * @param path    path where drawable is.
+     * @return return drawable if possible.
+     */
+    public Drawable loadDrawableFromAssets(Context context, String path) {
+        try (InputStream stream = context.getAssets().open(path)) {
             return Drawable.createFromStream(stream, null);
-        }
-        catch (Exception ignored) {} finally
-        {
-            try
-            {
-                if(stream != null)
-                {
-                    stream.close();
-                }
-            } catch (Exception ignored) {}
+        } catch (Exception ignored) {
         }
         return null;
     }

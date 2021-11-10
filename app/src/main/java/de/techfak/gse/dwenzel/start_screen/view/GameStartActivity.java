@@ -1,11 +1,8 @@
 package de.techfak.gse.dwenzel.start_screen.view;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AlertDialog;
@@ -13,11 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
 import java.io.Serializable;
 
 import de.techfak.gse.dwenzel.R;
@@ -32,7 +24,7 @@ public class GameStartActivity extends AppCompatActivity implements Serializable
     /*UID GameStartActivity.*/ public static final long serialVersionUID = 4328743;
     /*field Exception message.*/ private final static String fieldException = "InvalidFieldException";
     /*board Exception message.*/ private final static String boardException = "InvalidBoardException";
-    /*Text intput from playground data.*/ TextInputEditText textInputPlaygroundInput;
+    /*Text input from playground data.*/ TextInputEditText textInputPlaygroundInput;
 
     /*Controller for the data validation.*/ LoginController loginController;
 
@@ -55,15 +47,11 @@ public class GameStartActivity extends AppCompatActivity implements Serializable
         loginButton = findViewById(R.id.loginButton);
 
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playgroundInputString = String.valueOf(textInputPlaygroundInput.getText());
-               // String[] splited = playgroundInputString.split(",");
+        loginButton.setOnClickListener(v -> {
+            playgroundInputString = String.valueOf(textInputPlaygroundInput.getText());
 
-                loginController.OnLogin(playgroundInputString, getResources().getInteger(R.integer.PlaygroundRow),
-                        getResources().getInteger(R.integer.PlaygroundCol));
-            }
+            loginController.OnLogin(playgroundInputString, getResources().getInteger(R.integer.PlaygroundRow),
+                    getResources().getInteger(R.integer.PlaygroundCol));
         });
     }
 

@@ -1,14 +1,11 @@
 package de.techfak.gse.dwenzel.game_screen.view;
 
-import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -27,40 +24,40 @@ import de.techfak.gse.dwenzel.game_screen.model.PlaygroundModel;
  */
 public class BoardMainActivity extends AppCompatActivity implements Serializable, PlaygroundView {
 
-    /* UID.*/public static final long serialVersionUID = 4328742;
+    /* UID.*/                                       public static final long serialVersionUID = 4328742;
 
 
-    /* Button Size.*/ private static int buttonSize;
-    /* Buttons for the Playground.*/ private ImageButton[][] playgroundButtons;
-    /* to order the Button for the Playground.*/ private GridLayout gridLayoutButtons;
-    /* to get control of the playground.*/ private PlaygroundController playgroundController;
-    LinearLayout verticalLayout;
-    LinearLayout horizontalLayout;
-    ConstraintLayout gameBoardLayout;
-    /*Drawable for button Images*/private Drawable iconNotPressedRed;
-    /*Drawable for button Images*/private Drawable iconNotPressedYellow;
-    /*Drawable for button Images*/private Drawable iconNotPressedGreen;
-    /*Drawable for button Images*/private Drawable iconNotPressedBlue;
-    /*Drawable for button Images*/private Drawable iconNotPressedOrange;
-    /*Drawable for button Images*/private Drawable iconPressedRed;
-    /*Drawable for button Images*/private Drawable iconPressedYellow;
-    /*Drawable for button Images*/private Drawable iconPressedGreen;
-    /*Drawable for button Images*/private Drawable iconPressedBlue;
-    /*Drawable for button Images*/private Drawable iconPressedOrange;
-    /*Drawable for button Background*/private Drawable corkBoard;
+    /* Button Size.*/                               private static int buttonSize;
+    /*vertical Layout for coordinate on board*/     private LinearLayout verticalLayout;
+    /*vertical Layout for coordinate on board*/     private LinearLayout horizontalLayout;
+    /*Layout for board.*/                           private ConstraintLayout gameBoardLayout;
+    /* Buttons for the Playground.*/                private ImageButton[][] playgroundButtons;
+    /* to order the Button for the Playground.*/    private GridLayout gridLayoutButtons;
+    /* to get control of the playground.*/          private PlaygroundController playgroundController;
+    /*Drawable for button Images*/                  private Drawable iconNotPressedRed;
+    /*Drawable for button Images*/                  private Drawable iconNotPressedYellow;
+    /*Drawable for button Images*/                  private Drawable iconNotPressedGreen;
+    /*Drawable for button Images*/                  private Drawable iconNotPressedBlue;
+    /*Drawable for button Images*/                  private Drawable iconNotPressedOrange;
+    /*Drawable for button Images*/                  private Drawable iconPressedRed;
+    /*Drawable for button Images*/                  private Drawable iconPressedYellow;
+    /*Drawable for button Images*/                  private Drawable iconPressedGreen;
+    /*Drawable for button Images*/                  private Drawable iconPressedBlue;
+    /*Drawable for button Images*/                  private Drawable iconPressedOrange;
+    /*Drawable for button Background*/              private Drawable corkBoard;
 
-
+    /**
+     * on Create method for do things when activity starts.
+     * @param savedInstanceState instances of activity.
+     */
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
         loadButtonImages();
         buttonSize = getResources().getInteger(R.integer.ButtonSize);
-        gameBoardLayout =findViewById(R.id.gameBoard);
+        gameBoardLayout = findViewById(R.id.gameBoard);
         gameBoardLayout.setBackground(corkBoard);
-        //tableLayout =findViewById(R.id.table);
-       // tableLayout.setBackground(corkBoard);
-      //  playgroundLayout.setBackground(corkBoard);
         verticalLayout = findViewById(R.id.verticaLayout);
         horizontalLayout = findViewById(R.id.horizontalLayout);
         if (getIntent().getExtras() != null) {
@@ -75,7 +72,7 @@ public class BoardMainActivity extends AppCompatActivity implements Serializable
                     , getResources().getInteger(R.integer.PlaygroundCol));
 
             gridLayoutButtons = findViewById(R.id.playground_grid);
-          //  gridLayoutButtons.setBackground(corkBoard);
+            //  gridLayoutButtons.setBackground(corkBoard);
             gridLayoutButtons.setColumnCount(getResources().getInteger(R.integer.PlaygroundRow));
             playgroundButtons = new ImageButton[getResources().getInteger(R.integer.PlaygroundRow)][getResources().getInteger(R.integer.PlaygroundCol)];
             for (int i = 0; i < getResources().getInteger(R.integer.PlaygroundCol); i++) {
@@ -99,30 +96,33 @@ public class BoardMainActivity extends AppCompatActivity implements Serializable
 
 
             }
-           initCoordinates();
+            initCoordinates();
 
         }
 
     }
-    public void initCoordinates(){
-        TextView[][] buttons = new TextView[16][16];
-        for(int i = 0; i < getResources().getInteger(R.integer.PlaygroundCol)+1;i++){
-            buttons[i][0] =new TextView(this);
-            buttons[i][0].setBackgroundColor(getResources().getColor(R.color.green));
-            buttons[i][0].setLayoutParams(
-                   new LinearLayout.LayoutParams(getResources().getInteger(R.integer.ButtonSize),
-                           getResources().getInteger(R.integer.ButtonSize)));
-            buttons[i][0].setText(String.valueOf(i));
-           verticalLayout.addView( buttons[i][0]);
-       }
-        for(int i = 0; i < getResources().getInteger(R.integer.PlaygroundRow)+1;i++){
-            buttons[0][i] =new TextView(this);
-            buttons[0][i].setLayoutParams(
+
+    /**
+     * Generate UI to show coordinates table.
+     */
+    public void initCoordinates() {
+        TextView[][] coordinatesBoard = new TextView[getResources().getInteger(R.integer.PlaygroundRow) + 1]
+                [getResources().getInteger(R.integer.PlaygroundRow) + 1];
+        for (int i = 0; i < getResources().getInteger(R.integer.PlaygroundCol) + 1; i++) {
+            coordinatesBoard[i][0] = new TextView(this);
+            coordinatesBoard[i][0].setLayoutParams(
                     new LinearLayout.LayoutParams(getResources().getInteger(R.integer.ButtonSize),
                             getResources().getInteger(R.integer.ButtonSize)));
-            buttons[0][i].setBackgroundColor(getResources().getColor(R.color.green));
-            buttons[0][i].setText(Character.toString((char)(i+64)));
-            horizontalLayout.addView( buttons[0][i]);
+            coordinatesBoard[i][0].setText(String.valueOf(i));
+            verticalLayout.addView(coordinatesBoard[i][0]);
+        }
+        for (int i = 0; i < getResources().getInteger(R.integer.PlaygroundRow) + 1; i++) {
+            coordinatesBoard[0][i] = new TextView(this);
+            coordinatesBoard[0][i].setLayoutParams(
+                    new LinearLayout.LayoutParams(getResources().getInteger(R.integer.ButtonSize),
+                            getResources().getInteger(R.integer.ButtonSize)));
+            coordinatesBoard[0][i].setText(Character.toString((char) (i + 64)));
+            horizontalLayout.addView(coordinatesBoard[0][i]);
         }
     }
 
@@ -136,17 +136,11 @@ public class BoardMainActivity extends AppCompatActivity implements Serializable
         builder.setTitle("Back")
                 .setCancelable(false)
                 .setMessage("You want to Exit your current game ?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        finish();
-                        dialog.dismiss();
-                    }
+                .setPositiveButton("Yes", (dialog, whichButton) -> {
+                    finish();
+                    dialog.dismiss();
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        dialog.dismiss();
-                    }
-                });
+                .setNegativeButton("No", (dialog, whichButton) -> dialog.dismiss());
         builder.show();
     }
 

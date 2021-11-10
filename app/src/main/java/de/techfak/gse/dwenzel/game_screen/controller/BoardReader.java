@@ -3,21 +3,18 @@ package de.techfak.gse.dwenzel.game_screen.controller;
 import de.techfak.gse.dwenzel.game_screen.model.Field;
 import de.techfak.gse.dwenzel.start_screen.model.BoardFile;
 
-public class BoardReader implements IBoardReader {
+public class BoardReader {
+
+    /* field array for playground description.*/        private final Field[][] field;
+
+    /*Playground als Array.*/                           private final String[][] pgGrid;
+
+    /*Board file with file and maxRow and Col range.*/  private final BoardFile board;
 
     /**
-     * field array for playground description.
+     * Creates class for BoardFile.
+     * @param board board values as a class.
      */
-    private final Field[][] field;
-    /**
-     * Playground als Array.
-     */
-    private final String[][] pgGrid;
-    /**
-     * Board file with file and maxRow and Col range.
-     */
-    BoardFile board;
-
     public BoardReader(BoardFile board) {
         this.board = board;
 
@@ -38,7 +35,7 @@ public class BoardReader implements IBoardReader {
 
                 char letter = pgGrid[row][col].charAt(0);
 
-                field[row][col] = new Field(row, col, pgGrid[row][col], Character.isUpperCase(letter));
+                field[row][col] = new Field(pgGrid[row][col], Character.isUpperCase(letter));
 
             }
         }
@@ -55,9 +52,9 @@ public class BoardReader implements IBoardReader {
         int colCounter = 0;
 
 
-        String[] splited = boardString.split(",");
+        String[] spliced = boardString.split(",");
 
-        for (String rowString : splited) {
+        for (String rowString : spliced) {
 
             for (int rowCounter = 0; rowCounter < rowString.length(); rowCounter++) {
 
@@ -79,7 +76,6 @@ public class BoardReader implements IBoardReader {
      *
      * @return saved fields from data.
      */
-    @Override
     public Field[][] getFields() {
         return field;
     }

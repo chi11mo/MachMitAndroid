@@ -1,31 +1,40 @@
 package de.techfak.gse.dwenzel.start_screen.model;
 
-import java.io.InputStream;
+public class BoardFile {
+    /*Board fields as a string*/    private final String boardString;
+    /*Max row size board*/          private final int maxRow;
+    /*Max column size board*/       private final int maxCol;
 
-public class BoardFile implements IBoardFile {
-   private final String boardString;
-   private final int maxRow;
-   private final int maxCol;
-
-
-    public BoardFile(String boardString, final int maxRow,final int maxCol) {
+    /**
+     * creates a Board file .
+     *
+     * @param boardString board as a string.
+     * @param maxRow      max row size of the Board.
+     * @param maxCol      max column size of the Board.
+     */
+    public BoardFile(String boardString, final int maxRow, final int maxCol) {
         this.boardString = boardString;
         this.maxRow = maxRow;
         this.maxCol = maxCol;
     }
 
-
-
+    /**
+     * @return get Max Row size of the board.
+     */
     public int getMaxRow() {
         return maxRow;
     }
 
-
+    /**
+     * @return get Max Row size of the board.
+     */
     public int getMaxCol() {
         return maxCol;
     }
 
-    @Override
+    /**
+     * @return get string of board  values.
+     */
     public String getBoardString() {
         return boardString;
     }

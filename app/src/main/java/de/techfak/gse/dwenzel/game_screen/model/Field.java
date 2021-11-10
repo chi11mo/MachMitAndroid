@@ -4,38 +4,20 @@ import android.widget.Button;
 
 public class Field {
 
-    /**
-     * value of Coordinates.
-     */
-    private final int colCord;
-    /**
-     * value of Coordinates.
-     */
-    private final int rowCord;
+    /*field Color in a String (small letter).*/ private String fieldColor;
 
-    /**
-     * field Color in a String (small letter).
-     */
-    private String fieldColor;
-    /**
-     * if a field is validCrossed.
-     */
-    private boolean isCrossed;
-    private Button fieldButton;
+    /*if a field is validCrossed.*/             private boolean isCrossed;
+    /*field buttons*/                           private Button fieldButton;
 
     /**
      * Creating a field for the Playground.
      *
-     * @param row   row coordinate.
-     * @param col   col coordinate.
      * @param color color as a String.
      * @param cross is Field crossed.
      */
-    public Field(int row, int col, String color, boolean cross) {
+    public Field(String color, boolean cross) {
         fieldColor = color;
         isCrossed = cross;
-        rowCord = row;
-        colCord = col;
 
     }
 

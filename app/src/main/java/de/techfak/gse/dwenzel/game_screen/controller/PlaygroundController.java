@@ -4,15 +4,11 @@ import de.techfak.gse.dwenzel.game_screen.model.PlaygroundModel;
 import de.techfak.gse.dwenzel.game_screen.view.PlaygroundView;
 import de.techfak.gse.dwenzel.start_screen.model.BoardFile;
 
-public class PlaygroundController implements IPlaygroundController {
-    /**
-     * Playground view.
-     */
-    PlaygroundView playgroundView;
-    /**
-     * playgroundModel to fill it with the data.
-     */
-    PlaygroundModel playgroundModel;
+public class PlaygroundController {
+
+    /*Playground view.*/                            private final PlaygroundView playgroundView;
+
+   /*playgroundModel to fill it with the data.*/    private PlaygroundModel playgroundModel;
 
     /**
      * @param playgroundView to send stuff to the view.
@@ -27,7 +23,6 @@ public class PlaygroundController implements IPlaygroundController {
      * @param maxRow    maxRow range.
      * @param maxCol    maxCol range.
      */
-    @Override
     public void createPlayground(String boardFile, int maxRow, int maxCol) {
         BoardFile board = new BoardFile(boardFile, maxRow, maxCol);
         playgroundModel = new PlaygroundModel(board);
@@ -40,7 +35,6 @@ public class PlaygroundController implements IPlaygroundController {
     /**
      * @return the filled playgroundModel.
      */
-    @Override
     public PlaygroundModel getPlayground() {
         return playgroundModel;
     }
