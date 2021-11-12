@@ -10,7 +10,7 @@ import de.techfak.gse.dwenzel.start_screen.model.BoardFile;
  * check if data has a Valid board.
  */
 public class BoardValidator {
-
+    /*Exception title*/ private static final String EXCEPTIONTITLE = "Exception";
     /*BoardFile to check validation.*/      private final BoardFile boardFile;
 
     /**
@@ -79,7 +79,7 @@ public class BoardValidator {
 
 
         } catch (InvalidFieldException e) {
-            Log.d("Exception", String.valueOf(e));
+            Log.d(EXCEPTIONTITLE, String.valueOf(e));
             return exception;
         }
         return null;
@@ -110,7 +110,7 @@ public class BoardValidator {
                         boardException);
             }
         } catch (InvalidBoardLayoutException exp) {
-            Log.d("Exception", String.valueOf(exp));
+            Log.d(EXCEPTIONTITLE, String.valueOf(exp));
             return exception;
         }
         return null;
