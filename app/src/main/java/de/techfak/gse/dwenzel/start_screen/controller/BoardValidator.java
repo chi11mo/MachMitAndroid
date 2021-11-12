@@ -31,30 +31,31 @@ public class BoardValidator {
      */
     public String boardValidation() {
         final String boardString = boardFile.getBoardString();
-        String exception = null;
+
 
         final String[] spliced = boardString.split(",");
-
-        /*board Exception message.*/
-        final String boardException = "InvalidBoardException";
-        try {
-            for (String rowString : spliced) {
-                if (rowString.length() != boardFile.getMaxRow()) {
-                    exception = boardException;
-                    throw new InvalidBoardLayoutException(
-                            boardException);
-                }
-            }
-            if (spliced.length != boardFile.getMaxCol()) {
-                exception = boardException;
-
-                throw new InvalidBoardLayoutException(
-                        boardException);
-            }
-        } catch (InvalidBoardLayoutException exp) {
-            Log.d("Exception", String.valueOf(exp));
+        String exception;
+        exception = boardValidator(spliced);
+        if (exception != null) {
             return exception;
         }
+        exception = fieldValidator(spliced);
+        if (exception != null) {
+            return exception;
+        }
+        return "Valid";
+
+
+    }
+
+    /**
+     * Checing all field are valid.
+     *
+     * @param spliced fields.
+     * @return exception if field isn't valid.
+     */
+    private String fieldValidator(final String[] spliced) {
+        String exception = null;
         try {
 
             for (String rowString : spliced) {
@@ -81,6 +82,37 @@ public class BoardValidator {
             Log.d("Exception", String.valueOf(e));
             return exception;
         }
-        return "Valid";
+        return null;
+    }
+
+    /**
+     * checkin board size is valid
+     *
+     * @param spliced board as a string.
+     * @return exception if it isn't valid.
+     */
+    private String boardValidator(final String[] spliced) {
+        String exception = null;
+        /*board Exception message.*/
+        final String boardException = "InvalidBoardException";
+        try {
+            for (String rowString : spliced) {
+                if (rowString.length() != boardFile.getMaxRow()) {
+                    exception = boardException;
+                    throw new InvalidBoardLayoutException(
+                            boardException);
+                }
+            }
+            if (spliced.length != boardFile.getMaxCol()) {
+                exception = boardException;
+
+                throw new InvalidBoardLayoutException(
+                        boardException);
+            }
+        } catch (InvalidBoardLayoutException exp) {
+            Log.d("Exception", String.valueOf(exp));
+            return exception;
+        }
+        return null;
     }
 }
