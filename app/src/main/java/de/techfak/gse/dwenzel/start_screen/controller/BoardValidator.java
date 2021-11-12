@@ -36,14 +36,28 @@ public class BoardValidator {
 
         final String[] spliced = boardString.split(",");
 
+        /*board Exception message.*/
+        final String boardException = "InvalidBoardException";
         try {
-            /*board Exception message.*/
-            final String boardException = "InvalidBoardException";
+            for (String rowString : spliced) {
+                if (rowString.length() != boardFile.getMaxRow()) {
+                    exception = boardException;
+                    throw new InvalidBoardLayoutException(
+                            boardException);
+                }
+            }
             if (spliced.length != boardFile.getMaxCol()) {
                 exception = boardException;
+
                 throw new InvalidBoardLayoutException(
                         boardException);
             }
+        } catch (InvalidBoardLayoutException exp) {
+            Log.d("Exception", String.valueOf(exp));
+            return exception;
+        }
+        try {
+
             for (String rowString : spliced) {
                 rowCounter = 0;
                 for (int i = 0; i < rowString.length(); i++) {
@@ -65,18 +79,11 @@ public class BoardValidator {
 
                 }
 
-                if (rowCounter != boardFile.getMaxRow()) {
-                    exception = boardException;
-                    throw new InvalidBoardLayoutException(
-                            boardException);
-
-                }
-
 
             }
 
 
-        } catch (InvalidFieldException | InvalidBoardLayoutException e) {
+        } catch (InvalidFieldException e) {
             Log.d("Exception", String.valueOf(e));
             return exception;
         }

@@ -12,7 +12,7 @@ public class InvalidBoardLayoutException extends Exception {
      * Instantiates a new Invalid board layout exception.
      */
     public InvalidBoardLayoutException() {
-        super("InvalidBoardLayout");
+        super("InvalidBoardLayout \n");
     }
 
     /**

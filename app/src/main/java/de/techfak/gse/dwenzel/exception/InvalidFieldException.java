@@ -13,7 +13,7 @@ public class InvalidFieldException extends Exception {
      * Instantiates a new Invalid field exception.
      */
     public InvalidFieldException() {
-        super("InvalidField");
+        super("InvalidField \n");
     }
 
     /**

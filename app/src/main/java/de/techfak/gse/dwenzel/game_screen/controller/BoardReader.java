@@ -53,9 +53,7 @@ public class BoardReader {
      * @return right string.
      */
     private String getColorString(final String color) {
-        if (color.equals("y") || color.equals("Y")) {
-            return "Yellow";
-        }
+
         if (color.equals("r") || color.equals("R")) {
             return "Red";
         }
@@ -69,7 +67,7 @@ public class BoardReader {
         if (color.equals("g") || color.equals("G")) {
             return "Green";
         }
-        return null;
+        return "Yellow";
     }
 
 

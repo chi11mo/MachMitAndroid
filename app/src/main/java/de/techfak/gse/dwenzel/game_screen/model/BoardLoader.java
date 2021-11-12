@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.techfak.gse.dwenzel.game_screen.controller.PlaygroundController;
 
@@ -17,12 +18,20 @@ import de.techfak.gse.dwenzel.game_screen.controller.PlaygroundController;
  */
 public class BoardLoader {
     /*Char to begin with big Letter ABC */          private static final int AINASCII = 64;
+
+    /*Images*/
+    /* Yellow index 0*/  private static final int DRAWINDEXYELLOW = 0;
+    /* Green index 1*/  private static final int DRAWINDEXGREEN = 1;
+    /* Red index 2*/ private static final int DRAWINDEXRED = 2;
+    /* Orange index 3*/ private static final int DRAWINDEXORANGE = 3;
+    /* Blue index 4*/ private static final int DRAWINDEXBLUE = 4;
+
     private final int col;
     private final int row;
     private final Context context;
     private final int buttonSize;
-    private final ArrayList<Drawable> pressedButtonImages = new ArrayList<>();
-    private final ArrayList<Drawable> noPressedButtonImages = new ArrayList<>();
+    private final List<Drawable> pressedButtonImages = new ArrayList<>();
+    private final List<Drawable> noPressedButtonImages = new ArrayList<>();
     private final TextView[][] cordBoard;
 
 
@@ -61,30 +70,30 @@ public class BoardLoader {
 
 
         pressedButtonImages.add(dataLoader.loadDrawableFromAssets(context, "icon_pressed_yellow.png"));
-        pressedButtonImages.get(0).setBounds(0, 0, buttonSize, buttonSize);
+        pressedButtonImages.get(DRAWINDEXYELLOW).setBounds(0, 0, buttonSize, buttonSize);
         noPressedButtonImages.add(dataLoader.loadDrawableFromAssets(context, "icon_notPressed_yellow.png"));
-        noPressedButtonImages.get(0).setBounds(0, 0, buttonSize, buttonSize);
+        noPressedButtonImages.get(DRAWINDEXYELLOW).setBounds(0, 0, buttonSize, buttonSize);
 
         pressedButtonImages.add(dataLoader.loadDrawableFromAssets(context, "icon_pressed_green.png"));
-        pressedButtonImages.get(1).setBounds(0, 0, buttonSize, buttonSize);
+        pressedButtonImages.get(DRAWINDEXGREEN).setBounds(0, 0, buttonSize, buttonSize);
         noPressedButtonImages.add(dataLoader.loadDrawableFromAssets(context, "icon_notPressed_green.png"));
-        noPressedButtonImages.get(1).setBounds(0, 0, buttonSize, buttonSize);
+        noPressedButtonImages.get(DRAWINDEXGREEN).setBounds(0, 0, buttonSize, buttonSize);
 
 
         pressedButtonImages.add(dataLoader.loadDrawableFromAssets(context, "icon_pressed_red.png"));
-        pressedButtonImages.get(2).setBounds(0, 0, buttonSize, buttonSize);
+        pressedButtonImages.get(DRAWINDEXRED).setBounds(0, 0, buttonSize, buttonSize);
         noPressedButtonImages.add(dataLoader.loadDrawableFromAssets(context, "icon_notPressed_red.png"));
-        noPressedButtonImages.get(2).setBounds(0, 0, buttonSize, buttonSize);
+        noPressedButtonImages.get(DRAWINDEXRED).setBounds(0, 0, buttonSize, buttonSize);
+
         pressedButtonImages.add(dataLoader.loadDrawableFromAssets(context, "icon_pressed_orange.png"));
-        pressedButtonImages.get(3).setBounds(0, 0, buttonSize, buttonSize);
+        pressedButtonImages.get(DRAWINDEXORANGE).setBounds(0, 0, buttonSize, buttonSize);
         noPressedButtonImages.add(dataLoader.loadDrawableFromAssets(context, "icon_notPressed_orange.png"));
-        noPressedButtonImages.get(3).setBounds(0, 0, buttonSize, buttonSize);
+        noPressedButtonImages.get(DRAWINDEXORANGE).setBounds(0, 0, buttonSize, buttonSize);
+
         pressedButtonImages.add(dataLoader.loadDrawableFromAssets(context, "icon_pressed_blue.png"));
-        pressedButtonImages.get(4).setBounds(0, 0, buttonSize, buttonSize);
+        pressedButtonImages.get(DRAWINDEXBLUE).setBounds(0, 0, buttonSize, buttonSize);
         noPressedButtonImages.add(dataLoader.loadDrawableFromAssets(context, "icon_notPressed_blue.png"));
-        noPressedButtonImages.get(4).setBounds(0, 0, buttonSize, buttonSize);
-
-
+        noPressedButtonImages.get(DRAWINDEXBLUE).setBounds(0, 0, buttonSize, buttonSize);
 
 
     }
@@ -124,10 +133,12 @@ public class BoardLoader {
 
     /**
      * setting up view in grid for play Buttons.
-     * @param gridLayoutButtons grid layout for buttons.
+     *
+     * @param gridLayoutButtons    grid layout for buttons.
      * @param playgroundController controller to get the values.
      */
-    public void setButtonPlayground(final GridLayout gridLayoutButtons, final PlaygroundController playgroundController) {
+    public void setButtonPlayground(final GridLayout gridLayoutButtons,
+                                    final PlaygroundController playgroundController) {
         final ImageButton[][] playgroundButtons =
                 new ImageButton[row]
                         [col];
@@ -158,10 +169,11 @@ public class BoardLoader {
 
     /**
      * setting up the images for buttons.
-     * @param imageButton button id.
+     *
+     * @param imageButton          button id.
      * @param playgroundController controller for values.
-     * @param rowCord row cord.
-     * @param colCord column cord.
+     * @param rowCord              row cord.
+     * @param colCord              column cord.
      * @return ImageButton with set up image.
      */
     private ImageButton getFieldColor(final ImageButton imageButton,
@@ -171,19 +183,19 @@ public class BoardLoader {
         final boolean isPressed = playgroundController.getPlayground().isFieldCrossed(rowCord, colCord);
         final String color = playgroundController.getPlayground().getFieldColor(rowCord, colCord);
 
-        int indexOfColor = 0;
+        int indexOfColor = DRAWINDEXYELLOW;
 
         if (color.equals("Green")) {
-            indexOfColor = 1;
+            indexOfColor = DRAWINDEXGREEN;
         }
         if (color.equals("Red")) {
-            indexOfColor = 2;
+            indexOfColor = DRAWINDEXRED;
         }
         if (color.equals("Orange")) {
-            indexOfColor = 3;
+            indexOfColor = DRAWINDEXORANGE;
         }
         if (color.equals("Blue")) {
-            indexOfColor = 4;
+            indexOfColor = DRAWINDEXBLUE;
         }
         if (isPressed) {
             imageButton.setImageDrawable(pressedButtonImages.get(indexOfColor));
