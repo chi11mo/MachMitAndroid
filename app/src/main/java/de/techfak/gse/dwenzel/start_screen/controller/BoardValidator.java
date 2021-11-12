@@ -32,7 +32,6 @@ public class BoardValidator {
     public String boardValidation() {
         final String boardString = boardFile.getBoardString();
         String exception = null;
-        int rowCounter;
 
         final String[] spliced = boardString.split(",");
 
@@ -59,16 +58,11 @@ public class BoardValidator {
         try {
 
             for (String rowString : spliced) {
-                rowCounter = 0;
                 for (int i = 0; i < rowString.length(); i++) {
                     String letter = String.valueOf(rowString.charAt(i));
 
 
-                    if (letter.matches(".*([bBgGoOrRyY]).*")) {
-                        if (Character.isLetter(rowString.charAt(i))) {
-                            rowCounter++;
-                        }
-                    } else {
+                    if (!letter.matches(".*([bBgGoOrRyY]).*")) {
                         /* field Exception message.*/
                         final String fieldException = "InvalidFieldException";
                         exception = fieldException;
