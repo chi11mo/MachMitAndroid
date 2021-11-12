@@ -1,6 +1,6 @@
 package de.techfak.gse.dwenzel.game_screen.model;
 
-import android.widget.Button;
+import android.widget.ImageButton;
 
 /**
  * Class to describe single fields in the playground.
@@ -10,7 +10,7 @@ public class Field {
     /*field Color in a String (small letter).*/ private String fieldColor;
 
     /*if a field is validCrossed.*/             private boolean crossed;
-    /*field buttons*/                           private Button fieldButton;
+    /*field buttons*/                           private ImageButton fieldButton;
 
     /**
      * Creating a field for the Playground.
@@ -29,7 +29,7 @@ public class Field {
      *
      * @return to get the field button.
      */
-    public Button getButton() {
+    public ImageButton getButton() {
         return fieldButton;
     }
 
@@ -38,7 +38,7 @@ public class Field {
      *
      * @param button to set the field Button.
      */
-    public void setButton(final Button button) {
+    public void setButton(final ImageButton button) {
         fieldButton = button;
     }
 

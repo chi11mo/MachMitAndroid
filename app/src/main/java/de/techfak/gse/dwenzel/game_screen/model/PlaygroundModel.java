@@ -1,6 +1,6 @@
 package de.techfak.gse.dwenzel.game_screen.model;
 
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import de.techfak.gse.dwenzel.game_screen.controller.BoardReader;
 import de.techfak.gse.dwenzel.start_screen.model.BoardFile;
@@ -33,7 +33,7 @@ public class PlaygroundModel {
      * @param row    for button location.
      * @param col    for button location.
      */
-    public void setFieldButton(final Button button, final int row, final int col) {
+    public void setFieldButton(final ImageButton button, final int row, final int col) {
         field[row][col].setButton(button);
     }
 
@@ -44,7 +44,7 @@ public class PlaygroundModel {
      * @param col for button location.
      * @return field with the button.
      */
-    public Button getFieldButton(final int row, final int col) {
+    public ImageButton getFieldButton(final int row, final int col) {
         return field[row][col].getButton();
     }
 
@@ -69,6 +69,7 @@ public class PlaygroundModel {
     public boolean isFieldCrossed(final int row, final int col) {
         return field[row][col].isCrossed();
     }
+
 
 
 }

@@ -40,10 +40,36 @@ public class BoardReader {
 
                 final char letter = pgGrid[row][col].charAt(0);
 
-                field[row][col] = new Field(pgGrid[row][col], Character.isUpperCase(letter));
+                field[row][col] = new Field(getColorString(pgGrid[row][col]), Character.isUpperCase(letter));
 
             }
         }
+    }
+
+    /**
+     * get write string for color.
+     *
+     * @param color single letter color.
+     * @return right string.
+     */
+    private String getColorString(final String color) {
+        if (color.equals("y") || color.equals("Y")) {
+            return "Yellow";
+        }
+        if (color.equals("r") || color.equals("R")) {
+            return "Red";
+        }
+        if (color.equals("o") || color.equals("O")) {
+            return "Orange";
+        }
+
+        if (color.equals("b") || color.equals("B")) {
+            return "Blue";
+        }
+        if (color.equals("g") || color.equals("G")) {
+            return "Green";
+        }
+        return null;
     }
 
 
