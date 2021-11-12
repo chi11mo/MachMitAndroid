@@ -34,7 +34,7 @@ public class BoardMainActivity extends AppCompatActivity implements PlaygroundVi
         setContentView(R.layout.activity_board);
 
         /*Layout for board.*/
-        ConstraintLayout gameBoardLayout = findViewById(R.id.gameBoard);
+        final ConstraintLayout gameBoardLayout = findViewById(R.id.gameBoard);
 
         final DataLoader dataLoader = new DataLoader();
         gameBoardLayout.setBackground(dataLoader.loadDrawableFromAssets(getApplicationContext(), "cork_board.png"));
@@ -44,7 +44,7 @@ public class BoardMainActivity extends AppCompatActivity implements PlaygroundVi
         /*vertical Layout for coordinate on board*/
         final LinearLayout horizontalLayout = findViewById(R.id.horizontalLayout);
 
-        BoardLoader boardLoader = new BoardLoader(this,
+        final BoardLoader boardLoader = new BoardLoader(this,
                 getResources().getInteger(R.integer.PlaygroundRow),
                 getResources().getInteger(R.integer.PlaygroundCol),
                 getResources().getInteger(R.integer.ButtonSize));

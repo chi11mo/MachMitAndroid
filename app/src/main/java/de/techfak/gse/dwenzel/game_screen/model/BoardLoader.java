@@ -56,7 +56,7 @@ public class BoardLoader {
     }
 
     /**
-     * Images
+     * Images.
      * Yellow index 0;
      * Green index 1
      * Red index 2

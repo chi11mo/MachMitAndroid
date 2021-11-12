@@ -9,8 +9,8 @@ import de.techfak.gse.dwenzel.start_screen.model.BoardFile;
  * Model to describe the field layout from the game board.
  */
 public class PlaygroundModel {
-    /*boardFile with InputStream file and maxRow and maxCol.*/  BoardFile board;
-    /*filled with field information.*/                          private final Field[][] field;
+    /* board file with InputStream file and maxRow and maxCol. */ BoardFile board;
+    /* filled with field information. */                          private final Field[][] field;
 
 
 

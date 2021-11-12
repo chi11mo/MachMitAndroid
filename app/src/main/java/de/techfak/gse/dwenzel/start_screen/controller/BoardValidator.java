@@ -54,13 +54,13 @@ public class BoardValidator {
      * @param spliced fields.
      * @return exception if field isn't valid.
      */
-    private String fieldValidator(final String[] spliced) {
+    private String fieldValidator(final String... spliced) {
         String exception = null;
         try {
 
-            for (String rowString : spliced) {
+            for (final String rowString : spliced) {
                 for (int i = 0; i < rowString.length(); i++) {
-                    String letter = String.valueOf(rowString.charAt(i));
+                    final String letter = String.valueOf(rowString.charAt(i));
 
 
                     if (!letter.matches(".*([bBgGoOrRyY]).*")) {
@@ -86,17 +86,17 @@ public class BoardValidator {
     }
 
     /**
-     * checkin board size is valid
+     * checkin board size is valid.
      *
      * @param spliced board as a string.
      * @return exception if it isn't valid.
      */
-    private String boardValidator(final String[] spliced) {
+    private String boardValidator(final String... spliced) {
         String exception = null;
         /*board Exception message.*/
         final String boardException = "InvalidBoardException";
         try {
-            for (String rowString : spliced) {
+            for (final String rowString : spliced) {
                 if (rowString.length() != boardFile.getMaxRow()) {
                     exception = boardException;
                     throw new InvalidBoardLayoutException(
