@@ -4,30 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/gameBoard"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:largeHeap="true">
+
+    <TextView
+        android:id="@+id/currentRoundView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="-680dp"
+        android:layout_weight="1"
+        android:text="Round : 0"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="parent" />
 
     <LinearLayout
         android:id="@+id/verticaLayout"
         android:layout_width="32dp"
         android:layout_height="409dp"
         android:layout_marginTop="1dp"
+        android:orientation="vertical"
+        android:translationX="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="vertical" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/horizontalLayout"
         android:layout_width="match_parent"
         android:layout_height="32dp"
         android:orientation="horizontal"
+        android:translationX="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="564dp"
+        android:layout_height="564dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
+        android:rotation="-90"
+        android:rotationX="180"
+        android:rotationY="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -35,9 +51,7 @@
             android:id="@+id/playground_grid"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:horizontalSpacing="12dp"
-            android:numColumns="2"
             android:verticalSpacing="12dp">
 
         </GridLayout>

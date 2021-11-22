@@ -1,26 +1,18 @@
 package de.techfak.gse.dwenzel.game_screen.view;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.GridLayout;
-import android.widget.LinearLayout;
+import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import de.techfak.gse.dwenzel.R;
-import de.techfak.gse.dwenzel.game_screen.controller.PlaygroundController;
-import de.techfak.gse.dwenzel.game_screen.model.BoardLoader;
-import de.techfak.gse.dwenzel.game_screen.model.DataLoader;
-import de.techfak.gse.dwenzel.game_screen.model.PlaygroundModel;
 
 /**
  * This activity controls all the stuff on the main game card.
  */
-public class BoardMainActivity extends AppCompatActivity implements PlaygroundView {
-
-    /* UID.*/                                       public static final long serialVersionUID = 4328742;
+public class BoardMainActivity extends AppCompatActivity {
 
 
     /**
@@ -31,47 +23,14 @@ public class BoardMainActivity extends AppCompatActivity implements PlaygroundVi
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Window window = getWindow();
+
+
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_board);
-
-        /*Layout for board.*/
-        final ConstraintLayout gameBoardLayout = findViewById(R.id.gameBoard);
-
-        final DataLoader dataLoader = new DataLoader();
-        gameBoardLayout.setBackground(dataLoader.loadDrawableFromAssets(getApplicationContext(), "cork_board.png"));
-
-        /*vertical Layout for coordinate on board*/
-        final LinearLayout verticalLayout = findViewById(R.id.verticaLayout);
-        /*vertical Layout for coordinate on board*/
-        final LinearLayout horizontalLayout = findViewById(R.id.horizontalLayout);
-
-        final BoardLoader boardLoader = new BoardLoader(this,
-                getResources().getInteger(R.integer.PlaygroundRow),
-                getResources().getInteger(R.integer.PlaygroundCol),
-                getResources().getInteger(R.integer.ButtonSize));
-
-        boardLoader.setVerticalCoordinateView(verticalLayout);
-        boardLoader.setHorizontalCoordinateView(horizontalLayout);
-        if (getIntent().getExtras() != null) {
-            final String board = getIntent().getStringExtra("File");
-
-
-            /* to get control of the playground.*/
-            final PlaygroundController playgroundController = new PlaygroundController(this);
-
-
-            playgroundController.createPlayground(board, getResources().getInteger(R.integer.PlaygroundRow),
-                    getResources().getInteger(R.integer.PlaygroundCol));
-
-            /* to order the Button for the Playground.*/
-            final GridLayout gridLayoutButtons = findViewById(R.id.playground_grid);
-
-            gridLayoutButtons.setColumnCount(getResources().getInteger(R.integer.PlaygroundRow));
-
-            boardLoader.setButtonPlayground(gridLayoutButtons, playgroundController);
-            /* Buttons for the Playground.*/
-
-
-        }
+        Game game = new Game(this, getIntent().getStringExtra("File"));
 
     }
 
@@ -92,24 +51,6 @@ public class BoardMainActivity extends AppCompatActivity implements PlaygroundVi
                 })
                 .setNegativeButton("No", (dialog, whichButton) -> dialog.dismiss());
         builder.show();
-    }
-
-
-    /**
-     * get the Update Model.
-     *
-     * @param playgroundModel updated Model from View.
-     */
-    @Override
-    public void updatePlayground(final PlaygroundModel playgroundModel) {
-        for (int i = 0; i < getResources().getInteger(R.integer.PlaygroundCol); i++) {
-            for (int k = 0; k < getResources().getInteger(R.integer.PlaygroundRow); k++) {
-                if (playgroundModel.isFieldCrossed(k, i)) {
-                    Log.d("Which field is Crossed : ", k + "/" + i);
-                }
-            }
-        }
-
     }
 
 

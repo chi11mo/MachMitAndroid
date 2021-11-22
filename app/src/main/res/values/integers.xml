@@ -3,4 +3,5 @@
     <integer name="PlaygroundRow">15</integer>
     <integer name="PlaygroundCol">7</integer>
     <integer name="ButtonSize">80</integer>
+    <integer name="ButtonSizeLayoutParam">90</integer>
 </resources>
