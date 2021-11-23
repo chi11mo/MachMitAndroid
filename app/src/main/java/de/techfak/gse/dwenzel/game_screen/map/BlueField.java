@@ -29,7 +29,7 @@ public class BlueField extends Field {
     }
 
     @Override
-    public Drawable getDrawableField(boolean isCrossed) {
+    public Drawable getDrawableField(final boolean isCrossed) {
         return buttonSpriteSheet.getBlueFieldDrawable(isCrossed);
     }
 }

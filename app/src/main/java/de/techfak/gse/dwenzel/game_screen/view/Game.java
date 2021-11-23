@@ -3,16 +3,13 @@ package de.techfak.gse.dwenzel.game_screen.view;
 import android.content.Context;
 
 import de.techfak.gse.dwenzel.R;
-import de.techfak.gse.dwenzel.game_screen.controller.GameLoop;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
 import de.techfak.gse.dwenzel.game_screen.model.ButtonSpriteSheet;
 
 public class Game {
 
 
-    private GameLoop gameLoop;
-    private FieldMap fieldMap;
-    private GameDisplay gameDisplay;
+    private final GameDisplay gameDisplay;
 
 
     public Game(final Context context, final String boardLayout) {
@@ -28,8 +25,8 @@ public class Game {
 
 
         //init game objects
-        ButtonSpriteSheet buttonSpriteSheet = new ButtonSpriteSheet(context);
-        fieldMap = new FieldMap(buttonSpriteSheet, boardLayout, maxRow, maxCol);
+        final ButtonSpriteSheet buttonSpriteSheet = new ButtonSpriteSheet(context);
+        final FieldMap fieldMap = new FieldMap(buttonSpriteSheet, boardLayout, maxRow, maxCol);
 
         gameDisplay.setFieldPieces(fieldMap);
         gameDisplay.startRun();

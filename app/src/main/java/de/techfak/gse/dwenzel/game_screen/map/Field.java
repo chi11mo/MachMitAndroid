@@ -10,10 +10,13 @@ import de.techfak.gse.dwenzel.game_screen.model.ButtonSpriteSheet;
  */
 public abstract class Field {
 
+
     ButtonSpriteSheet buttonSpriteSheet;
     /*field Color in a String (small letter).*/ private String fieldColor;
     /*if a field is validCrossed.*/             private boolean crossed;
     /*field buttons*/                           private ImageButton fieldButton;
+    /*field row cord*/                          private int row;
+    /*field col cord*/                          private int col;
 
     /**
      * Creating a field for the Playground.
@@ -27,7 +30,23 @@ public abstract class Field {
 
     }
 
-    public static Field getField(int idxFieldType, ButtonSpriteSheet buttonSpriteSheet, boolean isCrossed) {
+    /**
+     * get field gets the field with curren index
+     * and color of the field as enum.
+     * Yellow index 0;
+     * Green index 1
+     * Red index 2
+     * Orange index 3
+     * Blue index 4
+     *
+     * @param idxFieldType      is index of field color
+     * @param buttonSpriteSheet sprite cheat to get loaded pngs.
+     * @param isCrossed         is the field crossed.
+     * @return the Created field.
+     */
+    public static Field getField(final int idxFieldType,
+                                 final ButtonSpriteSheet buttonSpriteSheet,
+                                 final boolean isCrossed) {
         switch (FieldType.values()[idxFieldType]) {
             case YELLOW_FIELD:
                 return new YellowField(isCrossed, buttonSpriteSheet);
@@ -99,10 +118,56 @@ public abstract class Field {
         fieldColor = color;
     }
 
+    /**
+     * get the drawable of the field.
+     *
+     * @return drawable of the current field.
+     */
     public abstract Drawable getDrawableField();
 
-
+    /**
+     * get the drawable of the field.
+     *
+     * @param isCrossed with cross information.
+     * @return drawable of the current field.
+     */
     public abstract Drawable getDrawableField(boolean isCrossed);
+
+    /**
+     * row setter to set row cord.
+     *
+     * @return row cord from field.
+     */
+    public int getRow() {
+        return row;
+    }
+
+    /**
+     * row setter to set row cord.
+     *
+     * @param row cord from field.
+     */
+    public void setRow(final int row) {
+        this.row = row;
+    }
+
+    /**
+     * get field column cord.
+     *
+     * @return column cord.
+     */
+    public int getCol() {
+        return col;
+    }
+
+    /**
+     * setting up field column cord.
+     *
+     * @param col column cord of the field.
+     */
+    public void setCol(final int col) {
+        this.col = col;
+    }
 
     /**
      * Images.

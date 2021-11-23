@@ -16,9 +16,9 @@ import de.techfak.gse.dwenzel.game_screen.model.DataLoader;
 public class GameDisplay {
 
     private final Context context;
-    GameLoop gameLoop;
+    private final BoardLoader boardLoader;
     private FieldMap fieldMap;
-    private BoardLoader boardLoader;
+
     /**
      * to create the view for the GameBoard.
      * And upgrade after changes.
@@ -27,7 +27,7 @@ public class GameDisplay {
      */
     public GameDisplay(final Context context) {
 
-        DataLoader dataLoader = new DataLoader();
+        final DataLoader dataLoader = new DataLoader();
         boardLoader = new BoardLoader(context);
         this.context = context;
 
@@ -71,16 +71,12 @@ public class GameDisplay {
                 .getInteger(R.integer.PlaygroundCol));
 
 
-
         ((Activity) context) /*set Background Board for the GameBoard*/
                 .findViewById(R.id.gameBoard)
                 .setBackground(dataLoader.loadDrawableFromAssets(context
                         .getApplicationContext(), "cork_board.png"));
 
     }
-
-
-
 
 
     /**
@@ -91,12 +87,15 @@ public class GameDisplay {
      */
     public void setFieldPieces(final FieldMap fieldMap) {
         this.fieldMap = fieldMap;
-        boardLoader.updateFieldMap(((Activity) context).findViewById(R.id.playground_grid),fieldMap);
+        boardLoader.updateFieldMap(((Activity) context)
+                .findViewById(R.id.playground_grid), fieldMap);
     }
 
-
+    /**
+     * start the Game Loop controller.
+     */
     public void startRun() {
-        gameLoop = new GameLoop(context, fieldMap);
+        GameLoop gameLoop = new GameLoop(context, fieldMap);
         //gameLoop.run();
     }
 

@@ -1,14 +1,13 @@
 package de.techfak.gse.dwenzel.game_screen.controller;
 
 import android.content.Context;
-import android.util.Log;
 
 import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
 import de.techfak.gse.dwenzel.game_screen.model.Round;
 
 public class GameLoop implements Runnable {
-
+    private static final int THREAD_SLEEP = 1000;
     private final Context context;
 
 
@@ -17,8 +16,15 @@ public class GameLoop implements Runnable {
     private boolean isRunning;
     private Round round;
 
-
-    public GameLoop(Context context, FieldMap fieldMap) {
+    /**
+     * GameLoop is game controller.
+     * Have the Button listener for a current round and controlls
+     * button input.
+     *
+     * @param context  is context from View
+     * @param fieldMap for control the playground.
+     */
+    public GameLoop(final Context context, final FieldMap fieldMap) {
         this.context = context;
         this.fieldMap = fieldMap;
         //init round and add the first round.
@@ -26,11 +32,13 @@ public class GameLoop implements Runnable {
         round.addRound(fieldMap);
         //start gameloop thread.
 
-        Thread myThead = new Thread(this);
+        final Thread myThead = new Thread(this);
         myThead.start();
     }
 
-
+    /**
+     * run is Thread method to control the button listener.
+     */
     @Override
     public void run() {
         isRunning = true;
@@ -38,48 +46,45 @@ public class GameLoop implements Runnable {
             try {
 
 
-                for (int iRow = 0; iRow < context.getResources().getInteger(R.integer.PlaygroundRow); iRow++) {
-                    for (int iCol = 0; iCol < context.getResources().getInteger(R.integer.PlaygroundCol); iCol++) {
+                for (int iRow = 0; iRow
+                        < context.getResources().getInteger(R.integer.PlaygroundRow); iRow++) {
+                    for (int iCol = 0; iCol
+                            < context.getResources().getInteger(R.integer.PlaygroundCol); iCol++) {
                         int finalIRow = iRow;
 
                         int finalICol = iCol;
                         fieldMap.getFields()[iRow][iCol].getButton().setOnClickListener(event -> {
-                            /**
-                             if (fieldMap.getFields()[row][col].isCrossed()) {
-                             fieldMap.getFields()[row][col].setIsCrossed(false);
-                             fieldMap.getFields()[row][col].getButton().setImageDrawable(fieldMap.getFields()[row][col].getDrawableField(true));
-                             } else {
-                             fieldMap.getFields()[row][col].setIsCrossed(true);
-                             fieldMap.getFields()[row][col].getButton().setImageDrawable(fieldMap.getFields()[row][col].getDrawableField(false));
-                             }
-                             **/
-                            Log.d(":Button event", (finalIRow) + "/" + finalICol);
-                            Log.d(":Button event", String.valueOf(fieldMap.getFields()[finalIRow][finalICol].isCrossed()));
+
+                            if (fieldMap.getFields()[finalIRow][finalICol].isCrossed()) {
+                                fieldMap.getFields()[finalIRow][finalICol].setIsCrossed(false);
+                                fieldMap.getFields()[finalIRow][finalICol]
+                                        .getButton()
+                                        .setImageDrawable(fieldMap
+                                                .getFields()[finalIRow][finalICol]
+                                                .getDrawableField(false));
+                            } else {
+                                fieldMap.getFields()[finalIRow][finalICol].setIsCrossed(true);
+                                fieldMap.getFields()[finalIRow][finalICol]
+                                        .getButton().setImageDrawable(fieldMap
+                                        .getFields()[finalIRow][finalICol]
+                                        .getDrawableField(true));
+                            }
+                            //add field to the current Turn taps.
+                            round.addTap(fieldMap.getFields()[finalIRow][finalICol]);
+                            //Log.d(":Button event", (finalIRow) + "/" + finalICol);
+                            // Log.d(":Button event", String.valueOf(fieldMap
+                            // .getFields()[finalIRow][finalICol]
+                            // .isCrossed()));
                         });
                     }
                 }
                 //context.get
-                Thread.sleep(1000);
+                Thread.sleep(THREAD_SLEEP);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
 
-/*
-        for (int iRow = 0; iRow < context.getResources().getInteger(R.integer.PlaygroundRow); iRow++) {
-            for (int iCol = 0; iCol < context.getResources().getInteger(R.integer.PlaygroundCol); iCol++) {
-                int finalIRow = iRow;
-                fieldMap.getFields()[iRow][iCol].getButton().setOnClickListener(event -> {
-                    Log.d(":Button event", String.valueOf(finalIRow));
-                });
-            }
-        }
-*/
+
     }
-
-    public void setIsRunning(boolean isRunning) {
-        this.isRunning = isRunning;
-    }
-
-
 }

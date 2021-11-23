@@ -9,6 +9,7 @@ import de.techfak.gse.dwenzel.R;
 public class CoordinateView {
     private static final int AINASCII = 64; /*Char to begin
     with big Letter ABC */
+    private static final int TEXT_SIZE = 24;
     private final int maxRow;
     private final int maxCol;
     private final int buttonSize;
@@ -39,7 +40,7 @@ public class CoordinateView {
 
         for (int i = 0; i < maxCol + 1; i++) {
             cordBoard[0][i] = new TextView(context);
-            cordBoard[0][i].setTextSize(24);
+            cordBoard[0][i].setTextSize(TEXT_SIZE);
             cordBoard[0][i].setLayoutParams(
                     new LinearLayout.LayoutParams(buttonSize, buttonSize));
             cordBoard[0][i].setText(String.valueOf(i));
@@ -56,7 +57,7 @@ public class CoordinateView {
             final LinearLayout horizontalLayout) {
         for (int i = 0; i < maxRow + 1; i++) {
             cordBoard[i][0] = new TextView(context);
-            cordBoard[i][0].setTextSize(24);
+            cordBoard[i][0].setTextSize(TEXT_SIZE);
             cordBoard[i][0].setLayoutParams(
                     new LinearLayout.LayoutParams(buttonSize, buttonSize));
             cordBoard[i][0].setText(Character.toString((char) (i + AINASCII)));
