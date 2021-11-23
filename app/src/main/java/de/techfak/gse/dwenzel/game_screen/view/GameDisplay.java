@@ -54,24 +54,24 @@ public class GameDisplay {
      * @param dataLoader to load images from assets.
      */
     private void onCreate(final DataLoader dataLoader) {
-
+        //init panels for Gameboard.
         final CoordinateView coordinateView
-                = new CoordinateView(context); /*init panels for gameboard.*/
+                = new CoordinateView(context);
 
         coordinateView.setVerticalCoordinateView(((Activity) context)
                 .findViewById(R.id.verticaLayout));
         coordinateView.setHorizontalCoordinateView(((Activity) context)
                 .findViewById(R.id.horizontalLayout));
 
-
+        //Layout for button board
         final GridLayout gridLayout
-                = ((Activity) context) /*Layout for button board.*/
+                = ((Activity) context)
                 .findViewById(R.id.playground_grid);
         gridLayout.setColumnCount(context.getResources()
                 .getInteger(R.integer.PlaygroundCol));
 
-
-        ((Activity) context) /*set Background Board for the GameBoard*/
+        //set Background Board for the GameBoard
+        ((Activity) context)
                 .findViewById(R.id.gameBoard)
                 .setBackground(dataLoader.loadDrawableFromAssets(context
                         .getApplicationContext(), "cork_board.png"));

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.techfak.gse.dwenzel.R;
-import de.techfak.gse.dwenzel.game_screen.map.Field;
+import de.techfak.gse.dwenzel.game_screen.map.AbstractField;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
 
 public class Round {
@@ -18,7 +18,7 @@ public class Round {
     private TextView textViewCurRound;
     /*This list shows the current
     fields are tapped for current Turn*/
-    private List<Field> currentTurnTaps = new ArrayList<>();
+    private List<AbstractField> currentTurnTaps = new ArrayList<>();
 
     /**
      * save curren Round information.
@@ -57,13 +57,13 @@ public class Round {
      * setting up current turn taps for turn validation
      * it saved in the array list currentTurnTaps.
      *
-     * @param field set field into currentTurnTaps.
+     * @param abstractField set field into currentTurnTaps.
      */
-    public void addTap(final Field field) {
-        if (isFieldCurrentCross(field)) {
-            currentTurnTaps.remove(field);
+    public void addTap(final AbstractField abstractField) {
+        if (isFieldCurrentCross(abstractField)) {
+            currentTurnTaps.remove(abstractField);
         } else {
-            currentTurnTaps.add(field);
+            currentTurnTaps.add(abstractField);
         }
         //Log.d("Current saved Taps", String.valueOf(currentTurnTaps));
     }
@@ -71,12 +71,12 @@ public class Round {
     /**
      * check if field is already in currentTurnTaps.
      *
-     * @param field in currentTurnTaps.
+     * @param abstractField in currentTurnTaps.
      * @return if is already in currentTurnTaps.
      */
-    public boolean isFieldCurrentCross(final Field field) {
-        for (final Field fieldSrc : currentTurnTaps) {
-            if (fieldSrc.equals(field)) {
+    public boolean isFieldCurrentCross(final AbstractField abstractField) {
+        for (final AbstractField abstractFieldSrc : currentTurnTaps) {
+            if (abstractFieldSrc.equals(abstractField)) {
                 return true;
             }
         }

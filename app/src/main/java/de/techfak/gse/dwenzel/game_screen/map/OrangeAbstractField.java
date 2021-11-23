@@ -4,7 +4,7 @@ import android.graphics.drawable.Drawable;
 
 import de.techfak.gse.dwenzel.game_screen.model.ButtonSpriteSheet;
 
-public class BlueField extends Field {
+public class OrangeAbstractField extends AbstractField {
     private final Drawable drawableField;
 
     /**
@@ -13,14 +13,14 @@ public class BlueField extends Field {
      * @param isCrossed         test is field cross.
      * @param buttonSpriteSheet button image sheet.
      */
-    public BlueField(final boolean isCrossed,
-                     final ButtonSpriteSheet buttonSpriteSheet) {
+    public OrangeAbstractField(final boolean isCrossed,
+                               final ButtonSpriteSheet buttonSpriteSheet) {
         super(isCrossed, buttonSpriteSheet);
-        drawableField = buttonSpriteSheet.getBlueFieldDrawable(isCrossed);
+        drawableField = buttonSpriteSheet.getOrangeFieldDrawable(isCrossed);
     }
 
     /**
-     * Method to ge drawable tosettingup ImageButtons.
+     * Method to ge drawable to setting up ImageButtons.
      *
      * @return drawable for button.
      */
@@ -30,6 +30,6 @@ public class BlueField extends Field {
 
     @Override
     public Drawable getDrawableField(final boolean isCrossed) {
-        return buttonSpriteSheet.getBlueFieldDrawable(isCrossed);
+        return buttonSpriteSheet.getOrangeFieldDrawable(isCrossed);
     }
 }

@@ -6,7 +6,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import de.techfak.gse.dwenzel.R;
-import de.techfak.gse.dwenzel.game_screen.map.Field;
+import de.techfak.gse.dwenzel.game_screen.map.AbstractField;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
 
 public class BoardLoader {
@@ -27,16 +27,16 @@ public class BoardLoader {
      */
     public GridLayout updateFieldMap(
             final GridLayout gridLayout, final FieldMap fieldMap) {
-        final Field[][] fields = fieldMap.getFields();
+        final AbstractField[][] abstractFields = fieldMap.getFields();
         //clear last Layout and update new Board.
         //gridLayout.removeAllViews();
         for (int iRow = 0; iRow < fieldMap.getMaxRow(); iRow++) {
             for (int iCol = 0; iCol < fieldMap.getMaxCol(); iCol++) {
-                fields[iRow][iCol].setButton(new ImageButton(context));
-                fields[iRow][iCol].setRow(iRow);
-                fields[iRow][iCol].setCol(iCol);
+                abstractFields[iRow][iCol].setButton(new ImageButton(context));
+                abstractFields[iRow][iCol].setRow(iRow);
+                abstractFields[iRow][iCol].setCol(iCol);
 
-                fields[iRow][iCol].getButton().setLayoutParams(
+                abstractFields[iRow][iCol].getButton().setLayoutParams(
                         new LinearLayout.LayoutParams(context.getResources()
                                 .getInteger(R.integer.ButtonSizeLayoutParam),
                                 context.getResources()
@@ -44,23 +44,23 @@ public class BoardLoader {
                                                 R.integer.ButtonSizeLayoutParam)));
                 /*setting up single button settings sizes and padding*/
 
-                fields[iRow][iCol].getButton()
+                abstractFields[iRow][iCol].getButton()
                         .setAdjustViewBounds(true);
-                fields[iRow][iCol].getButton()
+                abstractFields[iRow][iCol].getButton()
                         .setBackground(null);
-                fields[iRow][iCol].getButton()
+                abstractFields[iRow][iCol].getButton()
                         .setPadding(0, 0, 0, 0);
-                fields[iRow][iCol].getButton()
+                abstractFields[iRow][iCol].getButton()
                         .setScaleType(ImageButton.ScaleType.FIT_START);
-                fields[iRow][iCol].getButton()
-                        .setImageDrawable(fields[iRow][iCol]
+                abstractFields[iRow][iCol].getButton()
+                        .setImageDrawable(abstractFields[iRow][iCol]
                                 .getDrawableField());
                 //if the field is already crossed the field isn't able to tab again.
-                if (fields[iRow][iCol].isCrossed()) {
-                    fields[iRow][iCol].getButton().setEnabled(false);
+                if (abstractFields[iRow][iCol].isCrossed()) {
+                    abstractFields[iRow][iCol].getButton().setEnabled(false);
                 }
 
-                gridLayout.addView(fields[iRow][iCol].getButton());
+                gridLayout.addView(abstractFields[iRow][iCol].getButton());
 
             }
 

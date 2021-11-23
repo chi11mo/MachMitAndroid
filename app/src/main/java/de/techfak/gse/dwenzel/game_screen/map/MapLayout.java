@@ -2,7 +2,7 @@ package de.techfak.gse.dwenzel.game_screen.map;
 
 public class MapLayout {
     private final int maxRow;
-    private  final int maxCol;
+    private final int maxCol;
     private int[][] layout;
     private boolean[][] isCrossed;
     private String boardLayout;
@@ -10,9 +10,10 @@ public class MapLayout {
     /**
      * Map layout loads map layout with the max Row and column cord.
      * and takes GameStart input and loaded into a grid layout in Fields
+     *
      * @param boardLayout string input from gamestart to create the map.
-     * @param maxRow max Row cord.
-     * @param maxCol max Colum cord.
+     * @param maxRow      max Row cord.
+     * @param maxCol      max Colum cord.
      */
     public MapLayout(final String boardLayout,final int maxRow,final int maxCol) {
         this.maxRow = maxRow;
@@ -58,12 +59,15 @@ public class MapLayout {
      * Red index 2
      * Orange index 3
      * Blue index 4¬
+     *
      * @param color single letter color.
      * @return right string.
      */
     private int getColorAsIndex(final String color) {
         int index = 0;
-        if (color.equals("y") || color.equals("Y")) return index;
+        if (color.equals("y") || color.equals("Y")) {
+            return index;
+        }
         index++;
         if (color.equals("g") || color.equals("G")) {
             return index;
@@ -83,6 +87,7 @@ public class MapLayout {
 
     /**
      * getting the map layout.
+     *
      * @return map layout.
      */
     public int[][] getLayout() {
@@ -91,6 +96,7 @@ public class MapLayout {
 
     /**
      * is field crossed.
+     *
      * @return field cross.
      */
     public boolean[][] getIsCrossed() {

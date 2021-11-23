@@ -8,7 +8,7 @@ import de.techfak.gse.dwenzel.game_screen.model.ButtonSpriteSheet;
 /**
  * Class to describe single fields in the playground.
  */
-public abstract class Field {
+public abstract class AbstractField {
 
 
     ButtonSpriteSheet buttonSpriteSheet;
@@ -24,7 +24,7 @@ public abstract class Field {
      * @param cross             is Field crossed.
      * @param buttonSpriteSheet
      */
-    public Field(final boolean cross, final ButtonSpriteSheet buttonSpriteSheet) {
+    public AbstractField(final boolean cross, final ButtonSpriteSheet buttonSpriteSheet) {
         this.buttonSpriteSheet = buttonSpriteSheet;
         crossed = cross;
 
@@ -44,20 +44,20 @@ public abstract class Field {
      * @param isCrossed         is the field crossed.
      * @return the Created field.
      */
-    public static Field getField(final int idxFieldType,
-                                 final ButtonSpriteSheet buttonSpriteSheet,
-                                 final boolean isCrossed) {
+    public static AbstractField getField(final int idxFieldType,
+                                         final ButtonSpriteSheet buttonSpriteSheet,
+                                         final boolean isCrossed) {
         switch (FieldType.values()[idxFieldType]) {
             case YELLOW_FIELD:
-                return new YellowField(isCrossed, buttonSpriteSheet);
+                return new YellowAbstractField(isCrossed, buttonSpriteSheet);
             case GREEN_FIELD:
-                return new GreenField(isCrossed, buttonSpriteSheet);
+                return new GreenAbstractField(isCrossed, buttonSpriteSheet);
             case RED_FIELD:
-                return new RedField(isCrossed, buttonSpriteSheet);
+                return new RedAbstractField(isCrossed, buttonSpriteSheet);
             case ORANGE_FIELD:
-                return new OrangeField(isCrossed, buttonSpriteSheet);
+                return new OrangeAbstractField(isCrossed, buttonSpriteSheet);
             case BLUE_FIELD:
-                return new BlueField(isCrossed, buttonSpriteSheet);
+                return new BlueAbstractField(isCrossed, buttonSpriteSheet);
             default:
                 return null;
         }

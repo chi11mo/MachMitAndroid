@@ -8,7 +8,7 @@ public class FieldMap {
     private final int maxCol;
     private final ButtonSpriteSheet buttonSpriteSheet;
     private MapLayout mapLayout;
-    private Field[][] fields;
+    private AbstractField[][] abstractFields;
 
     /**
      * field map is the map of the Field buttons to cross.
@@ -18,13 +18,14 @@ public class FieldMap {
      * @param maxRow            mac row cords.
      * @param maxCol            mx column cords.
      */
-    public FieldMap(final ButtonSpriteSheet buttonSpriteSheet, final String boardLayout, final int maxRow, final int maxCol) {
+    public FieldMap(final ButtonSpriteSheet buttonSpriteSheet,
+                    final String boardLayout, final int maxRow, final int maxCol) {
 
         this.buttonSpriteSheet = buttonSpriteSheet;
         this.maxRow = maxRow;
         this.maxCol = maxCol;
         mapLayout = new MapLayout(boardLayout, maxRow, maxCol);
-        fields = new Field[maxRow][maxCol];
+        abstractFields = new AbstractField[maxRow][maxCol];
         initializeFieldMap();
     }
 
@@ -38,7 +39,7 @@ public class FieldMap {
         for (int iRow = 0; iRow < maxRow; iRow++) {
             for (int iCol = 0; iCol < maxCol; iCol++) {
                 // Log.d("init FIeld map field map row", String.valueOf(iRow));
-                fields[iRow][iCol] = Field.getField(layout[iRow][iCol],
+                abstractFields[iRow][iCol] = AbstractField.getField(layout[iRow][iCol],
                         buttonSpriteSheet, isCrossed[iRow][iCol]);
             }
         }
@@ -49,12 +50,13 @@ public class FieldMap {
      *
      * @return 2d array of all fields.
      */
-    public Field[][] getFields() {
-        return fields;
+    public AbstractField[][] getFields() {
+        return abstractFields;
     }
 
     /**
      * get max Row coord.
+     *
      * @return row cord.
      */
     public int getMaxRow() {
@@ -63,9 +65,10 @@ public class FieldMap {
 
     /**
      * get max Column cord.
+     *
      * @return max row cord.
      */
-    public int getMaxCol(){
+    public int getMaxCol() {
         return maxCol;
     }
 }

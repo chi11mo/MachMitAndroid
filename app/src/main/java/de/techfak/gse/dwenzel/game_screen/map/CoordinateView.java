@@ -7,8 +7,7 @@ import android.widget.TextView;
 import de.techfak.gse.dwenzel.R;
 
 public class CoordinateView {
-    private static final int AINASCII = 64; /*Char to begin
-    with big Letter ABC */
+    private static final int AINASCII = 64;
     private static final int TEXT_SIZE = 24;
     private final int maxRow;
     private final int maxCol;
