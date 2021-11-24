@@ -28,7 +28,7 @@ public class Game {
         final ButtonSpriteSheet buttonSpriteSheet = new ButtonSpriteSheet(context);
         final FieldMap fieldMap = new FieldMap(buttonSpriteSheet, boardLayout, maxRow, maxCol);
 
-        gameDisplay.setFieldPieces(fieldMap);
+        gameDisplay.setFieldsOnCreate(fieldMap);
         gameDisplay.startRun();
 
         // gameLoop = new GameLoop(this, surfaceHolder);
@@ -38,6 +38,13 @@ public class Game {
 
 
     public void update(final FieldMap fieldMap) {
-        gameDisplay.setFieldPieces(fieldMap);
+        gameDisplay.setFieldsOnCreate(fieldMap);
+    }
+
+    /**
+     * action to nextRound button.
+     */
+    public void nextRound() {
+        gameDisplay.nextRound();
     }
 }

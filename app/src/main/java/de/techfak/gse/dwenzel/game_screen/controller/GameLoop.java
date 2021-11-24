@@ -2,11 +2,13 @@ package de.techfak.gse.dwenzel.game_screen.controller;
 
 import android.content.Context;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
 import de.techfak.gse.dwenzel.game_screen.model.Round;
 
-public class GameLoop implements Runnable {
+public class GameLoop extends AppCompatActivity implements Runnable {
     private static final int THREAD_SLEEP = 1000;
     private final Context context;
 
@@ -86,5 +88,13 @@ public class GameLoop implements Runnable {
         }
 
 
+    }
+
+    /**
+     * action to nextRound button.
+     * and adds a new round if the turn is valid.
+     */
+    public void nextRound() {
+        round.addRound(fieldMap);
     }
 }

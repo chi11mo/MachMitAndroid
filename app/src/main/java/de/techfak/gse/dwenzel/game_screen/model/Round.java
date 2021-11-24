@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.techfak.gse.dwenzel.R;
+import de.techfak.gse.dwenzel.game_screen.controller.BoardLoader;
 import de.techfak.gse.dwenzel.game_screen.map.AbstractField;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
 
@@ -22,6 +23,7 @@ public class Round {
 
     /**
      * save curren Round information.
+     *
      * @param context view.
      */
     public Round(final Context context) {
@@ -36,12 +38,16 @@ public class Round {
      * set a new Round.
      * and set current round as null because need to get
      * a new FieldMap with current turn.
+     *
      * @param fieldMap field setting map for current round.
      */
     public void addRound(final FieldMap fieldMap) {
+        BoardLoader loader = new BoardLoader(context);
         currentRound++;
         textViewCurRound.setText("Round : " + currentRound);
         this.fieldMap = fieldMap;
+        loader.updateField(fieldMap);
+
     }
 
     /**

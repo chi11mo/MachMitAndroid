@@ -68,4 +68,22 @@ public class BoardLoader {
         }
         return gridLayout;
     }
+
+    /**
+     * update field for next round set buttons
+     * to not able to press if they are crossed.
+     *
+     * @param fieldMap to change the buttons.
+     */
+    public void updateField(final FieldMap fieldMap) {
+        for (int iRow = 0; iRow < fieldMap.getMaxRow(); iRow++) {
+            for (int iCol = 0; iCol < fieldMap.getMaxCol(); iCol++) {
+                if (fieldMap.getFields()[iRow][iCol].isCrossed()) {
+                    fieldMap.getFields()[iRow][iCol].getButton().setEnabled(false);
+                }
+
+            }
+        }
+    }
+
 }

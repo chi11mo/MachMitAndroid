@@ -18,6 +18,7 @@ public class GameDisplay {
     private final Context context;
     private final BoardLoader boardLoader;
     private FieldMap fieldMap;
+    private GameLoop gameLoop;
 
     /**
      * to create the view for the GameBoard.
@@ -35,17 +36,7 @@ public class GameDisplay {
         onCreate(dataLoader);
 
 
-        //Display display = getWindowManager().getDefaultDisplay();
-        // int width = display.getWidth();  // deprecated
-        //int height = display.getHeight();  // deprecated
 
-        //  gameBoardLayout.setMaxHeight(context.getDisplay().getHeight());
-
-        //  gameBoardLayout.setMaxWidth(context.getDisplay().getWidth());
-
-        // setContentView(verticalLayout);
-        //  gridLayoutButtons.setColumnCount(getResources()
-        //  .getInteger(R.integer.PlaygroundRow));
     }
 
     /**
@@ -85,7 +76,7 @@ public class GameDisplay {
      *
      * @param fieldMap fieldMap with changes from buttons.
      */
-    public void setFieldPieces(final FieldMap fieldMap) {
+    public void setFieldsOnCreate(final FieldMap fieldMap) {
         this.fieldMap = fieldMap;
         boardLoader.updateFieldMap(((Activity) context)
                 .findViewById(R.id.playground_grid), fieldMap);
@@ -95,9 +86,12 @@ public class GameDisplay {
      * start the Game Loop controller.
      */
     public void startRun() {
-        GameLoop gameLoop = new GameLoop(context, fieldMap);
+         gameLoop = new GameLoop(context, fieldMap);
         //gameLoop.run();
     }
 
 
+    public void nextRound() {
+        gameLoop.nextRound();
+    }
 }

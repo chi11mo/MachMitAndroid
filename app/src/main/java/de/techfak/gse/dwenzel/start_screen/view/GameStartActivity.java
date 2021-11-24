@@ -49,7 +49,8 @@ public class GameStartActivity extends AppCompatActivity implements Serializable
         loginButton.setOnClickListener(v -> {
             playgroundInputString = String.valueOf(textInputPlaygroundInput.getText());
 
-            loginController.onLogin(playgroundInputString, getResources().getInteger(R.integer.PlaygroundRow),
+            loginController.onLogin(playgroundInputString,
+                    getResources().getInteger(R.integer.PlaygroundRow),
                     getResources().getInteger(R.integer.PlaygroundCol));
         });
     }

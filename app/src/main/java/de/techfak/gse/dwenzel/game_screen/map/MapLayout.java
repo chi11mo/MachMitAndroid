@@ -15,7 +15,7 @@ public class MapLayout {
      * @param maxRow      max Row cord.
      * @param maxCol      max Colum cord.
      */
-    public MapLayout(final String boardLayout,final int maxRow,final int maxCol) {
+    public MapLayout(final String boardLayout, final int maxRow, final int maxCol) {
         this.maxRow = maxRow;
         this.maxCol = maxCol;
         this.boardLayout = boardLayout;

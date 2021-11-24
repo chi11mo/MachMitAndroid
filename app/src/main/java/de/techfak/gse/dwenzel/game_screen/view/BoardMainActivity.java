@@ -1,6 +1,7 @@
 package de.techfak.gse.dwenzel.game_screen.view;
 
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -13,7 +14,7 @@ import de.techfak.gse.dwenzel.R;
  * This activity controls all the stuff on the main game card.
  */
 public class BoardMainActivity extends AppCompatActivity {
-
+    private Game game;
 
     /**
      * on Create method for do things when activity starts.
@@ -30,7 +31,7 @@ public class BoardMainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_board);
-        Game game = new Game(this, getIntent().getStringExtra("File"));
+        game = new Game(this, getIntent().getStringExtra("File"));
 
     }
 
@@ -53,5 +54,12 @@ public class BoardMainActivity extends AppCompatActivity {
         builder.show();
     }
 
-
+    /**
+     * action to nextRound button.
+     *
+     * @param view from xml.
+     */
+    public void onNextRound(View view) {
+        game.nextRound();
+    }
 }
