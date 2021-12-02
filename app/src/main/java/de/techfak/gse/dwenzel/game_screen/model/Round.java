@@ -2,6 +2,7 @@ package de.techfak.gse.dwenzel.game_screen.model;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -42,12 +43,17 @@ public class Round {
      * @param fieldMap field setting map for current round.
      */
     public void addRound(final FieldMap fieldMap) {
+
         BoardLoader loader = new BoardLoader(context);
         currentRound++;
         textViewCurRound.setText("Runde : " + currentRound);
         this.fieldMap = fieldMap;
         loader.updateField(fieldMap);
 
+
+    }
+    public List getCurrentTurnTaps(){
+        return currentTurnTaps;
     }
 
     /**
@@ -72,6 +78,9 @@ public class Round {
             currentTurnTaps.add(abstractField);
         }
         //Log.d("Current saved Taps", String.valueOf(currentTurnTaps));
+    }
+    public void removeTap(final AbstractField abstractField){
+        currentTurnTaps.remove(abstractField);
     }
 
     /**

@@ -12,7 +12,7 @@ public abstract class AbstractField {
 
 
     ButtonSpriteSheet buttonSpriteSheet;
-    /*field Color in a String (small letter).*/ private String fieldColor;
+    /*field Color in a String (small letter).*/ private int fieldColor;
     /*if a field is validCrossed.*/             private boolean crossed;
     /*field buttons*/                           private ImageButton fieldButton;
     /*field row cord*/                          private int row;
@@ -86,7 +86,7 @@ public abstract class AbstractField {
      *
      * @return String of field color.
      */
-    public String getFieldColor() {
+    public int getFieldColor() {
         return fieldColor;
     }
 
@@ -114,7 +114,7 @@ public abstract class AbstractField {
      *
      * @param color color as a string.
      */
-    public void setColor(final String color) {
+    public void setColor(final int color) {
         fieldColor = color;
     }
 

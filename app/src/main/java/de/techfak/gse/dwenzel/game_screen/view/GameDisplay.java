@@ -95,5 +95,6 @@ public class GameDisplay {
      */
     public void nextRound() {
         gameLoop.nextRound();
+        gameLoop.start();
     }
 }

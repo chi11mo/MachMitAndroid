@@ -41,6 +41,7 @@ public class FieldMap {
                 // Log.d("init FIeld map field map row", String.valueOf(iRow));
                 abstractFields[iRow][iCol] = AbstractField.getField(layout[iRow][iCol],
                         buttonSpriteSheet, isCrossed[iRow][iCol]);
+                abstractFields[iRow][iCol].setColor(layout[iRow][iCol]);
             }
         }
     }
