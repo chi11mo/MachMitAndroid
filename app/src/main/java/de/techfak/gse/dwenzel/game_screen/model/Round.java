@@ -44,7 +44,7 @@ public class Round {
     public void addRound(final FieldMap fieldMap) {
         BoardLoader loader = new BoardLoader(context);
         currentRound++;
-        textViewCurRound.setText("Round : " + currentRound);
+        textViewCurRound.setText("Runde : " + currentRound);
         this.fieldMap = fieldMap;
         loader.updateField(fieldMap);
 
