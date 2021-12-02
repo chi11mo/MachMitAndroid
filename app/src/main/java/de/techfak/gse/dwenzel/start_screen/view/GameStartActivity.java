@@ -75,17 +75,18 @@ public class GameStartActivity extends AppCompatActivity implements Serializable
      * @param exception validation message.
      */
     @Override
-    public void onLoginError(final String exception) {
+    public void onLoginError(final String exception, final String board) {
+        Log.d("BoardLayout is :", board);
         String message = exception;
         /*board Exception message.*/
         final String boardException = "InvalidBoardException";
         if (message.equals(boardException)) {
-            message = "Board Structure is Invalid :  do 15 rows and 7 columns.";
+            message = "Board Struktur ist nicht valide :  7 Zeilen und 15 Spalten.";
         }
         /*field Exception message.*/
         final String fieldException = "InvalidFieldException";
         if (message.equals(fieldException)) {
-            message = "Board Structure is Invalid :   do b, B, g, G, o, O, r, R, y, Y ";
+            message = "Board Struktur ist nicht valide  :   b, B, g, G, o, O, r, R, y, Y ";
         }
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Invalid Board Layout Try Another txt Data.")

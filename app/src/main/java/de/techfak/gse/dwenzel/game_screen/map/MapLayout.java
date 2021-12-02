@@ -31,7 +31,7 @@ public class MapLayout {
         final String boardString = boardLayout;
 
 
-        final String[] spliced = boardString.split(",");
+        final String[] spliced = boardString.split("\\n");
 
         for (int iRow = 0; iRow < spliced[0].length(); iRow++) {
 

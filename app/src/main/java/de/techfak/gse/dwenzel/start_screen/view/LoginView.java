@@ -5,6 +5,6 @@ package de.techfak.gse.dwenzel.start_screen.view;
  */
 public interface LoginView {
     void onLoginSuccess(String message);
-    void onLoginError(String message);
+    void onLoginError(String message, String exception);
 
 }

@@ -33,7 +33,7 @@ public class BoardValidator {
         final String boardString = boardFile.getBoardString();
 
 
-        final String[] spliced = boardString.split(",");
+        final String[] spliced = boardString.split("\\n");
         String exception;
         exception = boardValidator(spliced);
         if (exception != null) {

@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:hint="setPlayground"
+            android:hint="Bitte Spiel Layout eingeben"
             android:text="ggGyyyygboboyyy,ogygyyoogbboogg,bgrggggrRryyogg,brrgoobbggYyorb,roOoorbbooorrrr,rBbrrrryyorbbbo,yybbbbryyygggog"
             android:minHeight="48dp"
             android:textColorHint="#757575"
@@ -44,7 +44,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:onClick="onClickGamestart"
-            android:text="Game Start!" />
+            android:text="Spiel Starten!" />
 
 
     </LinearLayout>
