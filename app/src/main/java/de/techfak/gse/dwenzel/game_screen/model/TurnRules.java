@@ -24,7 +24,6 @@ public class TurnRules {
     }
 
 
-
     /**
      * This class is to compare all the TurnRules and throw a exception
      * if the turn is not valid return a bool.
@@ -42,6 +41,13 @@ public class TurnRules {
                     throw new InvalidTurnException("Invalid Turn!");
                 }
             }
+            //if Mark is on Row H.
+            if (firstMark == 6) {
+                if (field.getRow() == 7) {
+                    return true;
+                }
+            }
+            //Checking is a Neighbour field Marked.
             if (!isNeighbour(field)) {
                 throw new InvalidTurnException("Invalid Turn!");
             }
@@ -85,6 +91,7 @@ public class TurnRules {
 
         return false;
     }
+
     /**
      * Checks if current turn has the same color.
      *

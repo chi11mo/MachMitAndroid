@@ -65,20 +65,22 @@ public class GameLoop extends AppCompatActivity implements Runnable {
 
                         int finalICol = iCol;
                         fieldMap.getFields()[iRow][iCol].getButton().setOnClickListener(event -> {
-                            if (turnRules.isTurnValid(fieldMap.getFields()[finalIRow][finalICol], firstMarkColor[0])) {
-                                firstMarkColor[0] = fieldMap.getFields()[finalIRow][finalICol].getFieldColor();
-                                if (fieldMap.getFields()[finalIRow][finalICol].isCrossed()) {
-                                    fieldMap.getFields()[finalIRow][finalICol].setIsCrossed(false);
-                                    fieldMap.getFields()[finalIRow][finalICol]
-                                            .getButton()
-                                            .setImageDrawable(fieldMap
-                                                    .getFields()[finalIRow][finalICol]
-                                                    .getDrawableField(false));
-                                    round.removeTap(fieldMap.getFields()[finalIRow][finalICol]);
-                                    if (round.getCurrentTurnTaps().isEmpty()) {
-                                        firstMarkColor[0] = 6;
-                                    }
-                                } else {
+
+
+                            if (fieldMap.getFields()[finalIRow][finalICol].isCrossed()) {
+                                fieldMap.getFields()[finalIRow][finalICol].setIsCrossed(false);
+                                fieldMap.getFields()[finalIRow][finalICol]
+                                        .getButton()
+                                        .setImageDrawable(fieldMap
+                                                .getFields()[finalIRow][finalICol]
+                                                .getDrawableField(false));
+                                round.removeTap(fieldMap.getFields()[finalIRow][finalICol]);
+                                if (round.getCurrentTurnTaps().isEmpty()) {
+                                    firstMarkColor[0] = 6;
+                                }
+                            } else {
+                                if (turnRules.isTurnValid(fieldMap.getFields()[finalIRow][finalICol], firstMarkColor[0])) {
+                                    firstMarkColor[0] = fieldMap.getFields()[finalIRow][finalICol].getFieldColor();
                                     fieldMap.getFields()[finalIRow][finalICol].setIsCrossed(true);
                                     fieldMap.getFields()[finalIRow][finalICol]
                                             .getButton().setImageDrawable(fieldMap
@@ -86,15 +88,12 @@ public class GameLoop extends AppCompatActivity implements Runnable {
                                             .getDrawableField(true));
                                     //add field to the current Turn taps.
                                     round.addTap(fieldMap.getFields()[finalIRow][finalICol]);
+                                } else {
+                                    Log.d("GameLoob", "Mark is not valid");
                                 }
-
-                            } else {
-                                Log.d("GameLoob", "Mark is not valid");
                             }
-                            //Log.d(":Button event", (finalIRow) + "/" + finalICol);
-                            // Log.d(":Button event", String.valueOf(fieldMap
-                            // .getFields()[finalIRow][finalICol]
-                            // .isCrossed()));
+
+
                         });
                     }
                 }
@@ -116,6 +115,6 @@ public class GameLoop extends AppCompatActivity implements Runnable {
         isRunning = false;
         round.addRound(fieldMap);
 
-       firstMarkColor[0] = 6;
+        firstMarkColor[0] = 6;
     }
 }
