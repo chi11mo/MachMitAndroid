@@ -90,7 +90,9 @@ public class GameDisplay {
         //gameLoop.run();
     }
 
-
+    /**
+     * go to next round in Gameloob.
+     */
     public void nextRound() {
         gameLoop.nextRound();
     }
