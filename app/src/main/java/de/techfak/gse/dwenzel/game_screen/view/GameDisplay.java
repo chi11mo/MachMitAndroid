@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.widget.GridLayout;
 
+import androidx.appcompat.app.AlertDialog;
+
 import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.game_screen.controller.BoardLoader;
 import de.techfak.gse.dwenzel.game_screen.controller.GameLoop;
@@ -13,7 +15,7 @@ import de.techfak.gse.dwenzel.game_screen.model.DataLoader;
 
 /* default */
 
-public class GameDisplay {
+public class GameDisplay implements AlertBox {
 
     private final Context context;
     private final BoardLoader boardLoader;
@@ -36,7 +38,6 @@ public class GameDisplay {
         onCreate(dataLoader);
 
 
-
     }
 
     /**
@@ -45,7 +46,7 @@ public class GameDisplay {
      * @param dataLoader to load images from assets.
      */
     private void onCreate(final DataLoader dataLoader) {
-        //init panels for Gameboard.
+        /*init panels for Gameboard.*/
         final CoordinateView coordinateView
                 = new CoordinateView(context);
 
@@ -54,14 +55,14 @@ public class GameDisplay {
         coordinateView.setHorizontalCoordinateView(((Activity) context)
                 .findViewById(R.id.horizontalLayout));
 
-        //Layout for button board
+        /*Layout for button board*/
         final GridLayout gridLayout
                 = ((Activity) context)
                 .findViewById(R.id.playground_grid);
         gridLayout.setColumnCount(context.getResources()
                 .getInteger(R.integer.PlaygroundCol));
 
-        //set Background Board for the GameBoard
+        /*set Background Board for the GameBoard*/
         ((Activity) context)
                 .findViewById(R.id.gameBoard)
                 .setBackground(dataLoader.loadDrawableFromAssets(context
@@ -86,7 +87,7 @@ public class GameDisplay {
      * start the Game Loop controller.
      */
     public void startRun() {
-         gameLoop = new GameLoop(context, fieldMap);
+        gameLoop = new GameLoop(context, fieldMap, this);
         //gameLoop.run();
     }
 
@@ -96,5 +97,22 @@ public class GameDisplay {
     public void nextRound() {
         gameLoop.nextRound();
         gameLoop.start();
+    }
+
+    /**
+     * show Alerts.
+     * invalid TurnRules will be shown up in the game.
+     *
+     * @param title   title of the alert box.
+     * @param message the rule behind the exception.
+     */
+    @Override
+    public void showAlert(final String title, final String message) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(title)
+                .setCancelable(false)
+                .setMessage(message)
+                .setPositiveButton("Okay", null);
+        builder.show();
     }
 }

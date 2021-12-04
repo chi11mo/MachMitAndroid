@@ -9,6 +9,7 @@ import de.techfak.gse.dwenzel.game_screen.map.AbstractField;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
 import de.techfak.gse.dwenzel.game_screen.model.Round;
 import de.techfak.gse.dwenzel.game_screen.model.TurnRules;
+import de.techfak.gse.dwenzel.game_screen.view.AlertBox;
 import de.techfak.gse.dwenzel.game_screen.view.FieldMarker;
 
 public class GameLoop extends AppCompatActivity implements Runnable {
@@ -21,6 +22,7 @@ public class GameLoop extends AppCompatActivity implements Runnable {
     private final int[] firstMarkColor = {NULL_COLOR_INDEX};
     private boolean isRunning;
     private Round round;
+    private final AlertBox alertBox;
 
     /**
      * GameLoop is game controller.
@@ -30,9 +32,10 @@ public class GameLoop extends AppCompatActivity implements Runnable {
      * @param context  is context from View
      * @param fieldMap for control the playground.
      */
-    public GameLoop(final Context context, final FieldMap fieldMap) {
+    public GameLoop(final Context context, final FieldMap fieldMap, final AlertBox alertBox) {
         this.context = context;
         this.fieldMap = fieldMap;
+        this.alertBox = alertBox;
         //init round and add the first round.
         round = new Round(context);
         // round.addRound(fieldMap);
@@ -58,7 +61,7 @@ public class GameLoop extends AppCompatActivity implements Runnable {
     @Override
     public void run() {
         isRunning = true;
-        TurnRules turnRules = new TurnRules(fieldMap);
+        TurnRules turnRules = new TurnRules(alertBox,fieldMap);
         FieldMarker fieldMarker = new FieldMarker();
 
         while (isRunning) {
