@@ -2,7 +2,6 @@ package de.techfak.gse.dwenzel.game_screen.model;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -12,18 +11,19 @@ import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.game_screen.controller.BoardLoader;
 import de.techfak.gse.dwenzel.game_screen.map.AbstractField;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
+import de.techfak.gse.dwenzel.game_screen.view.FieldMarker;
 
 public class Round {
     private final Context context;
     private int currentRound;
     private FieldMap fieldMap;
-    private TextView textViewCurRound;
+    private final TextView textViewCurRound;
     /*This list shows the current
     fields are tapped for current Turn*/
-    private List<AbstractField> currentTurnTaps = new ArrayList<>();
+    private final List<AbstractField> currentTurnTaps = new ArrayList<>();
 
     /**
-     * save curren Round information.
+     * save current Round information.
      *
      * @param context view.
      */
@@ -46,13 +46,18 @@ public class Round {
 
         BoardLoader loader = new BoardLoader(context);
         currentRound++;
-        textViewCurRound.setText("Runde : " + currentRound);
+        textViewCurRound.setText(context.getString(R.string.RoundName) + currentRound);
         this.fieldMap = fieldMap;
         loader.updateField(fieldMap);
-
+        currentTurnTaps.clear();
 
     }
-    public List getCurrentTurnTaps(){
+
+    /**
+     * get the list of current marked fields.
+     * @return list of marked fields.
+     */
+    public List getCurrentTurnTaps() {
         return currentTurnTaps;
     }
 
@@ -79,9 +84,7 @@ public class Round {
         }
         //Log.d("Current saved Taps", String.valueOf(currentTurnTaps));
     }
-    public void removeTap(final AbstractField abstractField){
-        currentTurnTaps.remove(abstractField);
-    }
+
 
     /**
      * check if field is already in currentTurnTaps.
@@ -97,4 +100,18 @@ public class Round {
         }
         return false;
     }
+
+    /**
+     * This will remove all Current marked fields from the current Marked field
+     * list.
+     */
+    public void removeAllTaps() {
+        FieldMarker fieldMarker = new FieldMarker();
+        for (AbstractField field : currentTurnTaps) {
+            fieldMarker.removeFieldMark(field);
+            // removeTap(field);
+        }
+        currentTurnTaps.clear();
+    }
+
 }

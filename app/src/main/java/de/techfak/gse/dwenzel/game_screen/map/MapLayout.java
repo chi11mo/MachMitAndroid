@@ -23,7 +23,7 @@ public class MapLayout {
     }
 
     /**
-     * init the layout
+     * init the layout.
      */
     private void initializeLayout() {
         layout = new int[maxRow][maxCol];

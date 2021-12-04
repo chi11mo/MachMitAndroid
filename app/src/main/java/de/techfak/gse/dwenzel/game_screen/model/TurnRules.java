@@ -2,16 +2,14 @@ package de.techfak.gse.dwenzel.game_screen.model;
 
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import de.techfak.gse.dwenzel.exception.InvalidFieldException;
 import de.techfak.gse.dwenzel.exception.InvalidTurnException;
 import de.techfak.gse.dwenzel.game_screen.map.AbstractField;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
 
 public class TurnRules {
     private final FieldMap fieldMap;
+    private static final int NULL_COLOR_INDEX = 6;
+    private static final int H_ROW_CORD = 7;
 
     /**
      * TurnRules is for checking the current Turn Field choices.
@@ -28,7 +26,8 @@ public class TurnRules {
      * This class is to compare all the TurnRules and throw a exception
      * if the turn is not valid return a bool.
      *
-     * @param field current marked field.
+     * @param field     current marked field.
+     * @param firstMark color index of crossed Fields before.
      * @return is the Turn valid or not.
      */
     public boolean isTurnValid(final AbstractField field, final int firstMark) {
@@ -36,14 +35,14 @@ public class TurnRules {
 
         try {
             //All marked fields are the same as first tap.
-            if (firstMark != 6) {
+            if (firstMark != NULL_COLOR_INDEX) {
                 if (!isColorValid(field, firstMark)) {
                     throw new InvalidTurnException("Invalid Turn!");
                 }
             }
             //if Mark is on Row H.
-            if (firstMark == 6) {
-                if (field.getRow() == 7) {
+            if (firstMark == NULL_COLOR_INDEX) {
+                if (field.getRow() == H_ROW_CORD) {
                     return true;
                 }
             }
@@ -95,7 +94,8 @@ public class TurnRules {
     /**
      * Checks if current turn has the same color.
      *
-     * @param field current marked field.
+     * @param chosenColor is index of chosen Color.
+     * @param field       current marked field.
      * @return if correct color is chosen.
      */
     private boolean isColorValid(final AbstractField field, final int chosenColor) {
