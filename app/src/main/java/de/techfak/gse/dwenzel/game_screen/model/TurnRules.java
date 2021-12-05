@@ -12,7 +12,8 @@ import de.techfak.gse.dwenzel.game_screen.view.AlertBox;
  */
 public class TurnRules {
     private static final String NEIGHBOUR_OR_H = "Das zu makierende Feld muss "
-            + "bei der Reihe H anfangen oder in Nachbarschaft zu einen bereits makierten Feld sein.";
+            + "bei der Reihe H anfangen oder in"
+            + " Nachbarschaft zu einen bereits makierten Feld sein.";
     private static final String NOT_SAME_COLOR = "Das zu makierende Feld muss "
             + "die selbe Farbe haben wie das zuvor makierte Feld.";
     private final FieldMap fieldMap;
@@ -24,6 +25,7 @@ public class TurnRules {
     /**
      * TurnRules is for checking the current Turn Field choices.
      * You get back a bool.
+     *
      * @param alertBox to bring the alertbox to the view.
      * @param fieldMap current Field Map.
      */
@@ -67,7 +69,7 @@ public class TurnRules {
         } catch (InvalidTurnException exp) {
 
             alertBox.showAlert("Kein valider Zug!", rule);
-            Log.d("Exception", String.valueOf(exp));
+            //Log.d("Exception", String.valueOf(exp));
             return false;
         }
 
