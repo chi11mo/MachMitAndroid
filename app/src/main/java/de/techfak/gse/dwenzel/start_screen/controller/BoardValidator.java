@@ -79,7 +79,7 @@ public class BoardValidator {
 
 
         } catch (InvalidFieldException e) {
-            Log.d(EXCEPTIONTITLE, String.valueOf(e));
+            //Log.d(EXCEPTIONTITLE, String.valueOf(e));
             return exception;
         }
         return null;
