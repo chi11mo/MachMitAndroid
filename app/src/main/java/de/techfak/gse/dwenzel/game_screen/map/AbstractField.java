@@ -11,7 +11,7 @@ import de.techfak.gse.dwenzel.game_screen.model.ButtonSpriteSheet;
 public abstract class AbstractField {
 
 
-    ButtonSpriteSheet buttonSpriteSheet;
+    private ButtonSpriteSheet buttonSpriteSheet;
     /*field Color in a String (small letter).*/ private int fieldColor;
     /*if a field is validCrossed.*/             private boolean crossed;
     /*field buttons*/                           private ImageButton fieldButton;

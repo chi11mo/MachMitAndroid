@@ -6,7 +6,7 @@ import de.techfak.gse.dwenzel.game_screen.model.ButtonSpriteSheet;
 
 public class YellowAbstractField extends AbstractField {
    private final Drawable drawableField;
-
+    private ButtonSpriteSheet buttonSpriteSheet;
     /**
      * Method to create field.
      *

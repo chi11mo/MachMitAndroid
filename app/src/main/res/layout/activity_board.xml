@@ -16,6 +16,56 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_media_play" />
 
+    <ImageView
+        android:id="@+id/DiceOne"
+        android:layout_width="20pt"
+        android:layout_height="20pt"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/nextRound"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentRoundView"
+        app:layout_constraintVertical_bias="0.066" />
+    <ImageView
+        android:id="@+id/DiceTwo"
+        android:layout_width="20pt"
+        android:layout_height="20pt"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/DiceOne" />
+
+    <ImageView
+        android:id="@+id/DiceThree"
+        android:layout_width="20pt"
+        android:layout_height="20pt"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/DiceTwo" />
+    <ImageView
+        android:id="@+id/ColorOne"
+        android:layout_width="20pt"
+        android:layout_height="20pt"
+        android:layout_marginEnd="80dp"
+        app:layout_constraintBottom_toTopOf="@+id/nextRound"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentRoundView"
+        app:layout_constraintVertical_bias="0.066" />
+    <ImageView
+        android:id="@+id/ColorTwo"
+        android:layout_width="20pt"
+        android:layout_height="20pt"
+        android:layout_marginEnd="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ColorOne" />
+
+    <ImageView
+        android:id="@+id/ColorThree"
+        android:layout_width="20pt"
+        android:layout_height="20pt"
+        android:layout_marginEnd="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ColorTwo" />
+
+
     <TextView
         android:id="@+id/currentRoundView"
         android:layout_width="wrap_content"
@@ -65,5 +115,7 @@
 
         </GridLayout>
     </FrameLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

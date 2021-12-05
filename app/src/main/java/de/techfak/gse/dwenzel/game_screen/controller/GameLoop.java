@@ -5,8 +5,10 @@ import android.content.Context;
 import androidx.appcompat.app.AppCompatActivity;
 
 import de.techfak.gse.dwenzel.R;
+import de.techfak.gse.dwenzel.game_screen.dice.Dice;
 import de.techfak.gse.dwenzel.game_screen.map.AbstractField;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
+import de.techfak.gse.dwenzel.game_screen.model.DiceSpriteSheet;
 import de.techfak.gse.dwenzel.game_screen.model.Round;
 import de.techfak.gse.dwenzel.game_screen.model.TurnRules;
 import de.techfak.gse.dwenzel.game_screen.view.AlertBox;
@@ -115,9 +117,15 @@ public class GameLoop extends AppCompatActivity implements Runnable {
      */
     public void nextRound() {
         isRunning = false;
-
+        updateDice();
         round.addRound(fieldMap);
 
         firstMarkColor[0] = NULL_COLOR_INDEX;
+    }
+
+    private void updateDice() {
+       Dice dice = new Dice(context);
+       dice.createDice();
+
     }
 }

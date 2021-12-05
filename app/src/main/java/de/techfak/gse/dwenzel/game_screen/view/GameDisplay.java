@@ -99,6 +99,7 @@ public class GameDisplay implements AlertBox {
         gameLoop.start();
     }
 
+
     /**
      * show Alerts.
      * invalid TurnRules will be shown up in the game.
