@@ -17,6 +17,7 @@ public class BlueAbstractField extends AbstractField {
     public BlueAbstractField(final boolean isCrossed,
                              final ButtonSpriteSheet buttonSpriteSheet) {
         super(isCrossed, buttonSpriteSheet);
+        this.buttonSpriteSheet = buttonSpriteSheet;
         drawableField = buttonSpriteSheet.getBlueFieldDrawable(isCrossed);
     }
 

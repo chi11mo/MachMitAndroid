@@ -2,12 +2,17 @@ package de.techfak.gse.dwenzel.game_screen.dice;
 
 import android.content.Context;
 
+import java.util.List;
+
 import de.techfak.gse.dwenzel.game_screen.model.DiceSpriteSheet;
 
 public class Dice {
     private final DiceSpriteSheet diceSpriteSheet;
+
     private DiceView diceView;
     private final Context context;
+    private List colorList;
+    private int[] diceNumbers;
 
     /**
      * To generate Dices.
@@ -28,7 +33,27 @@ public class Dice {
         DiceRandomizer diceRandomizer = new DiceRandomizer(diceSpriteSheet);
         ColorRandomizer colorRandomizer = new ColorRandomizer(context);
         AbstractDice[] dice = diceRandomizer.getDices();
-        diceView.setDice(dice, colorRandomizer.getColorList());
+        colorList = colorRandomizer.getColorList();
+        diceNumbers = diceRandomizer.getDiceNumbers();
+        diceView.setDice(dice, colorList);
 
+    }
+
+    /**
+     * get Rolles dice Eyes.
+     *
+     * @return array with alls rolled dice numbers.
+     */
+    public int[] getDiceEyes() {
+        return diceNumbers;
+    }
+
+    /**
+     * get rolled colors.
+     *
+     * @return rolled colors.
+     */
+    public List getDiceColors() {
+        return colorList;
     }
 }

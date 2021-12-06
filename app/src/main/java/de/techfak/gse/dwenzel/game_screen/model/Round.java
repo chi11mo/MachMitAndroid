@@ -55,6 +55,7 @@ public class Round {
 
     /**
      * get the list of current marked fields.
+     *
      * @return list of marked fields.
      */
     public List getCurrentTurnTaps() {

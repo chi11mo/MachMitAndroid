@@ -2,7 +2,10 @@ package de.techfak.gse.dwenzel.game_screen.model;
 
 import android.util.Log;
 
+import java.util.List;
+
 import de.techfak.gse.dwenzel.exception.InvalidTurnException;
+import de.techfak.gse.dwenzel.game_screen.dice.Dice;
 import de.techfak.gse.dwenzel.game_screen.map.AbstractField;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
 import de.techfak.gse.dwenzel.game_screen.view.AlertBox;
@@ -16,10 +19,12 @@ public class TurnRules {
             + " Nachbarschaft zu einen bereits makierten Feld sein.";
     private static final String NOT_SAME_COLOR = "Das zu makierende Feld muss "
             + "die selbe Farbe haben wie das zuvor makierte Feld.";
+    private static final String NOT_RIGHT_DICE_EYE = "Die Anzahl der makierten Felder sind zu hoch. "
+            + "Checke die Augenzahlen der Wurfel nochmal.";
     private final FieldMap fieldMap;
     private static final int NULL_COLOR_INDEX = 6;
     private static final int H_ROW_CORD = 7;
-
+    private Dice dice;
     private AlertBox alertBox;
 
     /**
@@ -39,14 +44,19 @@ public class TurnRules {
      * This class is to compare all the TurnRules and throw a exception
      * if the turn is not valid return a bool.
      *
-     * @param field     current marked field.
-     * @param firstMark color index of crossed Fields before.
+     * @param field           current marked field.
+     * @param firstMark       color index of crossed Fields before.
+     * @param currentTurnTaps current field marks.
      * @return is the Turn valid or not.
      */
-    public boolean isTurnValid(final AbstractField field, final int firstMark) {
+    public boolean isTurnValid(final AbstractField field, final int firstMark, final List currentTurnTaps) {
         String rule = null;
 
         try {
+            if (!diceRules(currentTurnTaps)) {
+                rule = NOT_RIGHT_DICE_EYE;
+                throw new InvalidTurnException(NOT_RIGHT_DICE_EYE);
+            }
             /*All marked fields are the same as first tap.*/
             if (firstMark != NULL_COLOR_INDEX) {
                 if (!isColorValid(field, firstMark)) {
@@ -75,6 +85,16 @@ public class TurnRules {
 
 
         return true;
+    }
+
+    /**
+     * Creates rules for the dice.
+     *
+     * @param currentTurnTaps current Turn Taps.
+     * @return bool if dice is fine with marked fields.
+     */
+    private boolean diceRules(List currentTurnTaps) {
+        return isDiceEyeNumber(currentTurnTaps);
     }
 
     /**
@@ -117,5 +137,20 @@ public class TurnRules {
      */
     private boolean isColorValid(final AbstractField field, final int chosenColor) {
         return field.getFieldColor() == chosenColor;
+    }
+
+    private boolean isDiceEyeNumber(final List currentTurnTaps) {
+        final int maxTaps = currentTurnTaps.size();
+        int maxDiceEye = 0;
+        for (int number : dice.getDiceEyes()) {
+            if (number > maxDiceEye) {
+                maxDiceEye = number;
+            }
+        }
+        return maxTaps <= maxDiceEye;
+    }
+
+    public void setDice(final Dice dice) {
+        this.dice = dice;
     }
 }

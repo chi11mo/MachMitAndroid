@@ -16,6 +16,7 @@ public class YellowAbstractField extends AbstractField {
     public YellowAbstractField(final boolean isCrossed,
                                final ButtonSpriteSheet buttonSpriteSheet) {
         super(isCrossed, buttonSpriteSheet);
+        this.buttonSpriteSheet = buttonSpriteSheet;
         drawableField = buttonSpriteSheet.getYellowFieldDrawable(isCrossed);
     }
 

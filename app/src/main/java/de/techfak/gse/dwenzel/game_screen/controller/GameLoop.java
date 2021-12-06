@@ -22,9 +22,12 @@ public class GameLoop extends AppCompatActivity implements Runnable {
 
     private FieldMap fieldMap;
     private final int[] firstMarkColor = {NULL_COLOR_INDEX};
+    private final Dice dice;
+    private final AlertBox alertBox;
     private boolean isRunning;
     private Round round;
-    private final AlertBox alertBox;
+    private TurnRules turnRules;
+
 
     /**
      * GameLoop is game controller.
@@ -38,8 +41,11 @@ public class GameLoop extends AppCompatActivity implements Runnable {
         this.context = context;
         this.fieldMap = fieldMap;
         this.alertBox = alertBox;
+
         //init round and add the first round.
         round = new Round(context);
+        dice = new Dice(context);
+        turnRules = new TurnRules(alertBox, fieldMap);
         // round.addRound(fieldMap);
         //start gameloop thread.
         start();
@@ -63,7 +69,7 @@ public class GameLoop extends AppCompatActivity implements Runnable {
     @Override
     public void run() {
         isRunning = true;
-        TurnRules turnRules = new TurnRules(alertBox,fieldMap);
+
         FieldMarker fieldMarker = new FieldMarker();
 
         while (isRunning) {
@@ -88,7 +94,7 @@ public class GameLoop extends AppCompatActivity implements Runnable {
                                     firstMarkColor[0] = NULL_COLOR_INDEX;
                                 }
                             } else {
-                                if (turnRules.isTurnValid(field, firstMarkColor[0])) {
+                                if (turnRules.isTurnValid(field, firstMarkColor[0],round.getCurrentTurnTaps())) {
 
 
                                     firstMarkColor[0] = field.getFieldColor();
@@ -123,9 +129,12 @@ public class GameLoop extends AppCompatActivity implements Runnable {
         firstMarkColor[0] = NULL_COLOR_INDEX;
     }
 
+    /**
+     * Roll new Dice every Round.
+     */
     private void updateDice() {
-       Dice dice = new Dice(context);
-       dice.createDice();
+        dice.createDice();
+        turnRules.setDice(dice);
 
     }
 }

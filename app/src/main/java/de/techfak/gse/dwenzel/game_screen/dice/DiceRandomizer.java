@@ -9,6 +9,7 @@ public class DiceRandomizer {
     private final DiceSpriteSheet diceSpriteSheet;
     private final DiceCreator diceCreator;
     private Random random;
+    private int[] diceNumbers;
 
     /**
      * randomize dices.
@@ -19,6 +20,7 @@ public class DiceRandomizer {
         this.diceSpriteSheet = diceSpriteSheet;
         diceCreator = new DiceCreator(diceSpriteSheet);
         random = new Random();
+        diceNumbers = new int[3];
     }
 
     /**
@@ -29,14 +31,23 @@ public class DiceRandomizer {
     public AbstractDice[] getDices() {
         AbstractDice[] dices;
         dices = diceCreator.getDice();
-
-        dices[0] = diceCreator.getDice()[randomNumber()];
-        dices[1] = diceCreator.getDice()[randomNumber()];
-        dices[2] = diceCreator.getDice()[randomNumber()];
+        diceNumbers[0] = randomNumber();
+        diceNumbers[1] = randomNumber();
+        diceNumbers[2] = randomNumber();
+        dices[0] = diceCreator.getDice()[diceNumbers[0]];
+        dices[1] = diceCreator.getDice()[diceNumbers[1]];
+        dices[2] = diceCreator.getDice()[diceNumbers[2]];
 
         return dices;
     }
 
+    /**
+     * get rolled dice numbers.
+     * @return dice rolled.
+     */
+    public int[] getDiceNumbers() {
+        return diceNumbers;
+    }
 
     /**
      * Creates DiceNumber != 0.

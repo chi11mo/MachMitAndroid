@@ -12,7 +12,7 @@ public class ColorRandomizer {
     public static final int COLOR_MAX_INDEX = 5;
     private final Random random;
     private final Context context;
-
+private int colorIndex;
     /**
      * Randomize Color for the dices.
      *
