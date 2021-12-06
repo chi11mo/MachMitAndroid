@@ -1,6 +1,6 @@
 package de.techfak.gse.dwenzel.game_screen.dice;
 
-import de.techfak.gse.dwenzel.game_screen.model.DiceSpriteSheet;
+import de.techfak.gse.dwenzel.sprite_sheet.DiceSpriteSheet;
 
 public class DiceCreator {
     private static final int MAX_DICE_EYE = 6;

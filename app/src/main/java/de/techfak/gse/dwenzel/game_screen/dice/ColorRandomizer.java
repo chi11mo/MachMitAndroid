@@ -12,7 +12,8 @@ public class ColorRandomizer {
     public static final int COLOR_MAX_INDEX = 5;
     private final Random random;
     private final Context context;
-private int colorIndex;
+    private int[] diceColorIndex;
+
     /**
      * Randomize Color for the dices.
      *
@@ -21,6 +22,7 @@ private int colorIndex;
     public ColorRandomizer(final Context context) {
         this.context = context;
         random = new Random();
+        diceColorIndex = new int[3];
     }
 
     /**
@@ -30,10 +32,28 @@ private int colorIndex;
      */
     public List<Integer> getColorList() {
         List<Integer> colorList = new ArrayList<>();
-        colorList.add(getColorIdx(randomNumber()));
-        colorList.add(getColorIdx(randomNumber()));
-        colorList.add(getColorIdx(randomNumber()));
+
+        diceColorIndex[0] = randomNumber();
+        diceColorIndex[1] = randomNumber();
+        diceColorIndex[2] = randomNumber();
+        colorList.add(getColorIdx(diceColorIndex[0]));
+        colorList.add(getColorIdx(diceColorIndex[1]));
+        colorList.add(getColorIdx(diceColorIndex[2]));
         return colorList;
+    }
+
+    /**
+     * get the color indexes.
+     * Yellow index 0
+     * Green index 1
+     * Red index 2
+     * Orange index 3
+     * Blue index 4
+     *
+     * @return index of rolled colors.
+     */
+    public int[] getColorNumbers() {
+        return diceColorIndex;
     }
 
     /**

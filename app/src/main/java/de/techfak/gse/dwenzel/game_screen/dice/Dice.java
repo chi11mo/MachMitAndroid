@@ -4,7 +4,7 @@ import android.content.Context;
 
 import java.util.List;
 
-import de.techfak.gse.dwenzel.game_screen.model.DiceSpriteSheet;
+import de.techfak.gse.dwenzel.sprite_sheet.DiceSpriteSheet;
 
 public class Dice {
     private final DiceSpriteSheet diceSpriteSheet;
@@ -12,6 +12,7 @@ public class Dice {
     private DiceView diceView;
     private final Context context;
     private List colorList;
+    private int[] diceColor;
     private int[] diceNumbers;
 
     /**
@@ -34,13 +35,14 @@ public class Dice {
         ColorRandomizer colorRandomizer = new ColorRandomizer(context);
         AbstractDice[] dice = diceRandomizer.getDices();
         colorList = colorRandomizer.getColorList();
+        diceColor = colorRandomizer.getColorNumbers();
         diceNumbers = diceRandomizer.getDiceNumbers();
         diceView.setDice(dice, colorList);
 
     }
 
     /**
-     * get Rolles dice Eyes.
+     * get rolled dice eyes.
      *
      * @return array with alls rolled dice numbers.
      */
@@ -53,7 +55,7 @@ public class Dice {
      *
      * @return rolled colors.
      */
-    public List getDiceColors() {
-        return colorList;
+    public int[] getDiceColors() {
+        return diceColor;
     }
 }

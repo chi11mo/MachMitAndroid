@@ -19,8 +19,8 @@ public class TurnRules {
             + " Nachbarschaft zu einen bereits makierten Feld sein.";
     private static final String NOT_SAME_COLOR = "Das zu makierende Feld muss "
             + "die selbe Farbe haben wie das zuvor makierte Feld.";
-    private static final String NOT_RIGHT_DICE_EYE = "Die Anzahl der makierten Felder sind zu hoch. "
-            + "Checke die Augenzahlen der Wurfel nochmal.";
+    private static final String NOT_RIGHT_DICE_EYE = "Die Anzahl der makierten Felder sind zu hoch "
+            + "oder die Farbe stimmt nicht.Checke die Augenzahlen der Wurfel nochmal.";
     private final FieldMap fieldMap;
     private static final int NULL_COLOR_INDEX = 6;
     private static final int H_ROW_CORD = 7;
@@ -53,7 +53,7 @@ public class TurnRules {
         String rule = null;
 
         try {
-            if (!diceRules(currentTurnTaps)) {
+            if (!diceRules(currentTurnTaps, field)) {
                 rule = NOT_RIGHT_DICE_EYE;
                 throw new InvalidTurnException(NOT_RIGHT_DICE_EYE);
             }
@@ -93,8 +93,8 @@ public class TurnRules {
      * @param currentTurnTaps current Turn Taps.
      * @return bool if dice is fine with marked fields.
      */
-    private boolean diceRules(List currentTurnTaps) {
-        return isDiceEyeNumber(currentTurnTaps);
+    private boolean diceRules(List currentTurnTaps, AbstractField field) {
+        return isDiceColor(field) && isDiceEyeNumber(currentTurnTaps);
     }
 
     /**
@@ -139,6 +139,12 @@ public class TurnRules {
         return field.getFieldColor() == chosenColor;
     }
 
+    /**
+     * checking turn tap counter with rolled dice eyes.
+     *
+     * @param currentTurnTaps current taps.
+     * @return bool if valid.
+     */
     private boolean isDiceEyeNumber(final List currentTurnTaps) {
         final int maxTaps = currentTurnTaps.size();
         int maxDiceEye = 0;
@@ -148,6 +154,15 @@ public class TurnRules {
             }
         }
         return maxTaps <= maxDiceEye;
+    }
+
+    private boolean isDiceColor(AbstractField field) {
+        for (int color : dice.getDiceColors()) {
+            if (field.getFieldColor() == color) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void setDice(final Dice dice) {

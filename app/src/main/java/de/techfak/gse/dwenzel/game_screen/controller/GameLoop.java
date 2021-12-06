@@ -8,7 +8,6 @@ import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.game_screen.dice.Dice;
 import de.techfak.gse.dwenzel.game_screen.map.AbstractField;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
-import de.techfak.gse.dwenzel.game_screen.model.DiceSpriteSheet;
 import de.techfak.gse.dwenzel.game_screen.model.Round;
 import de.techfak.gse.dwenzel.game_screen.model.TurnRules;
 import de.techfak.gse.dwenzel.game_screen.view.AlertBox;

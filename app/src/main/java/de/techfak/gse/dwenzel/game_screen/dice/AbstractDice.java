@@ -2,7 +2,7 @@ package de.techfak.gse.dwenzel.game_screen.dice;
 
 import android.graphics.drawable.Drawable;
 
-import de.techfak.gse.dwenzel.game_screen.model.DiceSpriteSheet;
+import de.techfak.gse.dwenzel.sprite_sheet.DiceSpriteSheet;
 
 public abstract class AbstractDice {
 

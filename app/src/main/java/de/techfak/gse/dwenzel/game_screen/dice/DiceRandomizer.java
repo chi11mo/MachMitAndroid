@@ -2,7 +2,7 @@ package de.techfak.gse.dwenzel.game_screen.dice;
 
 import java.util.Random;
 
-import de.techfak.gse.dwenzel.game_screen.model.DiceSpriteSheet;
+import de.techfak.gse.dwenzel.sprite_sheet.DiceSpriteSheet;
 
 public class DiceRandomizer {
     public static final int DICE_MAX_INDEX = 6;

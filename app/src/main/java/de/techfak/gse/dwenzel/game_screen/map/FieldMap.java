@@ -1,6 +1,6 @@
 package de.techfak.gse.dwenzel.game_screen.map;
 
-import de.techfak.gse.dwenzel.game_screen.model.ButtonSpriteSheet;
+import de.techfak.gse.dwenzel.sprite_sheet.ButtonSpriteSheet;
 
 public class FieldMap {
 

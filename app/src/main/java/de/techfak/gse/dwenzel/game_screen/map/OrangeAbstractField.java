@@ -2,7 +2,7 @@ package de.techfak.gse.dwenzel.game_screen.map;
 
 import android.graphics.drawable.Drawable;
 
-import de.techfak.gse.dwenzel.game_screen.model.ButtonSpriteSheet;
+import de.techfak.gse.dwenzel.sprite_sheet.ButtonSpriteSheet;
 
 public class OrangeAbstractField extends AbstractField {
     private final Drawable drawableField;

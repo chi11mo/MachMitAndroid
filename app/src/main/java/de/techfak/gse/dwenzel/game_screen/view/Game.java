@@ -4,7 +4,7 @@ import android.content.Context;
 
 import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
-import de.techfak.gse.dwenzel.game_screen.model.ButtonSpriteSheet;
+import de.techfak.gse.dwenzel.sprite_sheet.ButtonSpriteSheet;
 
 public class Game {
 

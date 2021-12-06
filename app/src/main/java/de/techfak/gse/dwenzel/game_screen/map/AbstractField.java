@@ -3,7 +3,7 @@ package de.techfak.gse.dwenzel.game_screen.map;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageButton;
 
-import de.techfak.gse.dwenzel.game_screen.model.ButtonSpriteSheet;
+import de.techfak.gse.dwenzel.sprite_sheet.ButtonSpriteSheet;
 
 /**
  * Class to describe single fields in the playground.

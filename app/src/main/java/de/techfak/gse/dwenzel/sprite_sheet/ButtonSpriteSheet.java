@@ -1,7 +1,9 @@
-package de.techfak.gse.dwenzel.game_screen.model;
+package de.techfak.gse.dwenzel.sprite_sheet;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+
+import de.techfak.gse.dwenzel.game_screen.model.DataLoader;
 
 public class ButtonSpriteSheet {
     private DataLoader dataLoader = new DataLoader();
