@@ -16,7 +16,6 @@ import de.techfak.gse.dwenzel.game_screen.view.FieldMarker;
 public class Round {
     private final Context context;
     private int currentRound;
-    private FieldMap fieldMap;
     private final TextView textViewCurRound;
     /*This list shows the current
     fields are tapped for current Turn*/
@@ -47,7 +46,6 @@ public class Round {
         BoardLoader loader = new BoardLoader(context);
         currentRound++;
         textViewCurRound.setText(context.getString(R.string.RoundName) + currentRound);
-        this.fieldMap = fieldMap;
         loader.updateField(fieldMap);
         currentTurnTaps.clear();
 
@@ -62,14 +60,6 @@ public class Round {
         return currentTurnTaps;
     }
 
-    /**
-     * Get the current round as a int.
-     *
-     * @return current round as a int.
-     */
-    public int getCurrentRound() {
-        return currentRound;
-    }
 
     /**
      * setting up current turn taps for turn validation

@@ -59,7 +59,7 @@ public class BoardMainActivity extends AppCompatActivity {
      *
      * @param view from xml.
      */
-    public void onNextRound(View view) {
+    public void onNextRound(final View view) {
         game.nextRound();
     }
 }

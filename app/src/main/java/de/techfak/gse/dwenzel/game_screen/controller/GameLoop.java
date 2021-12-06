@@ -46,14 +46,13 @@ public class GameLoop extends AppCompatActivity implements Runnable {
         turnRules = new TurnRules(alertBox, fieldMap);
         // round.add Round(fieldMap);
         /*start game loop thread.*/
-        start();
-        nextRound();
+
     }
 
     /**
      * This will be start the loop thread.
      */
-    public void start() {
+    public void startThread() {
         final Thread myThread = new Thread(this);
         myThread.start();
     }
@@ -92,8 +91,8 @@ public class GameLoop extends AppCompatActivity implements Runnable {
                                     firstMarkColor[0] = NULL_COLOR_INDEX;
                                 }
                             } else {
-                                if (turnRules.isTurnValid(field, firstMarkColor[0]
-                                        , round.getCurrentTurnTaps())) {
+                                if (turnRules.isTurnValid(field, firstMarkColor[0],
+                                        round.getCurrentTurnTaps())) {
 
 
                                     firstMarkColor[0] = field.getFieldColor();
@@ -109,7 +108,7 @@ public class GameLoop extends AppCompatActivity implements Runnable {
                 }
                 Thread.sleep(THREAD_SLEEP);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+               // e.printStackTrace();
             }
         }
 

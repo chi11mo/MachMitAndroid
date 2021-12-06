@@ -96,7 +96,7 @@ public class GameDisplay implements AlertBox {
      */
     public void nextRound() {
         gameLoop.nextRound();
-        gameLoop.start();
+        gameLoop.startThread();
     }
 
 

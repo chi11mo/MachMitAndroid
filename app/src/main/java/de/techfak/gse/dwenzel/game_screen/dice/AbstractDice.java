@@ -6,11 +6,9 @@ import de.techfak.gse.dwenzel.sprite_sheet.DiceSpriteSheet;
 
 public abstract class AbstractDice {
 
-    private final DiceSpriteSheet diceSpriteSheet;
     private int diceIndex = 0;
 
     public AbstractDice(final DiceSpriteSheet diceSpriteSheet) {
-        this.diceSpriteSheet = diceSpriteSheet;
     }
 
     /**

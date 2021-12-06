@@ -12,7 +12,7 @@ import de.techfak.gse.dwenzel.game_screen.view.AlertBox;
  * Model to check is the turn valid to the rules is set.
  */
 public class TurnRules {
-    private static final String NEIGHBOUR_OR_H = "Das zu makierende Feld muss "
+    private static final String NEIGHBOUR_OR_H = "Das makierte Feld muss "
             + "bei der Reihe H anfangen oder in"
             + " Nachbarschaft zu einen bereits makierten Feld sein.";
     private static final String NOT_SAME_COLOR = "Das zu makierende Feld muss "
@@ -20,9 +20,9 @@ public class TurnRules {
     private static final String NOT_RIGHT_DICE_EYE = "Die Anzahl "
             + "der makierten Felder sind zu hoch "
             + "oder die Farbe stimmt nicht.Checke die Augenzahlen der Wurfel nochmal.";
-    private final FieldMap fieldMap;
     private static final int NULL_COLOR_INDEX = 6;
     private static final int H_ROW_CORD = 7;
+    private final FieldMap fieldMap;
     private final AlertBox alertBox;
     private Dice dice;
 
@@ -49,8 +49,8 @@ public class TurnRules {
      * @param currentTurnTaps current field marks.
      * @return is the Turn valid or not.
      */
-    public boolean isTurnValid(final AbstractField field, final int firstMark
-            , final List currentTurnTaps) {
+    public boolean isTurnValid(final AbstractField field, final int firstMark,
+                               final List currentTurnTaps) {
         String rule = null;
 
         try {
@@ -59,17 +59,13 @@ public class TurnRules {
                 throw new InvalidTurnException(NOT_RIGHT_DICE_EYE);
             }
             /*All marked fields are the same as first tap.*/
-            if (firstMark != NULL_COLOR_INDEX) {
-                if (!isColorValid(field, firstMark)) {
-                    rule = NOT_SAME_COLOR;
-                    throw new InvalidTurnException(NOT_SAME_COLOR);
-                }
+            if (firstMark != NULL_COLOR_INDEX && !isColorValid(field, firstMark)) {
+                rule = NOT_SAME_COLOR;
+                throw new InvalidTurnException(NOT_SAME_COLOR);
             }
             /*if Mark is on Row H.*/
-            if (firstMark == NULL_COLOR_INDEX) {
-                if (field.getRow() == H_ROW_CORD) {
-                    return true;
-                }
+            if (firstMark == NULL_COLOR_INDEX && field.getRow() == H_ROW_CORD) {
+                return true;
             }
             /*Checking is a Neighbour field Marked.*/
             if (!isNeighbour(field)) {
