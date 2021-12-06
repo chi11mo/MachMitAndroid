@@ -19,44 +19,43 @@ public class GameLoop extends AppCompatActivity implements Runnable {
     private final Context context;
 
 
-    private FieldMap fieldMap;
+    private final FieldMap fieldMap;
     private final int[] firstMarkColor = {NULL_COLOR_INDEX};
     private final Dice dice;
-    private final AlertBox alertBox;
     private boolean isRunning;
-    private Round round;
-    private TurnRules turnRules;
+    private final Round round;
+    private final TurnRules turnRules;
 
 
     /**
      * GameLoop is game controller.
-     * Have the Button listener for a current round and controlls
+     * Have the Button listener for a current round and controls
      * button input.
      *
      * @param context  is context from View
      * @param fieldMap for control the playground.
+     * @param alertBox to alert the invalid turns.
      */
     public GameLoop(final Context context, final FieldMap fieldMap, final AlertBox alertBox) {
         this.context = context;
         this.fieldMap = fieldMap;
-        this.alertBox = alertBox;
 
         //init round and add the first round.
         round = new Round(context);
         dice = new Dice(context);
         turnRules = new TurnRules(alertBox, fieldMap);
-        // round.addRound(fieldMap);
-        //start gameloop thread.
+        // round.add Round(fieldMap);
+        /*start game loop thread.*/
         start();
-
+        nextRound();
     }
 
     /**
      * This will be start the loop thread.
      */
     public void start() {
-        final Thread myThead = new Thread(this);
-        myThead.start();
+        final Thread myThread = new Thread(this);
+        myThread.start();
     }
 
     /**
@@ -93,7 +92,8 @@ public class GameLoop extends AppCompatActivity implements Runnable {
                                     firstMarkColor[0] = NULL_COLOR_INDEX;
                                 }
                             } else {
-                                if (turnRules.isTurnValid(field, firstMarkColor[0],round.getCurrentTurnTaps())) {
+                                if (turnRules.isTurnValid(field, firstMarkColor[0]
+                                        , round.getCurrentTurnTaps())) {
 
 
                                     firstMarkColor[0] = field.getFieldColor();

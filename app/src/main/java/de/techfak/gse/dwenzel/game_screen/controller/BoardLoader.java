@@ -10,7 +10,7 @@ import de.techfak.gse.dwenzel.game_screen.map.AbstractField;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
 
 public class BoardLoader {
-    private Context context;
+    private final Context context;
 
 
     public BoardLoader(final Context context) {

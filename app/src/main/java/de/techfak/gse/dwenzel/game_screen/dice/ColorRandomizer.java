@@ -10,6 +10,7 @@ import de.techfak.gse.dwenzel.R;
 
 public class ColorRandomizer {
     public static final int COLOR_MAX_INDEX = 5;
+    public static final int DICE_MAX_COUNT = 3;
     private final Random random;
     private final Context context;
     private int[] diceColorIndex;
@@ -22,7 +23,7 @@ public class ColorRandomizer {
     public ColorRandomizer(final Context context) {
         this.context = context;
         random = new Random();
-        diceColorIndex = new int[3];
+        diceColorIndex = new int[DICE_MAX_COUNT];
     }
 
     /**
@@ -84,9 +85,6 @@ public class ColorRandomizer {
      * @return get DiceNumber.
      */
     private int randomNumber() {
-        int tmpNumber = 0;
-
-        tmpNumber = random.nextInt(COLOR_MAX_INDEX);
-        return tmpNumber;
+        return random.nextInt(COLOR_MAX_INDEX);
     }
 }

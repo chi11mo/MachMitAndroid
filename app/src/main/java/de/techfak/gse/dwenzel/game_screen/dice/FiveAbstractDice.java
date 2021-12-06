@@ -10,7 +10,7 @@ public class FiveAbstractDice extends AbstractDice {
     /**
      * Abstract class to define drawable for dice eyes.
      *
-     * @param diceSpriteSheet
+     * @param diceSpriteSheet sprite sheet.
      */
     public FiveAbstractDice(final DiceSpriteSheet diceSpriteSheet) {
         super(diceSpriteSheet);

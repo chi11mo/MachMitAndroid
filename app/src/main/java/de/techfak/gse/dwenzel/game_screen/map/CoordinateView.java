@@ -16,7 +16,7 @@ public class CoordinateView {
     private final Context context;
 
     /**
-     * This will create the Corrdinate Row and Col for the GameView.
+     * This will create the Coordinate Row and Col for the GameView.
      *
      * @param context get context for main activity.
      */

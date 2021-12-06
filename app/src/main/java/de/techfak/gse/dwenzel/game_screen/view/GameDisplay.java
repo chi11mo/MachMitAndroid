@@ -46,7 +46,7 @@ public class GameDisplay implements AlertBox {
      * @param dataLoader to load images from assets.
      */
     private void onCreate(final DataLoader dataLoader) {
-        /*init panels for Gameboard.*/
+        /*init panels for Game board.*/
         final CoordinateView coordinateView
                 = new CoordinateView(context);
 
@@ -92,7 +92,7 @@ public class GameDisplay implements AlertBox {
     }
 
     /**
-     * go to next round in Gameloob.
+     * go to next round in game loop.
      */
     public void nextRound() {
         gameLoop.nextRound();

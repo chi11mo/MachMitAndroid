@@ -6,8 +6,8 @@ import android.graphics.drawable.Drawable;
 import de.techfak.gse.dwenzel.game_screen.model.DataLoader;
 
 public class ButtonSpriteSheet {
-    private DataLoader dataLoader = new DataLoader();
-    private Context context;
+    private final DataLoader dataLoader = new DataLoader();
+    private final Context context;
 
     /**
      * loader for buttons sprites.

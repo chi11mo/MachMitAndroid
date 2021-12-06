@@ -6,10 +6,10 @@ import de.techfak.gse.dwenzel.sprite_sheet.DiceSpriteSheet;
 
 public class DiceRandomizer {
     public static final int DICE_MAX_INDEX = 6;
-    private final DiceSpriteSheet diceSpriteSheet;
+    public static final int DICE_MAX_COUNT = 3;
     private final DiceCreator diceCreator;
-    private Random random;
-    private int[] diceNumbers;
+    private final Random random;
+    private final int[] diceNumbers;
 
     /**
      * randomize dices.
@@ -17,10 +17,9 @@ public class DiceRandomizer {
      * @param diceSpriteSheet spriteSheet dices.
      */
     public DiceRandomizer(final DiceSpriteSheet diceSpriteSheet) {
-        this.diceSpriteSheet = diceSpriteSheet;
         diceCreator = new DiceCreator(diceSpriteSheet);
         random = new Random();
-        diceNumbers = new int[3];
+        diceNumbers = new int[DICE_MAX_COUNT];
     }
 
     /**
@@ -43,6 +42,7 @@ public class DiceRandomizer {
 
     /**
      * get rolled dice numbers.
+     *
      * @return dice rolled.
      */
     public int[] getDiceNumbers() {
@@ -55,12 +55,7 @@ public class DiceRandomizer {
      * @return get DiceNumber.
      */
     private int randomNumber() {
-        int tmpNumber = 0;
-
-        do {
-
-            tmpNumber = random.nextInt(DICE_MAX_INDEX);
-        } while (tmpNumber == 0);
-        return tmpNumber;
+        return random.nextInt(DICE_MAX_INDEX);
     }
+
 }

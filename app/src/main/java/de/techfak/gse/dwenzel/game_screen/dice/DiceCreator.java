@@ -5,12 +5,12 @@ import de.techfak.gse.dwenzel.sprite_sheet.DiceSpriteSheet;
 public class DiceCreator {
     private static final int MAX_DICE_EYE = 6;
     private final DiceSpriteSheet diceSpriteSheet;
-    private AbstractDice[] dice;
+    private final AbstractDice[] dice;
 
     /**
      * creates drawable for the dices.
      *
-     * @param diceSpriteSheet dice spriite sheet.
+     * @param diceSpriteSheet dice sprite sheet.
      */
     public DiceCreator(final DiceSpriteSheet diceSpriteSheet) {
         this.diceSpriteSheet = diceSpriteSheet;

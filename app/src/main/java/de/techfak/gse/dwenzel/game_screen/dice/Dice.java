@@ -9,9 +9,8 @@ import de.techfak.gse.dwenzel.sprite_sheet.DiceSpriteSheet;
 public class Dice {
     private final DiceSpriteSheet diceSpriteSheet;
 
-    private DiceView diceView;
+    private final DiceView diceView;
     private final Context context;
-    private List colorList;
     private int[] diceColor;
     private int[] diceNumbers;
 
@@ -28,13 +27,13 @@ public class Dice {
     }
 
     /**
-     * Creates the dices and uptade the dice View.
+     * Creates the dices and update the dice View.
      */
     public void createDice() {
         DiceRandomizer diceRandomizer = new DiceRandomizer(diceSpriteSheet);
         ColorRandomizer colorRandomizer = new ColorRandomizer(context);
         AbstractDice[] dice = diceRandomizer.getDices();
-        colorList = colorRandomizer.getColorList();
+        final List colorList = colorRandomizer.getColorList();
         diceColor = colorRandomizer.getColorNumbers();
         diceNumbers = diceRandomizer.getDiceNumbers();
         diceView.setDice(dice, colorList);
@@ -44,7 +43,7 @@ public class Dice {
     /**
      * get rolled dice eyes.
      *
-     * @return array with alls rolled dice numbers.
+     * @return array with all rolled dice numbers.
      */
     public int[] getDiceEyes() {
         return diceNumbers;

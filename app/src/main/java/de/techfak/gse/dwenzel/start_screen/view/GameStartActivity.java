@@ -44,14 +44,15 @@ public class GameStartActivity extends AppCompatActivity implements Serializable
 
         /*Button to check validation.*/
         Button loginButton = findViewById(R.id.loginButton);
-        textInputPlaygroundInput.setText("ggGyyyygboboyyy\n" +
-                "ogygyyoogbboogg\n" +
-                "bgrggggrRryyogg\n" +
-                "brrgoobbggYyorb\n" +
-                "roOoorbbooorrrr\n" +
-                "rBbrrrryyorbbbo\n" +
-                "yybbbbryyygggog");
-
+        /*
+        textInputPlaygroundInput.setText("ggGyyyygboboyyy\n"
+                + "ogygyyoogbboogg\n"
+                + "bgrggggrRryyogg\n"
+                + "brrgoobbggYyorb\n"
+                + "roOoorbbooorrrr\n"
+                + "rBbrrrryyorbbbo\n"
+                + "yybbbbryyygggog");
+*/
         loginButton.setOnClickListener(v -> {
             playgroundInputString = String.valueOf(textInputPlaygroundInput.getText());
 

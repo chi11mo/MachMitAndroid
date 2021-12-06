@@ -7,8 +7,8 @@ public class FieldMap {
     private final int maxRow;
     private final int maxCol;
     private final ButtonSpriteSheet buttonSpriteSheet;
-    private MapLayout mapLayout;
-    private AbstractField[][] abstractFields;
+    private final MapLayout mapLayout;
+    private final AbstractField[][] abstractFields;
 
     /**
      * field map is the map of the Field buttons to cross.
@@ -38,7 +38,7 @@ public class FieldMap {
 
         for (int iRow = 0; iRow < maxRow; iRow++) {
             for (int iCol = 0; iCol < maxCol; iCol++) {
-                // Log.d("init FIeld map field map row", String.valueOf(iRow));
+                // Log.d("init Field map field map row", String.valueOf(iRow));
                 abstractFields[iRow][iCol] = AbstractField.getField(layout[iRow][iCol],
                         buttonSpriteSheet, isCrossed[iRow][iCol]);
                 abstractFields[iRow][iCol].setColor(layout[iRow][iCol]);
@@ -56,7 +56,7 @@ public class FieldMap {
     }
 
     /**
-     * get max Row coord.
+     * get max Row coordinate.
      *
      * @return row cord.
      */

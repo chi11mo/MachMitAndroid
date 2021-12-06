@@ -11,7 +11,7 @@ import de.techfak.gse.dwenzel.sprite_sheet.ButtonSpriteSheet;
 public abstract class AbstractField {
 
 
-    private ButtonSpriteSheet buttonSpriteSheet;
+    private final  ButtonSpriteSheet buttonSpriteSheet;
     /*field Color in a String (small letter).*/ private int fieldColor;
     /*if a field is validCrossed.*/             private boolean crossed;
     /*field buttons*/                           private ImageButton fieldButton;
@@ -22,7 +22,7 @@ public abstract class AbstractField {
      * Creating a field for the Playground.
      *
      * @param cross             is Field crossed.
-     * @param buttonSpriteSheet
+     * @param buttonSpriteSheet sprite sheet.
      */
     public AbstractField(final boolean cross, final ButtonSpriteSheet buttonSpriteSheet) {
         this.buttonSpriteSheet = buttonSpriteSheet;
@@ -31,7 +31,7 @@ public abstract class AbstractField {
     }
 
     /**
-     * get field gets the field with curren index
+     * get field gets the field with current index
      * and color of the field as enum.
      * Yellow index 0;
      * Green index 1

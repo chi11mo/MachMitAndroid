@@ -38,7 +38,7 @@ public class LoginController {
             loginView.onLoginSuccess(exception);
 
         } else {
-            loginView.onLoginError(exception,"inValid");
+            loginView.onLoginError(exception, "inValid");
 
         }
     }

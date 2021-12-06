@@ -6,7 +6,7 @@ import de.techfak.gse.dwenzel.sprite_sheet.DiceSpriteSheet;
 
 public abstract class AbstractDice {
 
-    private DiceSpriteSheet diceSpriteSheet;
+    private final DiceSpriteSheet diceSpriteSheet;
     private int diceIndex = 0;
 
     public AbstractDice(final DiceSpriteSheet diceSpriteSheet) {
@@ -39,10 +39,10 @@ public abstract class AbstractDice {
     }
 
     /**
-     * Dice to checkout number and color for turnrules.
+     * Dice to checkout number and color for turn rules.
      *
      * @param idxDiceType     index of dice type.
-     * @param diceSpriteSheet spritesheet to get drawables for the dice.
+     * @param diceSpriteSheet sprite sheet to get drawables for the dice.
      * @return the dice type.
      */
     public static AbstractDice getDice(final int idxDiceType,

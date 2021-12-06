@@ -3,17 +3,18 @@ package de.techfak.gse.dwenzel.game_screen.map;
 public class MapLayout {
     private final int maxRow;
     private final int maxCol;
+    private final String boardLayout;
     private int[][] layout;
     private boolean[][] isCrossed;
-    private String boardLayout;
+
 
     /**
      * Map layout loads map layout with the max Row and column cord.
      * and takes GameStart input and loaded into a grid layout in Fields
      *
-     * @param boardLayout string input from gamestart to create the map.
+     * @param boardLayout string input from game start to create the map.
      * @param maxRow      max Row cord.
-     * @param maxCol      max Colum cord.
+     * @param maxCol      max Column cord.
      */
     public MapLayout(final String boardLayout, final int maxRow, final int maxCol) {
         this.maxRow = maxRow;
@@ -28,10 +29,9 @@ public class MapLayout {
     private void initializeLayout() {
         layout = new int[maxRow][maxCol];
         isCrossed = new boolean[maxRow][maxCol];
-        final String boardString = boardLayout;
 
 
-        final String[] spliced = boardString.split("\\n");
+        final String[] spliced = boardLayout.split("\\n");
 
         for (int iRow = 0; iRow < spliced[0].length(); iRow++) {
 

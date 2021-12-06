@@ -6,7 +6,7 @@ import de.techfak.gse.dwenzel.sprite_sheet.ButtonSpriteSheet;
 
 public class GreenAbstractField extends AbstractField {
     private final Drawable drawableField;
-    private ButtonSpriteSheet buttonSpriteSheet;
+    private final ButtonSpriteSheet buttonSpriteSheet;
     /**
      * Method to create field.
      * @param isCrossed test is field cross.
@@ -20,7 +20,7 @@ public class GreenAbstractField extends AbstractField {
     }
 
     /**
-     * Method to ge drawable tosettingup ImageButtons.
+     * Method to ge drawable to setting up ImageButtons.
      *
      * @return drawable for button.
      */

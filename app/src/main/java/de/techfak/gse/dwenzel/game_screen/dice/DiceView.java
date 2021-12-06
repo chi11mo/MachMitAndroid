@@ -20,7 +20,7 @@ public class DiceView {
     }
 
     /**
-     * Setting the imageviews for dices.
+     * Setting the image views for dices.
      *
      * @param dice      dice array with drawables from eye number.
      * @param colorList all randomized color integer.
