@@ -1,7 +1,5 @@
 package de.techfak.gse.dwenzel.game_screen.dice;
 
-import static android.os.SystemClock.sleep;
-
 import android.app.Activity;
 import android.content.Context;
 import android.view.animation.Animation;
