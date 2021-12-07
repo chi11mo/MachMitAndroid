@@ -68,6 +68,10 @@ public class GameDisplay implements AlertBox {
                 .setBackground(dataLoader.loadDrawableFromAssets(context
                         .getApplicationContext(), "cork_board.png"));
 
+        ((Activity) context)
+                .findViewById(R.id.roundNote).setBackground(dataLoader.loadDrawableFromAssets(context
+                .getApplicationContext(), "map/notePaper.png"));
+
     }
 
 

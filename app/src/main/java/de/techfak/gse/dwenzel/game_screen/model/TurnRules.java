@@ -104,20 +104,16 @@ public class TurnRules {
     private boolean isNeighbour(final AbstractField field) {
         AbstractField[][] fields = fieldMap.getFields();
 
-        if (field.getRow() > 0) {
-            if (fields[field.getRow() - 1][field.getCol()].isCrossed()) {
-                return true;
-            }
+        if (field.getRow() > 0 && fields[field.getRow() - 1]
+                [field.getCol()].isCrossed()) {
+            return true;
         }
-        if (field.getRow() < fieldMap.getMaxRow() - 1) {
-            if (fields[field.getRow() + 1][field.getCol()].isCrossed()) {
-                return true;
-            }
+        if (field.getRow() < fieldMap.getMaxRow() - 1 && fields[field.getRow() + 1]
+                [field.getCol()].isCrossed()) {
+            return true;
         }
-        if (field.getCol() > 0) {
-            if (fields[field.getRow()][field.getCol() - 1].isCrossed()) {
-                return fields[field.getRow()][field.getCol() - 1].isCrossed();
-            }
+        if (field.getCol() > 0 && fields[field.getRow()][field.getCol() - 1].isCrossed()) {
+            return fields[field.getRow()][field.getCol() - 1].isCrossed();
         }
         if (field.getCol() < fieldMap.getMaxCol() - 1) {
             return fields[field.getRow()][field.getCol() + 1].isCrossed();

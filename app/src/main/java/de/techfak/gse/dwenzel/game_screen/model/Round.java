@@ -2,6 +2,7 @@ package de.techfak.gse.dwenzel.game_screen.model;
 
 import android.app.Activity;
 import android.content.Context;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class Round {
         currentRound = 0;
         textViewCurRound = ((Activity) context)
                 .findViewById(R.id.currentRoundView);
-        textViewCurRound.setBackgroundColor(context.getColor(R.color.green));
+
     }
 
     /**

@@ -1,7 +1,11 @@
 package de.techfak.gse.dwenzel.game_screen.dice;
 
+import static android.os.SystemClock.sleep;
+
 import android.app.Activity;
 import android.content.Context;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import java.util.List;
 
@@ -21,11 +25,28 @@ public class DiceView {
 
     /**
      * Setting the image views for dices.
+     * and create the die animation.
      *
      * @param dice      dice array with drawables from eye number.
      * @param colorList all randomized color integer.
      */
     public void setDice(final AbstractDice[] dice, final List colorList) {
+
+        final Animation animation = AnimationUtils.loadAnimation(context, R.anim.rotate);
+        ((Activity) context)
+                .findViewById(R.id.ColorOne).startAnimation(animation);
+        ((Activity) context)
+                .findViewById(R.id.ColorTwo).startAnimation(animation);
+        ((Activity) context)
+                .findViewById(R.id.ColorThree).startAnimation(animation);
+        ((Activity) context)
+                .findViewById(R.id.DiceOne).startAnimation(animation);
+        ((Activity) context)
+                .findViewById(R.id.DiceTwo).startAnimation(animation);
+        ((Activity) context)
+                .findViewById(R.id.DiceThree).startAnimation(animation);
+
+
         ((Activity) context)
                 .findViewById(R.id.ColorOne).setBackgroundColor((Integer) colorList.get(0));
         ((Activity) context)
