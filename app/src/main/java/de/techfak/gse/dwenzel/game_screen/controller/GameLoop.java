@@ -15,11 +15,10 @@ import de.techfak.gse.dwenzel.game_screen.dice.Dice;
 import de.techfak.gse.dwenzel.game_screen.dice.DiceView;
 import de.techfak.gse.dwenzel.game_screen.map.AbstractField;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
+import de.techfak.gse.dwenzel.game_screen.map.FieldMapView;
 import de.techfak.gse.dwenzel.game_screen.model.Round;
 import de.techfak.gse.dwenzel.game_screen.rules.Rules;
-import de.techfak.gse.dwenzel.game_screen.rules.TurnRules;
 import de.techfak.gse.dwenzel.game_screen.view.AlertBox;
-import de.techfak.gse.dwenzel.game_screen.map.FieldMapView;
 import de.techfak.gse.dwenzel.game_screen.view.FieldMarker;
 
 public class GameLoop extends AppCompatActivity implements Runnable, Observer {
@@ -90,7 +89,7 @@ public class GameLoop extends AppCompatActivity implements Runnable, Observer {
     @Override
     public void run() {
         isRunning = true;
-
+        FieldMarker fieldMarker = new FieldMarker();
 
         while (isRunning) {
             try {
@@ -107,11 +106,13 @@ public class GameLoop extends AppCompatActivity implements Runnable, Observer {
                             AbstractField field = fieldMap.getFields()[finalIRow][finalICol];
 
                             if (fieldMap.getFields()[finalIRow][finalICol].isCrossed()) {
-                                fieldMapView.removeField(field);
+                                //   fieldMapView.removeField(field);
+                                fieldMarker.removeFieldMark(field);
                                 round.removeTap(field);
 
                             } else {
-                                fieldMapView.addField(field);
+                                //  fieldMapView.addField(field);
+                                fieldMarker.addFieldMark(field);
                                 round.addTap(field);
 
                             }
@@ -172,9 +173,12 @@ public class GameLoop extends AppCompatActivity implements Runnable, Observer {
     }
 
     @Override
-    public void update(Observable arg0, Object arg1) {
+    public void update(final Observable argOne, final Object argTwo) {
         textViewCurRound.setText(context.getString(R.string.RoundName) + round.getRoundNumber());
         diceView.setDice(dice.getDice(), dice.getColorList());
+        for (AbstractField field : round.getCurrentTurnTaps()) {
+            fieldMapView.addField(field);
+        }
 
 
     }

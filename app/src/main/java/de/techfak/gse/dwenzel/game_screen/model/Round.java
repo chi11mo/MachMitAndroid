@@ -1,15 +1,11 @@
 package de.techfak.gse.dwenzel.game_screen.model;
 
-import android.app.Activity;
 import android.content.Context;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-import de.techfak.gse.dwenzel.R;
-import de.techfak.gse.dwenzel.game_screen.controller.BoardLoader;
 import de.techfak.gse.dwenzel.game_screen.map.AbstractField;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
 import de.techfak.gse.dwenzel.game_screen.view.FieldMarker;
@@ -56,7 +52,7 @@ public class Round extends Observable {
      *
      * @return list of marked fields.
      */
-    public List getCurrentTurnTaps() {
+    public List<AbstractField> getCurrentTurnTaps() {
         return currentTurnTaps;
     }
 

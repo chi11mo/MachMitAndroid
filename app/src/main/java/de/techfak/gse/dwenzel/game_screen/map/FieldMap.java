@@ -1,13 +1,8 @@
 package de.techfak.gse.dwenzel.game_screen.map;
 
-import android.widget.GridLayout;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-
 import java.util.List;
 import java.util.Observable;
 
-import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.sprite_sheet.ButtonSpriteSheet;
 
 public class FieldMap extends Observable {
@@ -74,6 +69,7 @@ public class FieldMap extends Observable {
 
     /**
      * get max Column cord.
+     * ¬
      *
      * @return max row cord.
      */
@@ -84,21 +80,22 @@ public class FieldMap extends Observable {
     /**
      * update fieldMap if valid turn is over.
      * Setting Buttons to unable to click.
-     * @param currentTurnTaps
+     *
+     * @param currentTurnTaps current marked fields.
      */
-    public void updateFieldMap(final List currentTurnTaps){
+    public void updateFieldMap(final List<AbstractField> currentTurnTaps) {
+        for (AbstractField field : currentTurnTaps) {
 
-    for (int iRow = 0; iRow < getMaxRow(); iRow++) {
-        for (int iCol = 0; iCol <getMaxCol(); iCol++) {
-            if (getFields()[iRow][iCol].isCrossed()) {
-                getFields()[iRow][iCol].getButton().setEnabled(false);
-            }
-
+            field.getButton().setEnabled(false);
+            field.setIsCrossed(true);
         }
-    }
+
+
         setChanged();
+
         notifyObservers();
 
-}
+    }
+
 
 }
