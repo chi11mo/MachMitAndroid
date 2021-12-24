@@ -2,17 +2,27 @@ package de.techfak.gse.dwenzel.game_screen.dice;
 
 import android.content.Context;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 import de.techfak.gse.dwenzel.sprite_sheet.DiceSpriteSheet;
 
-public class Dice {
+public class Dice extends Observable {
     private final DiceSpriteSheet diceSpriteSheet;
 
     private final DiceView diceView;
+
+
+
+    private AbstractDice[] dice;
     private final Context context;
     private int[] diceColor;
     private int[] diceNumbers;
+
+
+
+    private List colorList = new ArrayList<>();
 
     /**
      * To generate Dices.
@@ -32,11 +42,13 @@ public class Dice {
     public void createDice() {
         DiceRandomizer diceRandomizer = new DiceRandomizer(diceSpriteSheet);
         ColorRandomizer colorRandomizer = new ColorRandomizer(context);
-        AbstractDice[] dice = diceRandomizer.getDices();
-        final List colorList = colorRandomizer.getColorList();
+         dice = diceRandomizer.getDices();
+        colorList = colorRandomizer.getColorList();
         diceColor = colorRandomizer.getColorNumbers();
         diceNumbers = diceRandomizer.getDiceNumbers();
-        diceView.setDice(dice, colorList);
+        setChanged();
+        notifyObservers();
+
 
     }
 
@@ -56,5 +68,12 @@ public class Dice {
      */
     public int[] getDiceColors() {
         return diceColor;
+    }
+
+    public List getColorList() {
+        return colorList;
+    }
+    public AbstractDice[] getDice() {
+        return dice;
     }
 }

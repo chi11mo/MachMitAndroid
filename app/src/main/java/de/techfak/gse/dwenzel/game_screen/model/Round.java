@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.game_screen.controller.BoardLoader;
@@ -13,10 +14,10 @@ import de.techfak.gse.dwenzel.game_screen.map.AbstractField;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
 import de.techfak.gse.dwenzel.game_screen.view.FieldMarker;
 
-public class Round {
+public class Round extends Observable {
     private final Context context;
     private int currentRound;
-    private final TextView textViewCurRound;
+
     /*This list shows the current
     fields are tapped for current Turn*/
     private final List<AbstractField> currentTurnTaps = new ArrayList<>();
@@ -29,8 +30,6 @@ public class Round {
     public Round(final Context context) {
         this.context = context;
         currentRound = 0;
-        textViewCurRound = ((Activity) context)
-                .findViewById(R.id.currentRoundView);
 
     }
 
@@ -43,10 +42,11 @@ public class Round {
      */
     public void addRound(final FieldMap fieldMap) {
 
-        BoardLoader loader = new BoardLoader(context);
+        //BoardLoader loader = new BoardLoader(context);
         currentRound++;
-        textViewCurRound.setText(context.getString(R.string.RoundName) + currentRound);
-        loader.updateField(fieldMap);
+        //loader.updateField(fieldMap);
+        setChanged();
+        notifyObservers();
         currentTurnTaps.clear();
 
     }
@@ -74,6 +74,14 @@ public class Round {
             currentTurnTaps.add(abstractField);
         }
         //Log.d("Current saved Taps", String.valueOf(currentTurnTaps));
+    }
+    /**
+     * remove taps.
+     *
+     * @param field set field into currentTurnTaps.
+     */
+    public void removeTap(final AbstractField field) {
+        currentTurnTaps.remove(field);
     }
 
 
@@ -104,5 +112,10 @@ public class Round {
         }
         currentTurnTaps.clear();
     }
+
+    public int getRoundNumber() {
+        return currentRound;
+    }
+
 
 }

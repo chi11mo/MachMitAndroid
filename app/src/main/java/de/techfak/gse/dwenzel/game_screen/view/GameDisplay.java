@@ -69,8 +69,9 @@ public class GameDisplay implements AlertBox {
                         .getApplicationContext(), "cork_board.png"));
 
         ((Activity) context)
-                .findViewById(R.id.roundNote).setBackground(dataLoader.loadDrawableFromAssets(context
-                .getApplicationContext(), "map/notePaper.png"));
+                .findViewById(R.id.roundNote)
+                .setBackground(dataLoader.loadDrawableFromAssets(context
+                        .getApplicationContext(), "map/notePaper.png"));
 
     }
 
@@ -120,4 +121,5 @@ public class GameDisplay implements AlertBox {
                 .setPositiveButton("Okay", null);
         builder.show();
     }
+
 }

@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.Serializable;
+import java.util.Observable;
 
 import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.game_screen.view.BoardMainActivity;
@@ -44,7 +45,7 @@ public class GameStartActivity extends AppCompatActivity implements Serializable
 
         /*Button to check validation.*/
         Button loginButton = findViewById(R.id.loginButton);
-/*
+
         textInputPlaygroundInput.setText("ggGyyyygboboyyy\n"
                 + "ogygyyoogbboogg\n"
                 + "bgrggggrRryyogg\n"
@@ -52,7 +53,7 @@ public class GameStartActivity extends AppCompatActivity implements Serializable
                 + "roOoorbbooorrrr\n"
                 + "rBbrrrryyorbbbo\n"
                 + "yybbbbryyygggog");
-*/
+
         loginButton.setOnClickListener(v -> {
             playgroundInputString = String.valueOf(textInputPlaygroundInput.getText());
 

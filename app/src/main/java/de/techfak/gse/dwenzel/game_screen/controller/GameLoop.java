@@ -1,31 +1,47 @@
 package de.techfak.gse.dwenzel.game_screen.controller;
 
+import android.app.Activity;
 import android.content.Context;
+import android.widget.GridLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.game_screen.dice.Dice;
+import de.techfak.gse.dwenzel.game_screen.dice.DiceView;
 import de.techfak.gse.dwenzel.game_screen.map.AbstractField;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
 import de.techfak.gse.dwenzel.game_screen.model.Round;
-import de.techfak.gse.dwenzel.game_screen.model.TurnRules;
+import de.techfak.gse.dwenzel.game_screen.rules.Rules;
+import de.techfak.gse.dwenzel.game_screen.rules.TurnRules;
 import de.techfak.gse.dwenzel.game_screen.view.AlertBox;
+import de.techfak.gse.dwenzel.game_screen.map.FieldMapView;
 import de.techfak.gse.dwenzel.game_screen.view.FieldMarker;
 
-public class GameLoop extends AppCompatActivity implements Runnable {
+public class GameLoop extends AppCompatActivity implements Runnable, Observer {
     private static final int THREAD_SLEEP = 1000;
     private static final int NULL_COLOR_INDEX = 6;
     private final Context context;
 
 
     private final FieldMap fieldMap;
-    private final int[] firstMarkColor = {NULL_COLOR_INDEX};
+    private final FieldMapView fieldMapView;
+    //private final int[] firstMarkColor = {NULL_COLOR_INDEX};
     private final Dice dice;
+    private final DiceView diceView;
     private boolean isRunning;
     private final Round round;
-    private final TurnRules turnRules;
+    private final Rules rules;
 
+
+    private final TextView textViewCurRound;
+    private final GridLayout mapLayout;
+
+    private boolean isFirstRound = true;
 
     /**
      * GameLoop is game controller.
@@ -39,13 +55,21 @@ public class GameLoop extends AppCompatActivity implements Runnable {
     public GameLoop(final Context context, final FieldMap fieldMap, final AlertBox alertBox) {
         this.context = context;
         this.fieldMap = fieldMap;
-
+        fieldMapView = new FieldMapView(context);
         //init round and add the first round.
         round = new Round(context);
+        round.addObserver(this);
         dice = new Dice(context);
-        turnRules = new TurnRules(alertBox, fieldMap);
+        dice.addObserver(this);
+        diceView = new DiceView(context);
+        rules = new Rules(alertBox);
         // round.add Round(fieldMap);
         /*start game loop thread.*/
+
+        textViewCurRound = ((Activity) context)
+                .findViewById(R.id.currentRoundView);
+        mapLayout = ((Activity) context)
+                .findViewById(R.id.playground_grid);
 
     }
 
@@ -67,7 +91,6 @@ public class GameLoop extends AppCompatActivity implements Runnable {
     public void run() {
         isRunning = true;
 
-        FieldMarker fieldMarker = new FieldMarker();
 
         while (isRunning) {
             try {
@@ -84,22 +107,13 @@ public class GameLoop extends AppCompatActivity implements Runnable {
                             AbstractField field = fieldMap.getFields()[finalIRow][finalICol];
 
                             if (fieldMap.getFields()[finalIRow][finalICol].isCrossed()) {
+                                fieldMapView.removeField(field);
+                                round.removeTap(field);
 
-                                round.removeAllTaps();
-
-                                if (round.getCurrentTurnTaps().isEmpty()) {
-                                    firstMarkColor[0] = NULL_COLOR_INDEX;
-                                }
                             } else {
-                                if (turnRules.isTurnValid(field, firstMarkColor[0],
-                                        round.getCurrentTurnTaps())) {
+                                fieldMapView.addField(field);
+                                round.addTap(field);
 
-
-                                    firstMarkColor[0] = field.getFieldColor();
-                                    fieldMarker.addFieldMark(field);
-                                    //add field to the current Turn taps.
-                                    round.addTap(field);
-                                }
                             }
 
 
@@ -108,7 +122,7 @@ public class GameLoop extends AppCompatActivity implements Runnable {
                 }
                 Thread.sleep(THREAD_SLEEP);
             } catch (InterruptedException e) {
-               // e.printStackTrace();
+                // e.printStackTrace();
             }
         }
 
@@ -121,10 +135,31 @@ public class GameLoop extends AppCompatActivity implements Runnable {
      */
     public void nextRound() {
         isRunning = false;
-        updateDice();
-        round.addRound(fieldMap);
+        if (isFirstRound) {
 
-        firstMarkColor[0] = NULL_COLOR_INDEX;
+            updateRules();
+            fieldMap.updateFieldMap(round.getCurrentTurnTaps());
+            round.addRound(fieldMap);
+
+            isFirstRound = false;
+        } else {
+            if (rules.checkRules(round.getCurrentTurnTaps())) {
+                updateRules();
+                fieldMap.updateFieldMap(round.getCurrentTurnTaps());
+                round.addRound(fieldMap);
+
+            } else {
+                round.removeAllTaps();
+            }
+        }
+    }
+
+    /**
+     * Update all rule settings.
+     */
+    private void updateRules() {
+        rules.setFieldMap(fieldMap);
+        updateDice();
     }
 
     /**
@@ -132,7 +167,15 @@ public class GameLoop extends AppCompatActivity implements Runnable {
      */
     private void updateDice() {
         dice.createDice();
-        turnRules.setDice(dice);
+        rules.setDice(dice);
+
+    }
+
+    @Override
+    public void update(Observable arg0, Object arg1) {
+        textViewCurRound.setText(context.getString(R.string.RoundName) + round.getRoundNumber());
+        diceView.setDice(dice.getDice(), dice.getColorList());
+
 
     }
 }

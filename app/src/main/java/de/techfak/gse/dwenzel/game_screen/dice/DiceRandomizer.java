@@ -30,12 +30,12 @@ public class DiceRandomizer {
     public AbstractDice[] getDices() {
         AbstractDice[] dices;
         dices = diceCreator.getDice();
-        diceNumbers[0] = randomNumber();
-        diceNumbers[1] = randomNumber();
-        diceNumbers[2] = randomNumber();
-        dices[0] = diceCreator.getDice()[diceNumbers[0]];
-        dices[1] = diceCreator.getDice()[diceNumbers[1]];
-        dices[2] = diceCreator.getDice()[diceNumbers[2]];
+        diceNumbers[0] = randomNumber() + 1;
+        diceNumbers[1] = randomNumber() + 1;
+        diceNumbers[2] = randomNumber() + 1;
+        dices[0] = diceCreator.getDice()[diceNumbers[0] - 1];
+        dices[1] = diceCreator.getDice()[diceNumbers[1] - 1];
+        dices[2] = diceCreator.getDice()[diceNumbers[2] - 1];
 
         return dices;
     }
