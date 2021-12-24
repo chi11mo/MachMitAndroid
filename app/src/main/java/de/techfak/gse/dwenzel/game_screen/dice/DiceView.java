@@ -6,11 +6,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import java.util.List;
-import java.util.Observable;
 
 import de.techfak.gse.dwenzel.R;
 
-public class DiceView{
+public class DiceView {
     private final Context context;
 
     /**
