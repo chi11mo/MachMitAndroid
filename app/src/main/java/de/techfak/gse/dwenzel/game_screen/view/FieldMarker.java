@@ -8,6 +8,7 @@ public class FieldMarker {
 
     /**
      * Add current mark to the view.
+     * take color Black as Background for current marks.
      *
      * @param field field to mark.
      */
