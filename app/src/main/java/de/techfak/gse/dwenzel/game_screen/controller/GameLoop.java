@@ -16,6 +16,7 @@ import de.techfak.gse.dwenzel.game_screen.dice.DiceView;
 import de.techfak.gse.dwenzel.game_screen.map.AbstractField;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMapView;
+import de.techfak.gse.dwenzel.game_screen.map.PointView;
 import de.techfak.gse.dwenzel.game_screen.model.Player;
 import de.techfak.gse.dwenzel.game_screen.model.PointChecker;
 import de.techfak.gse.dwenzel.game_screen.model.Round;
@@ -39,6 +40,8 @@ public class GameLoop extends AppCompatActivity implements Runnable, Observer {
     private final Rules rules;
     private final Player player;
     private final PointChecker pointChecker;
+
+    private final PointView pointView;
 
     private final TextView textViewCurRound;
 
@@ -72,6 +75,7 @@ public class GameLoop extends AppCompatActivity implements Runnable, Observer {
 
         rules = new Rules(alertBox);
         pointChecker = new PointChecker();
+        pointView = new PointView(context);
         // round.add Round(fieldMap);
         /*start game loop thread.*/
 
@@ -156,7 +160,7 @@ public class GameLoop extends AppCompatActivity implements Runnable, Observer {
             if (rules.checkRules(round.getCurrentTurnTaps())) {
                 updateRules();
                 fieldMap.updateFieldMap(round.getCurrentTurnTaps());
-                pointChecker.checkPoints(fieldMap,round.getCurrentTurnTaps());
+                pointChecker.checkPoints(fieldMap, round.getCurrentTurnTaps());
                 round.addRound();
 
             } else {
