@@ -29,8 +29,9 @@ public class Rules {
      * @return if all rules are accepted.
      */
     public boolean checkRules(final List<AbstractField> currentTurnTaps) {
-        return currentTurnTaps.isEmpty() || turnRules.isTurnValid(currentTurnTaps)
-                && diceRules.checkDiceRules(currentTurnTaps);
+        return true;
+       // return currentTurnTaps.isEmpty() || turnRules.isTurnValid(currentTurnTaps)
+         //       && diceRules.checkDiceRules(currentTurnTaps);
         //  return diceRules.checkDiceRules(currentTurnTaps);
     }
 

@@ -16,6 +16,8 @@ import de.techfak.gse.dwenzel.game_screen.dice.DiceView;
 import de.techfak.gse.dwenzel.game_screen.map.AbstractField;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMapView;
+import de.techfak.gse.dwenzel.game_screen.model.Player;
+import de.techfak.gse.dwenzel.game_screen.model.PointChecker;
 import de.techfak.gse.dwenzel.game_screen.model.Round;
 import de.techfak.gse.dwenzel.game_screen.rules.Rules;
 import de.techfak.gse.dwenzel.game_screen.view.AlertBox;
@@ -23,23 +25,24 @@ import de.techfak.gse.dwenzel.game_screen.view.FieldMarker;
 
 public class GameLoop extends AppCompatActivity implements Runnable, Observer {
     private static final int THREAD_SLEEP = 1000;
-    private static final int NULL_COLOR_INDEX = 6;
+
     private final Context context;
 
 
     private final FieldMap fieldMap;
     private final FieldMapView fieldMapView;
-    //private final int[] firstMarkColor = {NULL_COLOR_INDEX};
+
     private final Dice dice;
     private final DiceView diceView;
-    private boolean isRunning;
+
     private final Round round;
     private final Rules rules;
-
+    private final Player player;
+    private final PointChecker pointChecker;
 
     private final TextView textViewCurRound;
-    private final GridLayout mapLayout;
 
+    private boolean isRunning;
     private boolean isFirstRound = true;
 
     /**
@@ -55,20 +58,25 @@ public class GameLoop extends AppCompatActivity implements Runnable, Observer {
         this.context = context;
         this.fieldMap = fieldMap;
         fieldMapView = new FieldMapView(context);
+
         //init round and add the first round.
         round = new Round(context);
         round.addObserver(this);
+
+        player = new Player(context);
+        player.addObserver(this);
+
         dice = new Dice(context);
         dice.addObserver(this);
         diceView = new DiceView(context);
+
         rules = new Rules(alertBox);
+        pointChecker = new PointChecker();
         // round.add Round(fieldMap);
         /*start game loop thread.*/
 
         textViewCurRound = ((Activity) context)
                 .findViewById(R.id.currentRoundView);
-        mapLayout = ((Activity) context)
-                .findViewById(R.id.playground_grid);
 
     }
 
@@ -140,14 +148,16 @@ public class GameLoop extends AppCompatActivity implements Runnable, Observer {
 
             updateRules();
             fieldMap.updateFieldMap(round.getCurrentTurnTaps());
-            round.addRound(fieldMap);
+            round.addRound();
+
 
             isFirstRound = false;
         } else {
             if (rules.checkRules(round.getCurrentTurnTaps())) {
                 updateRules();
                 fieldMap.updateFieldMap(round.getCurrentTurnTaps());
-                round.addRound(fieldMap);
+                pointChecker.checkPoints(fieldMap,round.getCurrentTurnTaps());
+                round.addRound();
 
             } else {
                 round.removeAllTaps();

@@ -7,7 +7,6 @@ import android.widget.GridLayout;
 import androidx.appcompat.app.AlertDialog;
 
 import de.techfak.gse.dwenzel.R;
-import de.techfak.gse.dwenzel.game_screen.controller.BoardLoader;
 import de.techfak.gse.dwenzel.game_screen.controller.GameLoop;
 import de.techfak.gse.dwenzel.game_screen.map.CoordinateView;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMap;

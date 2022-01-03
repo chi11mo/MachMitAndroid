@@ -36,7 +36,7 @@ public class Round extends Observable {
      *
      * @param fieldMap field setting map for current round.
      */
-    public void addRound(final FieldMap fieldMap) {
+    public void addRound() {
 
         //BoardLoader loader = new BoardLoader(context);
         currentRound++;

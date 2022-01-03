@@ -109,6 +109,18 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/horizontalPointLayout"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginTop="200dp"
+        android:orientation="horizontal"
+        android:translationX="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </LinearLayout>
+
     <FrameLayout
         android:layout_width="564dp"
         android:layout_height="564dp"
