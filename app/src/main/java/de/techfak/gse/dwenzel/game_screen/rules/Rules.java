@@ -14,6 +14,7 @@ public class Rules {
 
     /**
      * Model to check all the defined Game Rules for marked fields.
+     *
      * @param alertBox Box to show if rules arent accepted.
      */
     public Rules(final AlertBox alertBox) {
@@ -25,18 +26,20 @@ public class Rules {
 
     /**
      * Checks all Rules and if List is Empty rules are also true.
+     *
      * @param currentTurnTaps list of current marked fields.
      * @return if all rules are accepted.
      */
     public boolean checkRules(final List<AbstractField> currentTurnTaps) {
-        return true;
-       // return currentTurnTaps.isEmpty() || turnRules.isTurnValid(currentTurnTaps)
-         //       && diceRules.checkDiceRules(currentTurnTaps);
+        // return true;
+        return currentTurnTaps.isEmpty() || turnRules.isTurnValid(currentTurnTaps)
+                && diceRules.checkDiceRules(currentTurnTaps);
         //  return diceRules.checkDiceRules(currentTurnTaps);
     }
 
     /**
      * set current dice.
+     *
      * @param dice current die.
      */
     public void setDice(final Dice dice) {
@@ -45,6 +48,7 @@ public class Rules {
 
     /**
      * set current fieldMap.
+     *
      * @param fieldMap current fieldMap.
      */
     public void setFieldMap(final FieldMap fieldMap) {
