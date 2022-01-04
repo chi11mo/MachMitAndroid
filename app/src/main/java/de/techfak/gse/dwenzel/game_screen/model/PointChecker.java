@@ -8,7 +8,7 @@ import de.techfak.gse.dwenzel.game_screen.map.AbstractField;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
 
 public class PointChecker {
-
+    private static final int ROW_POINTS[] = {5, 3, 3, 3, 2, 2, 2, 1, 2, 2, 2, 3, 3, 3, 5};
 
     private List<Integer> pickedFullColor = new ArrayList<Integer>();
 
@@ -101,4 +101,22 @@ public class PointChecker {
     public List<Integer> getPickedFullRow() {
         return pickedFullRow;
     }
+
+    /**
+     * to get current points for the view
+     *
+     * @return int with current points.
+     */
+    public int getPoints() {
+        int currentPoints = 0;
+        for (int idxRow : pickedFullRow) {
+            currentPoints = currentPoints + ROW_POINTS[idxRow];
+        }
+        if (pickedFullColor.size() > 0) {
+            int tmp = ROW_POINTS[0] * pickedFullColor.size();
+            return currentPoints + tmp;
+        }
+        return currentPoints;
+    }
+
 }

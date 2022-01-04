@@ -1,0 +1,14 @@
+#container {
+    background-image: url(http://subtlepatterns.com/patterns/pool_table.png);
+}
+
+svg {
+    opacity: 0.9;
+    width: 7.5em;
+    height: 1.5em;
+    font: 900 500%/1.2 'Coming Soon', cursive;
+}
+
+text {
+    fill: url(#wall4);
+}

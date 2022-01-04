@@ -121,6 +121,30 @@
         app:layout_constraintTop_toTopOf="parent">
 
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/horizontalColorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginTop="290dp"
+        android:layout_marginLeft="16dp"
+        android:orientation="horizontal"
+        android:translationX="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/playerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginTop="310dp"
+        android:layout_marginLeft="16dp"
+        android:orientation="vertical"
+        android:translationX="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="564dp"

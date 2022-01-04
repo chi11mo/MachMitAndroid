@@ -2,7 +2,6 @@ package de.techfak.gse.dwenzel.game_screen.controller;
 
 import android.app.Activity;
 import android.content.Context;
-import android.widget.GridLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -66,7 +65,7 @@ public class GameLoop extends AppCompatActivity implements Runnable, Observer {
         round = new Round(context);
         round.addObserver(this);
 
-        player = new Player(context);
+        player = new Player(context, "Dominic");
         player.addObserver(this);
 
         dice = new Dice(context);
@@ -161,6 +160,7 @@ public class GameLoop extends AppCompatActivity implements Runnable, Observer {
                 updateRules();
                 fieldMap.updateFieldMap(round.getCurrentTurnTaps());
                 pointChecker.checkPoints(fieldMap, round.getCurrentTurnTaps());
+                player.setCurrentPoints(pointChecker.getPoints());
                 round.addRound();
 
             } else {
@@ -193,6 +193,8 @@ public class GameLoop extends AppCompatActivity implements Runnable, Observer {
         for (AbstractField field : round.getCurrentTurnTaps()) {
             fieldMapView.addField(field);
         }
+
+        pointView.setPoints(player,pointChecker);
 
 
     }
