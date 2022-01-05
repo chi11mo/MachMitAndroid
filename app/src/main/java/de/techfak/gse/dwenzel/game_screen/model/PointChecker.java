@@ -119,4 +119,11 @@ public class PointChecker {
         return currentPoints;
     }
 
+    /**
+     * Checks if 2 Colors are crossed as a win condition.
+     * @return is 2 colors crossed.
+     */
+    public boolean isGameEnd() {
+        return pickedFullColor.size() > 1;
+    }
 }

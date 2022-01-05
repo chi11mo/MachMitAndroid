@@ -2,6 +2,7 @@ package de.techfak.gse.dwenzel.game_screen.controller;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import de.techfak.gse.dwenzel.R;
+import de.techfak.gse.dwenzel.end_screen.EndGameActivity;
 import de.techfak.gse.dwenzel.game_screen.dice.Dice;
 import de.techfak.gse.dwenzel.game_screen.dice.DiceView;
 import de.techfak.gse.dwenzel.game_screen.map.AbstractField;
@@ -162,11 +164,25 @@ public class GameLoop extends AppCompatActivity implements Runnable, Observer {
                 pointChecker.checkPoints(fieldMap, round.getCurrentTurnTaps());
                 player.setCurrentPoints(pointChecker.getPoints());
                 round.addRound();
+                if (pointChecker.isGameEnd()) {
+                    jumpToEndGame();
+                }
 
             } else {
                 round.removeAllTaps();
             }
         }
+    }
+
+    /**
+     * if win condition is accepted then go to end screen.
+     */
+    private void jumpToEndGame() {
+        finishAffinity();
+        final Intent myIntent = new Intent(context, EndGameActivity.class);
+        String endCard = player.getPlayerName() + " : " + player.getCurrentPoints();
+        myIntent.putExtra("EndPoints", endCard);
+        context.startActivity(myIntent);
     }
 
     /**
@@ -194,7 +210,7 @@ public class GameLoop extends AppCompatActivity implements Runnable, Observer {
             fieldMapView.addField(field);
         }
 
-        pointView.setPoints(player,pointChecker);
+        pointView.setPoints(player, pointChecker);
 
 
     }

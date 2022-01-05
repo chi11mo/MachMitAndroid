@@ -24,6 +24,11 @@
             android:exported="true"
             android:screenOrientation="landscape">
         </activity>
+        <activity
+            android:name="de.techfak.gse.dwenzel.end_screen.EndGameActivity"
+            android:exported="true"
+            android:screenOrientation="landscape">
+        </activity>
     </application>
 
 </manifest>
