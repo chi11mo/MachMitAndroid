@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.techfak.gse.dwenzel">
+    package="de.techfak.gse.dwenzel" >
 
     <application
         android:allowBackup="false"
@@ -8,11 +8,11 @@
         android:label="dwenzel"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
-        android:theme="@style/Theme.ProjectTemplate">
+        android:theme="@style/Theme.ProjectTemplate" >
         <activity
-            android:name="de.techfak.gse.dwenzel.start_screen.view.GameStartActivity"
+            android:name=".start_screen.view.GameStartActivity"
             android:exported="true"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,14 +20,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="de.techfak.gse.dwenzel.game_screen.view.BoardMainActivity"
+            android:name=".game_screen.view.BoardMainActivity"
             android:exported="true"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape" >
         </activity>
         <activity
-            android:name="de.techfak.gse.dwenzel.end_screen.EndGameActivity"
+            android:name=".end_screen.EndGameActivity"
             android:exported="true"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape" >
         </activity>
     </application>
 

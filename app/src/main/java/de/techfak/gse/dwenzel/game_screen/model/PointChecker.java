@@ -8,7 +8,7 @@ import de.techfak.gse.dwenzel.game_screen.map.AbstractField;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
 
 public class PointChecker {
-    private static final int ROW_POINTS[] = {5, 3, 3, 3, 2, 2, 2, 1, 2, 2, 2, 3, 3, 3, 5};
+    private static final int[] ROW_POINTS = {5, 3, 3, 3, 2, 2, 2, 1, 2, 2, 2, 3, 3, 3, 5};
 
     private List<Integer> pickedFullColor = new ArrayList<Integer>();
 
@@ -103,7 +103,7 @@ public class PointChecker {
     }
 
     /**
-     * to get current points for the view
+     * to get current points for the view.
      *
      * @return int with current points.
      */
@@ -121,6 +121,7 @@ public class PointChecker {
 
     /**
      * Checks if 2 Colors are crossed as a win condition.
+     *
      * @return is 2 colors crossed.
      */
     public boolean isGameEnd() {

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Observable;
 
 import de.techfak.gse.dwenzel.game_screen.map.AbstractField;
-import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
 import de.techfak.gse.dwenzel.game_screen.view.FieldMarker;
 
 public class Round extends Observable {

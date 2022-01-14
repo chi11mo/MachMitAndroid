@@ -84,7 +84,7 @@ public class TurnRules {
      * @param currentTurnTaps current Marked Taps.
      * @return if some of marked Taps is on H coordinate.
      */
-    private boolean isOnHCoord(final List<AbstractField> currentTurnTaps) {
+    public boolean isOnHCoord(final List<AbstractField> currentTurnTaps) {
         for (AbstractField field : currentTurnTaps) {
             if (field.getRow() == H_ROW_CORD) {
                 return true;

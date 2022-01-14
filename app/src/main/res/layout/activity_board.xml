@@ -17,54 +17,64 @@
         app:srcCompat="@android:drawable/ic_media_play" />
 
 
-    <ImageView
-        android:id="@+id/ColorOne"
-        android:layout_width="20pt"
-        android:layout_height="20pt"
+    <RadioGroup
+        android:id="@+id/numberDiceGroup"
+        android:layout_width="120px"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/nextRound"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentRoundView"
+        app:layout_constraintVertical_bias="0.066">
+
+        <Button
+            android:id="@+id/DiceOne"
+            android:layout_width="20pt"
+            android:layout_height="20pt"
+            android:layout_marginEnd="80dp"/>
+
+        <Button
+            android:id="@+id/DiceTwo"
+            android:layout_width="20pt"
+            android:layout_height="20pt"
+            android:layout_marginEnd="80dp" />
+
+        <Button
+            android:id="@+id/DiceThree"
+            android:layout_width="20pt"
+            android:layout_height="20pt"
+            android:layout_marginEnd="80dp" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/colorDiceGroup"
+        android:layout_width="120px"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="80dp"
         app:layout_constraintBottom_toTopOf="@+id/nextRound"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/currentRoundView"
-        app:layout_constraintVertical_bias="0.066" />
-    <ImageView
-        android:id="@+id/ColorTwo"
-        android:layout_width="20pt"
-        android:layout_height="20pt"
-        android:layout_marginEnd="80dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ColorOne" />
+        app:layout_constraintVertical_bias="0.066">
 
-    <ImageView
-        android:id="@+id/ColorThree"
-        android:layout_width="20pt"
-        android:layout_height="20pt"
-        android:layout_marginEnd="80dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ColorTwo" />
-    <ImageView
-        android:id="@+id/DiceOne"
-        android:layout_width="20pt"
-        android:layout_height="20pt"
-        android:layout_marginEnd="80dp"
-        app:layout_constraintBottom_toTopOf="@+id/nextRound"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currentRoundView"
-        app:layout_constraintVertical_bias="0.066" />
-    <ImageView
-        android:id="@+id/DiceTwo"
-        android:layout_width="20pt"
-        android:layout_height="20pt"
-        android:layout_marginEnd="80dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DiceOne" />
+        <Button
+            android:id="@+id/ColorOne"
+            android:layout_width="20pt"
+            android:layout_height="20pt"
+            android:layout_marginEnd="80dp" />
 
-    <ImageView
-        android:id="@+id/DiceThree"
-        android:layout_width="20pt"
-        android:layout_height="20pt"
-        android:layout_marginEnd="80dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DiceTwo" />
+        <Button
+            android:id="@+id/ColorTwo"
+            android:layout_width="20pt"
+            android:layout_height="20pt"
+            android:layout_marginEnd="80dp" />
+
+        <Button
+            android:id="@+id/ColorThree"
+            android:layout_width="20pt"
+            android:layout_height="20pt"
+            android:layout_marginEnd="80dp" />
+
+    </RadioGroup>
 
 
     <ImageView
@@ -74,7 +84,7 @@
         android:layout_marginEnd="-5dp"
         android:layout_marginBottom="50dp"
         android:layout_weight="1"
-        app:layout_constraintBottom_toTopOf="@+id/ColorTwo"
+        app:layout_constraintBottom_toTopOf="@+id/colorDiceGroup"
         app:layout_constraintEnd_toEndOf="@+id/currentRoundView"
         app:layout_constraintTop_toTopOf="@+id/currentRoundView" />
 
