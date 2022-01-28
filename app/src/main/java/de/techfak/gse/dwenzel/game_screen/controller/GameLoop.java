@@ -194,6 +194,7 @@ public class GameLoop extends AppCompatActivity implements Runnable, Observer {
         String endCard = player.getPlayerName() + " : " + player.getCurrentPoints();
         myIntent.putExtra("EndPoints", endCard);
         context.startActivity(myIntent);
+        finish();
     }
 
     /**

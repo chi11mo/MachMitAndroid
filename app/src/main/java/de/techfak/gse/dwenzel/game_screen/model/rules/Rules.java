@@ -34,8 +34,9 @@ public class Rules extends Observable {
             return true;
         }
         boolean isTurnRule = turnRules.isTurnValid(currentTurnTaps);
-        // boolean isTurnRule = true;
+        //boolean isTurnRule = true;
         boolean isDiceRule = diceRules.checkDiceRules(currentTurnTaps);
+        // boolean isDiceRule = true;
         // Log.d("Turn Rules accept", String.valueOf(isTurnRule));
         // Log.d("Dice Rules accept", String.valueOf(isDiceRule));
         if (!isDiceRule) {

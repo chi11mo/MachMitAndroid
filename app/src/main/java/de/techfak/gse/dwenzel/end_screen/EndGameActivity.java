@@ -7,6 +7,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import de.techfak.gse.dwenzel.R;
@@ -38,5 +39,13 @@ public class EndGameActivity extends AppCompatActivity {
         finishAffinity();
         final Intent myIntent = new Intent(this, GameStartActivity.class);
         startActivity(myIntent);
+        finish();
+    }
+
+    /**
+     * Disable back button.
+     */
+    @Override
+    public void onBackPressed() {
     }
 }
