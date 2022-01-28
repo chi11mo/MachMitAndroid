@@ -23,27 +23,26 @@ public class ButtonSpriteSheet {
      */
     public ButtonSpriteSheet(final Context context) {
         this.context = context;
+        listOfButtonDrawable.add(getYellowFieldDrawable(false));
         listOfButtonDrawable.add(
-                dataLoader.loadDrawableFromAssets(context, "icon_notPressed_yellow.png"));
+                getGreenFieldDrawable(false));
         listOfButtonDrawable.add(
-                dataLoader.loadDrawableFromAssets(context, "icon_notPressed_green.png"));
+                getRedFieldDrawable(false));
         listOfButtonDrawable.add(
-                dataLoader.loadDrawableFromAssets(context, "icon_notPressed_red.png"));
+                getOrangeFieldDrawable(false));
         listOfButtonDrawable.add(
-                dataLoader.loadDrawableFromAssets(context, "icon_notPressed_orange.png"));
-        listOfButtonDrawable.add(
-                dataLoader.loadDrawableFromAssets(context, "icon_notPressed_blue.png"));
+                getBlueFieldDrawable(false));
 
         listOfButtonDrawableCrossed.add(
-                dataLoader.loadDrawableFromAssets(context, "icon_pressed_yellow.png"));
+                getYellowFieldDrawable(true));
         listOfButtonDrawableCrossed.add(
-                dataLoader.loadDrawableFromAssets(context, "icon_pressed_green.png"));
+                getGreenFieldDrawable(true));
         listOfButtonDrawableCrossed.add(
-                dataLoader.loadDrawableFromAssets(context, "icon_pressed_red.png"));
+                getRedFieldDrawable(true));
         listOfButtonDrawableCrossed.add(
-                dataLoader.loadDrawableFromAssets(context, "icon_pressed_orange.png"));
+                getOrangeFieldDrawable(true));
         listOfButtonDrawableCrossed.add(
-                dataLoader.loadDrawableFromAssets(context, "icon_pressed_blue.png"));
+                getBlueFieldDrawable(true));
     }
 
     /**

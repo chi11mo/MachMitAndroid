@@ -9,6 +9,9 @@ import java.util.List;
 import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.game_screen.model.DataLoader;
 
+/**
+ * Sprite sheet for dice ImageButtons.
+ */
 public class DiceSpriteSheet {
     private final DataLoader dataLoader = new DataLoader();
     private final Context context;
@@ -17,7 +20,11 @@ public class DiceSpriteSheet {
     private final List<Integer> listOfDiceColorDrawable = new ArrayList<Integer>();
     private final List<Drawable> listOfDiceNumberDrawable = new ArrayList<Drawable>();
 
-
+    /**
+     * Sprite sheet for dice ImageButtons.
+     *
+     * @param context BoardMain Context.
+     */
     public DiceSpriteSheet(final Context context) {
         this.context = context;
 
