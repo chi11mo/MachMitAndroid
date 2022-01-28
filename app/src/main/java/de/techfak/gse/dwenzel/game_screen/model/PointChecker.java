@@ -4,7 +4,7 @@ package de.techfak.gse.dwenzel.game_screen.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.techfak.gse.dwenzel.game_screen.map.AbstractField;
+import de.techfak.gse.dwenzel.game_screen.map.Field;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
 
 public class PointChecker {
@@ -29,12 +29,12 @@ public class PointChecker {
      * @param fieldMap        current list of fields.
      * @param currentTurnTaps current crossed Fields.
      */
-    public void checkPoints(final FieldMap fieldMap, final List<AbstractField> currentTurnTaps) {
+    public void checkPoints(final FieldMap fieldMap, final List<Field> currentTurnTaps) {
 
         if (currentTurnTaps.isEmpty()) {
             return;
         }
-        checkFullColor(fieldMap, currentTurnTaps.get(0).getFieldColor());
+        checkFullColor(fieldMap, currentTurnTaps.get(0).getFieldIdxColor());
         checkFullRow(fieldMap, currentTurnTaps);
     }
 
@@ -44,11 +44,11 @@ public class PointChecker {
      * @param fieldMap        current list of fields.
      * @param currentTurnTaps current crossed Fields.
      */
-    private void checkFullRow(final FieldMap fieldMap, final List<AbstractField> currentTurnTaps) {
-        AbstractField[][] fields = fieldMap.getFields();
+    private void checkFullRow(final FieldMap fieldMap, final List<Field> currentTurnTaps) {
+        Field[][] fields = fieldMap.getFields();
 
         LabelDonatCross:
-        for (AbstractField field : currentTurnTaps) {
+        for (Field field : currentTurnTaps) {
             int iRow = field.getRow();
             for (int iCol = 0; iCol < fieldMap.getMaxCol(); iCol++) {
                 if (!fields[iRow][iCol].isCrossed()) {
@@ -71,12 +71,12 @@ public class PointChecker {
      * @param fieldColor current crossed Color.
      */
     private void checkFullColor(final FieldMap fieldMap, final int fieldColor) {
-        AbstractField[][] fields = fieldMap.getFields();
+        Field[][] fields = fieldMap.getFields();
 
         for (int iRow = 0; iRow < fieldMap.getMaxRow(); iRow++) {
             for (int iCol = 0; iCol < fieldMap.getMaxCol(); iCol++) {
                 if (!fields[iRow][iCol].isCrossed()
-                        && fields[iRow][iCol].getFieldColor() == fieldColor) {
+                        && fields[iRow][iCol].getFieldIdxColor() == fieldColor) {
                     return;
                 }
             }

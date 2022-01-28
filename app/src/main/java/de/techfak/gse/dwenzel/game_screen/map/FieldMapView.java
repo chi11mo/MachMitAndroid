@@ -1,90 +1,132 @@
 package de.techfak.gse.dwenzel.game_screen.map;
 
+import static android.graphics.Color.BLACK;
+import static android.graphics.Color.WHITE;
+
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import java.util.List;
+
 import de.techfak.gse.dwenzel.R;
+import de.techfak.gse.dwenzel.sprite_sheet.ButtonSpriteSheet;
 
 public class FieldMapView {
     private final Context context;
+    private final ButtonSpriteSheet buttonSpriteSheet;
+    private FieldMap fieldMap;
+
+
+    private ImageButton[][] buttonGameGroupe;
 
     /**
      * Field Map view .
-     * @param context view from main Activity.
+     *
+     * @param context  view from main Activity.
+     * @param fieldMap
      */
-    public FieldMapView(final Context context) {
+    public FieldMapView(final Context context, final FieldMap fieldMap) {
         this.context = context;
+        this.fieldMap = fieldMap;
+        buttonSpriteSheet = new ButtonSpriteSheet(context);
+        buttonGameGroupe = new ImageButton[fieldMap.getMaxRow()][fieldMap.getMaxCol()];
+
+        createFieldMapGameboard(fieldMap);
     }
 
+    private void createFieldMapGameboard(final FieldMap fieldMap) {
 
-    public void createFieldMap(final GridLayout gridLayout, final FieldMap fieldMap) {
+        GridLayout gridLayout = (GridLayout) ((Activity) context).findViewById(R.id.playground_grid);
         gridLayout.removeAllViews();
-        final AbstractField[][] abstractFields = fieldMap.getFields();
-        //clear last Layout and update new Board.
-        //gridLayout.removeAllViews();
         for (int iRow = 0; iRow < fieldMap.getMaxRow(); iRow++) {
             for (int iCol = 0; iCol < fieldMap.getMaxCol(); iCol++) {
-                abstractFields[iRow][iCol].setButton(new ImageButton(context));
-                abstractFields[iRow][iCol].setRow(iRow);
-                abstractFields[iRow][iCol].setCol(iCol);
-
-                abstractFields[iRow][iCol].getButton().setLayoutParams(
+                buttonGameGroupe[iRow][iCol] = new ImageButton(context);
+                Drawable currentButtonDrawable = getColorButtonDrawable(fieldMap.getFields()[iRow][iCol].getFieldIdxColor()
+                        , fieldMap.getFields()[iRow][iCol].isCrossed());
+                buttonGameGroupe[iRow][iCol].setImageDrawable(currentButtonDrawable);
+                buttonGameGroupe[iRow][iCol].setLayoutParams(
                         new LinearLayout.LayoutParams(context.getResources()
                                 .getInteger(R.integer.ButtonSizeLayoutParam),
                                 context.getResources()
                                         .getInteger(
                                                 R.integer.ButtonSizeLayoutParam)));
-                /*setting up single button settings sizes and padding*/
 
-                abstractFields[iRow][iCol].getButton()
+                buttonGameGroupe[iRow][iCol]
                         .setAdjustViewBounds(true);
-                abstractFields[iRow][iCol].getButton()
+                buttonGameGroupe[iRow][iCol]
                         .setBackground(null);
-                abstractFields[iRow][iCol].getButton()
+                buttonGameGroupe[iRow][iCol]
                         .setPadding(0, 0, 0, 0);
-                abstractFields[iRow][iCol].getButton()
+                buttonGameGroupe[iRow][iCol]
                         .setScaleType(ImageButton.ScaleType.FIT_START);
-                abstractFields[iRow][iCol].getButton()
-                        .setImageDrawable(abstractFields[iRow][iCol]
-                                .getDrawableField());
-                //if the field is already crossed the field isn't able to tab again.
-                if (abstractFields[iRow][iCol].isCrossed()) {
-                    abstractFields[iRow][iCol].getButton().setEnabled(false);
+
+                if (fieldMap.getFields()[iRow][iCol].isCrossed()) {
+                    buttonGameGroupe[iRow][iCol].setEnabled(false);
                 }
 
-                gridLayout.addView(abstractFields[iRow][iCol].getButton());
-
+                gridLayout.addView(buttonGameGroupe[iRow][iCol]);
             }
-
-
         }
-
-
     }
 
     /**
-     * Add current mark to the view.
+     * Helps to get right Drawable for play Buttons.
      *
-     * @param field field to mark.
+     * @param fieldIdxColor idx of the color eg. (0 is yellow)
+     * @param crossed       is the button already crissed.
+     * @return the right drawable.
      */
-    public void addField(final AbstractField field) {
-        field.setIsCrossed(true);
-        field.getButton().setBackground(null);
-        field.getButton().setImageDrawable(field
-                .getDrawableField(true));
+    private Drawable getColorButtonDrawable(final int fieldIdxColor, final boolean crossed) {
+        if (crossed) {
+            return buttonSpriteSheet.getListOfButtonDrawableCrossed().get(fieldIdxColor);
+        } else
+            return buttonSpriteSheet.getListOfButtonDrawable().get(fieldIdxColor);
+    }
 
+
+    /**
+     * Mark current taps.
+     *
+     * @param iRow row of tap
+     * @param iCol col of tap
+     */
+    public void addFieldMark(final int iRow, final int iCol) {
+        buttonGameGroupe[iRow][iCol].setBackgroundColor(BLACK);
     }
 
     /**
-     * removel current mark to the view.
+     * unMark current taps.
      *
-     * @param field field to mark.
+     * @param iRow row of tap
+     * @param iCol col of tap
      */
-    public void removeField(final AbstractField field) {
-        field.setIsCrossed(false);
-        field.getButton().setImageDrawable(field
-                .getDrawableField(false));
+    public void removeFieldMark(final int iRow, final int iCol) {
+        buttonGameGroupe[iRow][iCol].setBackgroundColor(0);
+    }
+
+    /**
+     * get buttons for integrate clickerListener.
+     *
+     * @return the Buttongroupe.
+     */
+    public ImageButton[][] getButtonGameGroupe() {
+        return buttonGameGroupe;
+    }
+
+    public void updateFieldMap(final FieldMap fieldMap) {
+        createFieldMapGameboard(fieldMap);
+    }
+
+
+    public void removeAllMarks() {
+        for (int iRow = 0; iRow < fieldMap.getMaxRow(); iRow++) {
+            for (int iCol = 0; iCol < fieldMap.getMaxCol(); iCol++) {
+                buttonGameGroupe[iRow][iCol].setBackgroundColor(0);
+            }
+        }
     }
 }

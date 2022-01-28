@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +23,7 @@ import de.techfak.gse.dwenzel.start_screen.controller.LoginController;
 public class GameStartActivity extends AppCompatActivity implements Serializable, LoginView {
 
     /*UID GameStartActivity.*/              public static final long serialVersionUID = 4328743;
-    /*Text input from playground data.*/    private TextInputEditText textInputPlaygroundInput;
+    /*Text input from playground data.*/    private EditText textInputPlaygroundInput;
     /*Controller for the data validation.*/ private LoginController loginController;
     /*to store data path in String.*/       private String playgroundInputString;
 
@@ -34,7 +35,7 @@ public class GameStartActivity extends AppCompatActivity implements Serializable
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gamestart);
+        setContentView(R.layout.activity_login);
 
 
         loginController = new LoginController(this);
@@ -44,7 +45,7 @@ public class GameStartActivity extends AppCompatActivity implements Serializable
 
         /*Button to check validation.*/
         Button loginButton = findViewById(R.id.loginButton);
-/*
+
         textInputPlaygroundInput.setText("ggGyyyyGboboyyy\n"
                 + "ogygyyoogbboogg\n"
                 + "bgrggggrRryyogg\n"
@@ -52,7 +53,7 @@ public class GameStartActivity extends AppCompatActivity implements Serializable
                 + "roOoorbbooorrrr\n"
                 + "rBbrrrryyorbbbo\n"
                 + "yybbbbryyygggog");
-*/
+
         loginButton.setOnClickListener(v -> {
             playgroundInputString = String.valueOf(textInputPlaygroundInput.getText());
 

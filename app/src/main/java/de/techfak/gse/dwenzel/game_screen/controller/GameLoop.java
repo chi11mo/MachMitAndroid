@@ -3,6 +3,7 @@ package de.techfak.gse.dwenzel.game_screen.controller;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +15,7 @@ import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.end_screen.EndGameActivity;
 import de.techfak.gse.dwenzel.game_screen.dice.Dice;
 import de.techfak.gse.dwenzel.game_screen.dice.DiceView;
-import de.techfak.gse.dwenzel.game_screen.map.AbstractField;
+import de.techfak.gse.dwenzel.game_screen.map.Field;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMapView;
 import de.techfak.gse.dwenzel.game_screen.map.PointView;
@@ -23,7 +24,6 @@ import de.techfak.gse.dwenzel.game_screen.model.PointChecker;
 import de.techfak.gse.dwenzel.game_screen.model.Round;
 import de.techfak.gse.dwenzel.game_screen.rules.Rules;
 import de.techfak.gse.dwenzel.game_screen.view.AlertBox;
-import de.techfak.gse.dwenzel.game_screen.view.FieldMarker;
 
 public class GameLoop extends AppCompatActivity implements Runnable, Observer {
     private static final int THREAD_SLEEP = 1000;
@@ -61,22 +61,24 @@ public class GameLoop extends AppCompatActivity implements Runnable, Observer {
     public GameLoop(final Context context, final FieldMap fieldMap, final AlertBox alertBox) {
         this.context = context;
         this.fieldMap = fieldMap;
-        fieldMapView = new FieldMapView(context);
+        fieldMapView = new FieldMapView(context, fieldMap);
 
         //init round and add the first round.
-        round = new Round(context);
+        round = new Round();
         round.addObserver(this);
 
-        player = new Player(context, "Dominic");
+        player = new Player(context, context.getString(R.string.PlayerOneName));
         player.addObserver(this);
 
-        dice = new Dice(context);
+        dice = new Dice();
         dice.addObserver(this);
         diceView = new DiceView(context);
 
         rules = new Rules(alertBox);
         pointChecker = new PointChecker();
         pointView = new PointView(context);
+
+
         // round.add Round(fieldMap);
         /*start game loop thread.*/
 
@@ -102,7 +104,7 @@ public class GameLoop extends AppCompatActivity implements Runnable, Observer {
     @Override
     public void run() {
         isRunning = true;
-        FieldMarker fieldMarker = new FieldMarker();
+
 
         while (isRunning) {
             try {
@@ -115,18 +117,19 @@ public class GameLoop extends AppCompatActivity implements Runnable, Observer {
                         int finalIRow = iRow;
 
                         int finalICol = iCol;
-                        fieldMap.getFields()[iRow][iCol].getButton().setOnClickListener(event -> {
-                            AbstractField field = fieldMap.getFields()[finalIRow][finalICol];
+                        fieldMapView.getButtonGameGroupe()[iRow][iCol].setOnClickListener(event -> {
+                            Field field = fieldMap.getFields()[finalIRow][finalICol];
 
                             if (fieldMap.getFields()[finalIRow][finalICol].isCrossed()) {
-                                //   fieldMapView.removeField(field);
-                                fieldMarker.removeFieldMark(field);
                                 round.removeTap(field);
+                                field.setIsCrossed(false);
+                                fieldMapView.removeFieldMark(finalIRow, finalICol);
 
                             } else {
-                                //  fieldMapView.addField(field);
-                                fieldMarker.addFieldMark(field);
+
                                 round.addTap(field);
+                                field.setIsCrossed(true);
+                                fieldMapView.addFieldMark(finalIRow, finalICol);
 
                             }
 
@@ -169,6 +172,10 @@ public class GameLoop extends AppCompatActivity implements Runnable, Observer {
                 }
 
             } else {
+                for (Field field : round.getCurrentTurnTaps()) {
+                    field.setIsCrossed(false);
+                }
+                fieldMapView.removeAllMarks();
                 round.removeAllTaps();
             }
         }
@@ -197,19 +204,18 @@ public class GameLoop extends AppCompatActivity implements Runnable, Observer {
      * Roll new Dice every Round.
      */
     private void updateDice() {
-        dice.createDice();
+        dice.rollDice();
         rules.setDice(dice);
 
     }
 
     @Override
     public void update(final Observable argOne, final Object argTwo) {
-        textViewCurRound.setText(context.getString(R.string.RoundName) + round.getRoundNumber());
-        diceView.setDice(dice.getDice(), dice.getColorList());
-        for (AbstractField field : round.getCurrentTurnTaps()) {
-            fieldMapView.addField(field);
-        }
-
+        textViewCurRound.setText(context.getString(R.string.round_name_plate) + round.getRoundNumber());
+        diceView.setDice(dice.getNumberList(), dice.getColorList());
+        //  String log = String.valueOf(dice.getNumberList()) + String.valueOf(dice.getColorList());
+        //  Log.d("Dice Roll", log);
+        fieldMapView.updateFieldMap(fieldMap);
         pointView.setPoints(player, pointChecker);
 
 

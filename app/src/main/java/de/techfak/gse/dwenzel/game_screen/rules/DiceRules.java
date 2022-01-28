@@ -4,7 +4,7 @@ import java.util.List;
 
 import de.techfak.gse.dwenzel.exception.InvalidTurnException;
 import de.techfak.gse.dwenzel.game_screen.dice.Dice;
-import de.techfak.gse.dwenzel.game_screen.map.AbstractField;
+import de.techfak.gse.dwenzel.game_screen.map.Field;
 import de.techfak.gse.dwenzel.game_screen.view.AlertBox;
 
 public class DiceRules {
@@ -34,7 +34,7 @@ public class DiceRules {
      * @param currentTurnTaps current makred fields.
      * @return if all die rules are accepted.
      */
-    public boolean checkDiceRules(final List<AbstractField> currentTurnTaps) {
+    public boolean checkDiceRules(final List<Field> currentTurnTaps) {
         String rule = null;
         try {
             if (!diceRules(currentTurnTaps)) {
@@ -62,7 +62,7 @@ public class DiceRules {
      * @param currentTurnTaps current Turn Taps.
      * @return bool if dice is fine with marked fields.
      */
-    private boolean diceRules(final List<AbstractField> currentTurnTaps) {
+    private boolean diceRules(final List<Field> currentTurnTaps) {
         return isDiceColor(currentTurnTaps) && isDiceEyeNumber(currentTurnTaps);
     }
 
@@ -76,8 +76,8 @@ public class DiceRules {
 
         final int turnTapsSize = currentTurnTaps.size();
 
-        for (int diceEye : dice.getDiceEyes()) {
-            if (diceEye == turnTapsSize) {
+        for (int diceEye : dice.getNumberList()) {
+            if (diceEye + 1 == turnTapsSize) {
                 return true;
             }
         }
@@ -90,10 +90,10 @@ public class DiceRules {
      * @param currentTurnTaps all current marked fields.
      * @return is  mark is valid.
      */
-    private boolean isDiceColor(final List<AbstractField> currentTurnTaps) {
+    private boolean isDiceColor(final List<Field> currentTurnTaps) {
 
-        for (int color : dice.getDiceColors()) {
-            if (currentTurnTaps.get(0).getFieldColor() == color) {
+        for (int color : dice.getColorList()) {
+            if (currentTurnTaps.get(0).getFieldIdxColor() == color) {
                 return true;
             }
         }
@@ -106,15 +106,15 @@ public class DiceRules {
      * @param currentTurnTaps current marked taps.
      * @return is all same color.
      */
-    private boolean isSameColor(final List<AbstractField> currentTurnTaps) {
-        final int currentColor = currentTurnTaps.get(0).getFieldColor();
+    private boolean isSameColor(final List<Field> currentTurnTaps) {
+        final int currentColor = currentTurnTaps.get(0).getFieldIdxColor();
         if (currentTurnTaps.size() == 1) {
             return false;
         }
 
-        for (AbstractField field : currentTurnTaps) {
+        for (Field field : currentTurnTaps) {
 
-            if (currentColor != field.getFieldColor()) {
+            if (currentColor != field.getFieldIdxColor()) {
                 return true;
             }
         }

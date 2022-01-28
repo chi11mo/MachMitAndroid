@@ -1,29 +1,22 @@
 package de.techfak.gse.dwenzel.game_screen.model;
 
-import android.content.Context;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-import de.techfak.gse.dwenzel.game_screen.map.AbstractField;
-import de.techfak.gse.dwenzel.game_screen.view.FieldMarker;
+import de.techfak.gse.dwenzel.game_screen.map.Field;
 
 public class Round extends Observable {
-    private final Context context;
     private int currentRound;
 
     /*This list shows the current
     fields are tapped for current Turn*/
-    private final List<AbstractField> currentTurnTaps = new ArrayList<>();
+    private final List<Field> currentTurnTaps = new ArrayList<>();
 
     /**
      * save current Round information.
-     *
-     * @param context view.
      */
-    public Round(final Context context) {
-        this.context = context;
+    public Round() {
         currentRound = 0;
 
     }
@@ -32,17 +25,14 @@ public class Round extends Observable {
      * set a new Round.
      * and set current round as null because need to get
      * a new FieldMap with current turn.
-     *
-     * @param fieldMap field setting map for current round.
      */
     public void addRound() {
 
-        //BoardLoader loader = new BoardLoader(context);
         currentRound++;
-        //loader.updateField(fieldMap);
+        currentTurnTaps.clear();
         setChanged();
         notifyObservers();
-        currentTurnTaps.clear();
+
 
     }
 
@@ -51,7 +41,7 @@ public class Round extends Observable {
      *
      * @return list of marked fields.
      */
-    public List<AbstractField> getCurrentTurnTaps() {
+    public List<Field> getCurrentTurnTaps() {
         return currentTurnTaps;
     }
 
@@ -60,35 +50,34 @@ public class Round extends Observable {
      * setting up current turn taps for turn validation
      * it saved in the array list currentTurnTaps.
      *
-     * @param abstractField set field into currentTurnTaps.
+     * @param field set field into currentTurnTaps.
      */
-    public void addTap(final AbstractField abstractField) {
-        if (isFieldCurrentCross(abstractField)) {
-            currentTurnTaps.remove(abstractField);
-        } else {
-            currentTurnTaps.add(abstractField);
-        }
-        //Log.d("Current saved Taps", String.valueOf(currentTurnTaps));
+    public void addTap(final Field field) {
+
+        currentTurnTaps.add(field);
+
     }
+
     /**
      * remove taps.
      *
      * @param field set field into currentTurnTaps.
      */
-    public void removeTap(final AbstractField field) {
+    public void removeTap(final Field field) {
         currentTurnTaps.remove(field);
+
     }
 
 
     /**
      * check if field is already in currentTurnTaps.
      *
-     * @param abstractField in currentTurnTaps.
+     * @param field in currentTurnTaps.
      * @return if is already in currentTurnTaps.
      */
-    public boolean isFieldCurrentCross(final AbstractField abstractField) {
-        for (final AbstractField abstractFieldSrc : currentTurnTaps) {
-            if (abstractFieldSrc.equals(abstractField)) {
+    public boolean isFieldCurrentCross(final Field field) {
+        for (final Field fieldSrc : currentTurnTaps) {
+            if (fieldSrc.equals(field)) {
                 return true;
             }
         }
@@ -100,14 +89,15 @@ public class Round extends Observable {
      * list.
      */
     public void removeAllTaps() {
-        FieldMarker fieldMarker = new FieldMarker();
-        for (AbstractField field : currentTurnTaps) {
-            fieldMarker.removeFieldMark(field);
-            // removeTap(field);
-        }
+
         currentTurnTaps.clear();
     }
 
+    /**
+     * To get current roundNumber.
+     *
+     * @return current roundNumber as Integer.
+     */
     public int getRoundNumber() {
         return currentRound;
     }

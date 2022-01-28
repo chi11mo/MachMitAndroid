@@ -17,7 +17,6 @@ import de.techfak.gse.dwenzel.game_screen.model.DataLoader;
 public class GameDisplay implements AlertBox {
 
     private final Context context;
-    private final BoardLoader boardLoader;
     private FieldMap fieldMap;
     private GameLoop gameLoop;
 
@@ -27,14 +26,23 @@ public class GameDisplay implements AlertBox {
      *
      * @param context context from main activity.
      */
-    public GameDisplay(final Context context) {
+    public GameDisplay(final Context context, final String boardLayout) {
+        this.context = context;
+        final int maxRow
+                = context.getResources().getInteger(R.integer.PlaygroundRow);
+        final int maxCol
+                = context.getResources().getInteger(R.integer.PlaygroundCol);
 
         final DataLoader dataLoader = new DataLoader();
-        boardLoader = new BoardLoader(context);
-        this.context = context;
 
+
+        //init game objects
+        final FieldMap fieldMap = new FieldMap(boardLayout, maxRow, maxCol);
 
         onCreate(dataLoader);
+
+        setFieldsOnCreate(fieldMap);
+        startRun();
 
 
     }
@@ -83,8 +91,7 @@ public class GameDisplay implements AlertBox {
      */
     public void setFieldsOnCreate(final FieldMap fieldMap) {
         this.fieldMap = fieldMap;
-        boardLoader.updateFieldMap(((Activity) context)
-                .findViewById(R.id.playground_grid), fieldMap);
+
     }
 
     /**
@@ -119,6 +126,10 @@ public class GameDisplay implements AlertBox {
                 .setMessage(message)
                 .setPositiveButton("Okay", null);
         builder.show();
+    }
+
+    public void update(final FieldMap fieldMap) {
+        setFieldsOnCreate(fieldMap);
     }
 
 }

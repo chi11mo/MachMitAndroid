@@ -6,6 +6,9 @@
         <entry key="../../../../../../layout/custom_preview.xml" value="0.2015625" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/drawable/button_dark_gradient.xml" value="0.22447916666666667" />
+        <entry key="app/src/main/res/drawable/circle.xml" value="0.4588541666666667" />
+        <entry key="app/src/main/res/drawable/custombutton.xml" value="0.4588541666666667" />
+        <entry key="app/src/main/res/drawable/customloginbutton.xml" value="0.4588541666666667" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/drawable/my_button_bg.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/drawable/notPressed_green_button_icon_background.xml" value="0.24322916666666666" />

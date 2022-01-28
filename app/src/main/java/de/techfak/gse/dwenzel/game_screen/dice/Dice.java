@@ -1,79 +1,69 @@
 package de.techfak.gse.dwenzel.game_screen.dice;
 
-import android.content.Context;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-import de.techfak.gse.dwenzel.sprite_sheet.DiceSpriteSheet;
-
 public class Dice extends Observable {
-    private final DiceSpriteSheet diceSpriteSheet;
-
-    private final DiceView diceView;
-
-
-
-    private AbstractDice[] dice;
-    private final Context context;
-    private int[] diceColor;
-    private int[] diceNumbers;
+    static final int MAX_DICE_EYES = 6;
+    static final int MAX_DICE_COLOR_IDX = 5;
+    static final int MAX_DICE = 3;
 
 
-
-    private List colorList = new ArrayList<>();
+    private final List<Integer> colorList = new ArrayList<Integer>();
+    private final List<Integer> numberList = new ArrayList<Integer>();
 
     /**
      * To generate Dices.
      * Numbers and Color
-     *
-     * @param context context from app.
      */
-    public Dice(final Context context) {
-        diceSpriteSheet = new DiceSpriteSheet(context);
-        this.context = context;
-        diceView = new DiceView(context);
+    public Dice() {
+        rollDice();
     }
 
     /**
-     * Creates the dices and update the dice View.
+     * Method to roll the dice with random numbers.
+     * and save results in list.¬
      */
-    public void createDice() {
-        DiceRandomizer diceRandomizer = new DiceRandomizer(diceSpriteSheet);
-        ColorRandomizer colorRandomizer = new ColorRandomizer(context);
-         dice = diceRandomizer.getDices();
-        colorList = colorRandomizer.getColorList();
-        diceColor = colorRandomizer.getColorNumbers();
-        diceNumbers = diceRandomizer.getDiceNumbers();
+    public void rollDice() {
+        colorList.clear();
+        numberList.clear();
+        for (int idx = 0; idx < MAX_DICE; idx++) {
+            colorList.add(getRandomNumber(0, MAX_DICE_COLOR_IDX));
+        }
+        for (int idx = 0; idx < MAX_DICE; idx++) {
+            numberList.add(getRandomNumber(0, MAX_DICE_EYES));
+        }
+
         setChanged();
         notifyObservers();
-
-
     }
 
     /**
-     * get rolled dice eyes.
-     *
-     * @return array with all rolled dice numbers.
+     * Method to get random Integer with min/max Range.
+     * @param min min range.
+     * @param max max range.
+     * @return rnd number.
      */
-    public int[] getDiceEyes() {
-        return diceNumbers;
+    private int getRandomNumber(final int min, final int max) {
+        return (int) ((Math.random() * (max - min)) + min);
     }
 
     /**
-     * get rolled colors.
-     *
-     * @return rolled colors.
+     * List with color idx.
+     * @return List with color idx.
      */
-    public int[] getDiceColors() {
-        return diceColor;
-    }
-
-    public List getColorList() {
+    public List<Integer> getColorList() {
         return colorList;
     }
-    public AbstractDice[] getDice() {
-        return dice;
+
+    /**
+     * List with number idx.
+     * @return List with number idx.
+     */
+    public List<Integer> getNumberList() {
+        return numberList;
     }
+
+
 }

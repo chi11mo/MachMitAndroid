@@ -8,6 +8,7 @@ import android.view.animation.AnimationUtils;
 import java.util.List;
 
 import de.techfak.gse.dwenzel.R;
+import de.techfak.gse.dwenzel.sprite_sheet.DiceSpriteSheet;
 
 public class DiceView {
     private final Context context;
@@ -25,11 +26,11 @@ public class DiceView {
      * Setting the image views for dices.
      * and create the die animation.
      *
-     * @param dice      dice array with drawables from eye number.
-     * @param colorList all randomized color integer.
+     * @param numberList dice array with drawables from eye number.
+     * @param colorList  all randomized color integer.
      */
-    public void setDice(final AbstractDice[] dice, final List colorList) {
-
+    public void setDice(final List<Integer> numberList, final List<Integer> colorList) {
+        DiceSpriteSheet diceSpriteSheet = new DiceSpriteSheet(context);
         final Animation animation = AnimationUtils.loadAnimation(context, R.anim.rotate);
         ((Activity) context)
                 .findViewById(R.id.ColorOne).startAnimation(animation);
@@ -46,17 +47,29 @@ public class DiceView {
 
 
         ((Activity) context)
-                .findViewById(R.id.ColorOne).setBackgroundColor((Integer) colorList.get(0));
+                .findViewById(R.id.ColorOne)
+                .setBackgroundColor(
+                        diceSpriteSheet.getListOfDiceColorDrawable().get(colorList.get(0)));
         ((Activity) context)
-                .findViewById(R.id.ColorTwo).setBackgroundColor((Integer) colorList.get(1));
+                .findViewById(R.id.ColorTwo)
+                .setBackgroundColor(
+                        diceSpriteSheet.getListOfDiceColorDrawable().get(colorList.get(1)));
         ((Activity) context)
-                .findViewById(R.id.ColorThree).setBackgroundColor((Integer) colorList.get(2));
+                .findViewById(R.id.ColorThree)
+                .setBackgroundColor(
+                        diceSpriteSheet.getListOfDiceColorDrawable().get(colorList.get(2)));
         ((Activity) context)
-                .findViewById(R.id.DiceOne).setBackgroundDrawable(dice[0].getDrawableDice());
+                .findViewById(R.id.DiceOne)
+                .setBackgroundDrawable(
+                        diceSpriteSheet.getListOfDiceNumberDrawable().get(numberList.get(0)));
 
         ((Activity) context)
-                .findViewById(R.id.DiceTwo).setBackgroundDrawable(dice[1].getDrawableDice());
+                .findViewById(R.id.DiceTwo)
+                .setBackgroundDrawable(
+                        diceSpriteSheet.getListOfDiceNumberDrawable().get(numberList.get(1)));
         ((Activity) context)
-                .findViewById(R.id.DiceThree).setBackgroundDrawable(dice[2].getDrawableDice());
+                .findViewById(R.id.DiceThree)
+                .setBackgroundDrawable(
+                        diceSpriteSheet.getListOfDiceNumberDrawable().get(numberList.get(2)));
     }
 }

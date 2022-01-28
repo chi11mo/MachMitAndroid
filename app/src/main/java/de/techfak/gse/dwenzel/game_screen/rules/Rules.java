@@ -3,12 +3,11 @@ package de.techfak.gse.dwenzel.game_screen.rules;
 import java.util.List;
 
 import de.techfak.gse.dwenzel.game_screen.dice.Dice;
-import de.techfak.gse.dwenzel.game_screen.map.AbstractField;
+import de.techfak.gse.dwenzel.game_screen.map.Field;
 import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
 import de.techfak.gse.dwenzel.game_screen.view.AlertBox;
 
 public class Rules {
-    private final AlertBox alertBox;
     private TurnRules turnRules;
     private DiceRules diceRules;
 
@@ -18,7 +17,6 @@ public class Rules {
      * @param alertBox Box to show if rules arent accepted.
      */
     public Rules(final AlertBox alertBox) {
-        this.alertBox = alertBox;
 
         turnRules = new TurnRules(alertBox);
         diceRules = new DiceRules(alertBox);
@@ -30,11 +28,11 @@ public class Rules {
      * @param currentTurnTaps list of current marked fields.
      * @return if all rules are accepted.
      */
-    public boolean checkRules(final List<AbstractField> currentTurnTaps) {
+    public boolean checkRules(final List<Field> currentTurnTaps) {
         // return true;
         return currentTurnTaps.isEmpty() || turnRules.isTurnValid(currentTurnTaps)
                 && diceRules.checkDiceRules(currentTurnTaps);
-        //  return diceRules.checkDiceRules(currentTurnTaps);
+        // return currentTurnTaps.isEmpty() || diceRules.checkDiceRules(currentTurnTaps);
     }
 
     /**
