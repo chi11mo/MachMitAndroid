@@ -7,7 +7,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import de.techfak.gse.dwenzel.R;
@@ -26,7 +25,8 @@ public class EndGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_endgame);
 
         TextView winnerView = findViewById(R.id.winnerView);
-        winnerView.setText("Der Gewinner ist : " + getIntent().getStringExtra("EndPoints"));
+        winnerView.setText(getString(R.string.winner_text)
+                + getIntent().getStringExtra("EndPoints"));
 
     }
 
