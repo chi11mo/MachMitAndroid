@@ -4,9 +4,6 @@ package de.techfak.gse.dwenzel.game_screen.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.techfak.gse.dwenzel.game_screen.map.Field;
-import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
-
 public class PointChecker {
     private static final int[] ROW_POINTS = {5, 3, 3, 3, 2, 2, 2, 1, 2, 2, 2, 3, 3, 3, 5};
 

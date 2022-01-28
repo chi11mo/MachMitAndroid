@@ -8,8 +8,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.game_screen.controller.GameLoop;
-import de.techfak.gse.dwenzel.game_screen.map.CoordinateView;
-import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
+import de.techfak.gse.dwenzel.game_screen.model.FieldMap;
 import de.techfak.gse.dwenzel.game_screen.model.DataLoader;
 
 /* default */
@@ -25,6 +24,7 @@ public class GameDisplay implements AlertBox {
      * And upgrade after changes.
      *
      * @param context context from main activity.
+     * @param boardLayout string of boardLayout.
      */
     public GameDisplay(final Context context, final String boardLayout) {
         this.context = context;
@@ -128,6 +128,11 @@ public class GameDisplay implements AlertBox {
         builder.show();
     }
 
+    /**
+     * update current fieldMap from the first init.
+     *
+     * @param fieldMap first init fieldmap from boardLayout.
+     */
     public void update(final FieldMap fieldMap) {
         setFieldsOnCreate(fieldMap);
     }

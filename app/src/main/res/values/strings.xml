@@ -21,5 +21,6 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="PlayerOneName">Dominic</string>
-    <string name="round_name_plate">\"Runde \"</string>
+    <string name="round_name_plate">Runde : </string>
+    <string name="no_valid_turn">Kein valider Zug!</string>
 </resources>

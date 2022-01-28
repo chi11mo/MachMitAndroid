@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/loginwallpaper"
-    tools:context=".start_screen.view.GameStartActivity">
+    tools:context=".start_screen.controller.GameStartActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

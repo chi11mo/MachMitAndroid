@@ -10,8 +10,8 @@ import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.game_screen.model.DataLoader;
 
 public class DiceSpriteSheet {
-    private DataLoader dataLoader = new DataLoader();
-    private Context context;
+    private final DataLoader dataLoader = new DataLoader();
+    private final Context context;
 
 
     private final List<Integer> listOfDiceColorDrawable = new ArrayList<Integer>();
@@ -21,11 +21,16 @@ public class DiceSpriteSheet {
     public DiceSpriteSheet(final Context context) {
         this.context = context;
 
-        listOfDiceColorDrawable.add(context.getResources().getColor(R.color.yellow));
-        listOfDiceColorDrawable.add(context.getResources().getColor(R.color.green));
-        listOfDiceColorDrawable.add(context.getResources().getColor(R.color.red));
-        listOfDiceColorDrawable.add(context.getResources().getColor(R.color.orange));
-        listOfDiceColorDrawable.add(context.getResources().getColor(R.color.blue));
+        listOfDiceColorDrawable.add(
+                context.getResources().getColor(R.color.yellow));
+        listOfDiceColorDrawable.add(
+                context.getResources().getColor(R.color.green));
+        listOfDiceColorDrawable.add(
+                context.getResources().getColor(R.color.red));
+        listOfDiceColorDrawable.add(
+                context.getResources().getColor(R.color.orange));
+        listOfDiceColorDrawable.add(
+                context.getResources().getColor(R.color.blue));
         listOfDiceNumberDrawable.add(getOneDiceDrawable());
         listOfDiceNumberDrawable.add(getTwoDiceDrawable());
         listOfDiceNumberDrawable.add(getThreeDiceDrawable());
@@ -35,10 +40,20 @@ public class DiceSpriteSheet {
 
     }
 
+    /**
+     * to get the List of Dice Drawables.
+     *
+     * @return list of Dice drawablews.
+     */
     public List<Integer> getListOfDiceColorDrawable() {
         return listOfDiceColorDrawable;
     }
 
+    /**
+     * to get the List of Dice Drawables.
+     *
+     * @return list of Dice drawablews.
+     */
     public List<Drawable> getListOfDiceNumberDrawable() {
         return listOfDiceNumberDrawable;
     }

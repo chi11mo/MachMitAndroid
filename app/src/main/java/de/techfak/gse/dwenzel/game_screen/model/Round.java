@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-import de.techfak.gse.dwenzel.game_screen.map.Field;
-
 public class Round extends Observable {
     private int currentRound;
 

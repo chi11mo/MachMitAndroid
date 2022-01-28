@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import de.techfak.gse.dwenzel.R;
-import de.techfak.gse.dwenzel.start_screen.view.GameStartActivity;
+import de.techfak.gse.dwenzel.start_screen.controller.GameStartActivity;
 
 public class EndGameActivity extends AppCompatActivity {
 

@@ -12,36 +12,58 @@ public class ButtonSpriteSheet {
     private final DataLoader dataLoader = new DataLoader();
 
 
-
     private final List<Drawable> listOfButtonDrawableCrossed = new ArrayList<Drawable>();
     private final List<Drawable> listOfButtonDrawable = new ArrayList<Drawable>();
     private final Context context;
 
     /**
      * loader for buttons sprites.
+     *
      * @param context context from board view.
      */
     public ButtonSpriteSheet(final Context context) {
         this.context = context;
-        listOfButtonDrawable.add(dataLoader.loadDrawableFromAssets(context, "icon_notPressed_yellow.png"));
-        listOfButtonDrawable.add(dataLoader.loadDrawableFromAssets(context, "icon_notPressed_green.png"));
-        listOfButtonDrawable.add(dataLoader.loadDrawableFromAssets(context, "icon_notPressed_red.png"));
-        listOfButtonDrawable.add(dataLoader.loadDrawableFromAssets(context, "icon_notPressed_orange.png"));
-        listOfButtonDrawable.add(dataLoader.loadDrawableFromAssets(context, "icon_notPressed_blue.png"));
+        listOfButtonDrawable.add(
+                dataLoader.loadDrawableFromAssets(context, "icon_notPressed_yellow.png"));
+        listOfButtonDrawable.add(
+                dataLoader.loadDrawableFromAssets(context, "icon_notPressed_green.png"));
+        listOfButtonDrawable.add(
+                dataLoader.loadDrawableFromAssets(context, "icon_notPressed_red.png"));
+        listOfButtonDrawable.add(
+                dataLoader.loadDrawableFromAssets(context, "icon_notPressed_orange.png"));
+        listOfButtonDrawable.add(
+                dataLoader.loadDrawableFromAssets(context, "icon_notPressed_blue.png"));
 
-        listOfButtonDrawableCrossed.add(dataLoader.loadDrawableFromAssets(context, "icon_pressed_yellow.png"));
-        listOfButtonDrawableCrossed.add(dataLoader.loadDrawableFromAssets(context, "icon_pressed_green.png"));
-        listOfButtonDrawableCrossed.add(dataLoader.loadDrawableFromAssets(context, "icon_pressed_red.png"));
-        listOfButtonDrawableCrossed.add(dataLoader.loadDrawableFromAssets(context, "icon_pressed_orange.png"));
-        listOfButtonDrawableCrossed.add(dataLoader.loadDrawableFromAssets(context, "icon_pressed_blue.png"));
+        listOfButtonDrawableCrossed.add(
+                dataLoader.loadDrawableFromAssets(context, "icon_pressed_yellow.png"));
+        listOfButtonDrawableCrossed.add(
+                dataLoader.loadDrawableFromAssets(context, "icon_pressed_green.png"));
+        listOfButtonDrawableCrossed.add(
+                dataLoader.loadDrawableFromAssets(context, "icon_pressed_red.png"));
+        listOfButtonDrawableCrossed.add(
+                dataLoader.loadDrawableFromAssets(context, "icon_pressed_orange.png"));
+        listOfButtonDrawableCrossed.add(
+                dataLoader.loadDrawableFromAssets(context, "icon_pressed_blue.png"));
     }
+
+    /**
+     * to get the List of Button Drawables.
+     *
+     * @return list of Button drawablews.
+     */
     public List<Drawable> getListOfButtonDrawableCrossed() {
         return listOfButtonDrawableCrossed;
     }
 
+    /**
+     * to get the List of Button Drawables.
+     *
+     * @return list of Button drawablews.
+     */
     public List<Drawable> getListOfButtonDrawable() {
         return listOfButtonDrawable;
     }
+
     /**
      * get the right drawable and loaded it from png resources.
      *

@@ -10,7 +10,7 @@
         android:supportsRtl="false"
         android:theme="@style/Theme.ProjectTemplate" >
         <activity
-            android:name=".start_screen.view.GameStartActivity"
+            android:name=".start_screen.controller.GameStartActivity"
             android:exported="true"
             android:screenOrientation="landscape" >
             <intent-filter>
@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".game_screen.view.BoardMainActivity"
+            android:name=".game_screen.controller.BoardMainActivity"
             android:exported="true"
             android:screenOrientation="landscape" >
         </activity>

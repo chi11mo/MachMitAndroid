@@ -3,7 +3,6 @@ package de.techfak.gse.dwenzel.game_screen.controller;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,16 +12,16 @@ import java.util.Observer;
 
 import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.end_screen.EndGameActivity;
-import de.techfak.gse.dwenzel.game_screen.dice.Dice;
-import de.techfak.gse.dwenzel.game_screen.dice.DiceView;
-import de.techfak.gse.dwenzel.game_screen.map.Field;
-import de.techfak.gse.dwenzel.game_screen.map.FieldMap;
-import de.techfak.gse.dwenzel.game_screen.map.FieldMapView;
-import de.techfak.gse.dwenzel.game_screen.map.PointView;
+import de.techfak.gse.dwenzel.game_screen.model.Dice;
+import de.techfak.gse.dwenzel.game_screen.view.DiceView;
+import de.techfak.gse.dwenzel.game_screen.model.Field;
+import de.techfak.gse.dwenzel.game_screen.model.FieldMap;
+import de.techfak.gse.dwenzel.game_screen.view.FieldMapView;
+import de.techfak.gse.dwenzel.game_screen.view.PointView;
 import de.techfak.gse.dwenzel.game_screen.model.Player;
 import de.techfak.gse.dwenzel.game_screen.model.PointChecker;
 import de.techfak.gse.dwenzel.game_screen.model.Round;
-import de.techfak.gse.dwenzel.game_screen.rules.Rules;
+import de.techfak.gse.dwenzel.game_screen.model.rules.Rules;
 import de.techfak.gse.dwenzel.game_screen.view.AlertBox;
 
 public class GameLoop extends AppCompatActivity implements Runnable, Observer {
@@ -45,7 +44,7 @@ public class GameLoop extends AppCompatActivity implements Runnable, Observer {
     private final PointView pointView;
 
     private final TextView textViewCurRound;
-
+    private final AlertBox alertBox;
     private boolean isRunning;
     private boolean isFirstRound = true;
 
@@ -61,20 +60,24 @@ public class GameLoop extends AppCompatActivity implements Runnable, Observer {
     public GameLoop(final Context context, final FieldMap fieldMap, final AlertBox alertBox) {
         this.context = context;
         this.fieldMap = fieldMap;
-        fieldMapView = new FieldMapView(context, fieldMap);
+        this.alertBox = alertBox;
+
+        fieldMapView = new FieldMapView(context);
+        fieldMapView.createFieldMapGameboard(fieldMap);
 
         //init round and add the first round.
         round = new Round();
         round.addObserver(this);
 
-        player = new Player(context, context.getString(R.string.PlayerOneName));
+        player = new Player(context.getString(R.string.PlayerOneName));
         player.addObserver(this);
 
         dice = new Dice();
         dice.addObserver(this);
         diceView = new DiceView(context);
 
-        rules = new Rules(alertBox);
+        rules = new Rules();
+        rules.addObserver(this);
         pointChecker = new PointChecker();
         pointView = new PointView(context);
 
@@ -117,24 +120,25 @@ public class GameLoop extends AppCompatActivity implements Runnable, Observer {
                         int finalIRow = iRow;
 
                         int finalICol = iCol;
-                        fieldMapView.getButtonGameGroupe()[iRow][iCol].setOnClickListener(event -> {
-                            Field field = fieldMap.getFields()[finalIRow][finalICol];
+                        fieldMapView.getButtonGameGroupe()[iRow][iCol]
+                                .setOnClickListener(event -> {
+                                    Field field = fieldMap.getFields()[finalIRow][finalICol];
 
-                            if (fieldMap.getFields()[finalIRow][finalICol].isCrossed()) {
-                                round.removeTap(field);
-                                field.setIsCrossed(false);
-                                fieldMapView.removeFieldMark(finalIRow, finalICol);
+                                    if (fieldMap.getFields()[finalIRow][finalICol].isCrossed()) {
+                                        round.removeTap(field);
+                                        field.setIsCrossed(false);
+                                        fieldMapView.removeFieldMark(finalIRow, finalICol);
 
-                            } else {
+                                    } else {
 
-                                round.addTap(field);
-                                field.setIsCrossed(true);
-                                fieldMapView.addFieldMark(finalIRow, finalICol);
+                                        round.addTap(field);
+                                        field.setIsCrossed(true);
+                                        fieldMapView.addFieldMark(finalIRow, finalICol);
 
-                            }
+                                    }
 
 
-                        });
+                                });
                     }
                 }
                 Thread.sleep(THREAD_SLEEP);
@@ -175,7 +179,7 @@ public class GameLoop extends AppCompatActivity implements Runnable, Observer {
                 for (Field field : round.getCurrentTurnTaps()) {
                     field.setIsCrossed(false);
                 }
-                fieldMapView.removeAllMarks();
+                fieldMapView.removeAllMarks(fieldMap);
                 round.removeAllTaps();
             }
         }
@@ -211,13 +215,16 @@ public class GameLoop extends AppCompatActivity implements Runnable, Observer {
 
     @Override
     public void update(final Observable argOne, final Object argTwo) {
-        textViewCurRound.setText(context.getString(R.string.round_name_plate) + round.getRoundNumber());
-        diceView.setDice(dice.getNumberList(), dice.getColorList());
-        //  String log = String.valueOf(dice.getNumberList()) + String.valueOf(dice.getColorList());
-        //  Log.d("Dice Roll", log);
-        fieldMapView.updateFieldMap(fieldMap);
-        pointView.setPoints(player, pointChecker);
-
+        if (rules.getMissedRuleInfo() != null) {
+            alertBox.showAlert(context.getString(R.string.no_valid_turn),
+                    rules.getMissedRuleInfo());
+        } else {
+            textViewCurRound.setText(
+                    context.getString(R.string.round_name_plate) + round.getRoundNumber());
+            diceView.setDice(dice.getNumberList(), dice.getColorList());
+            fieldMapView.updateFieldMap(fieldMap);
+            pointView.setPoints(player, pointChecker);
+        }
 
     }
 }

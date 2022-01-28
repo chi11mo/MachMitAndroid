@@ -1,4 +1,4 @@
-package de.techfak.gse.dwenzel.game_screen.view;
+package de.techfak.gse.dwenzel.game_screen.controller;
 
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import de.techfak.gse.dwenzel.R;
+import de.techfak.gse.dwenzel.game_screen.view.GameDisplay;
 
 /**
  * This activity controls all the stuff on the main game card.

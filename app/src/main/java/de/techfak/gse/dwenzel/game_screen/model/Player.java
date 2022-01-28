@@ -1,11 +1,8 @@
 package de.techfak.gse.dwenzel.game_screen.model;
 
-import android.content.Context;
-
 import java.util.Observable;
 
 public class Player extends Observable {
-    private final Context context;
 
 
     private int currentPoints;
@@ -16,11 +13,10 @@ public class Player extends Observable {
     /**
      * Saves current player spot.
      *
-     * @param context    context for view.
      * @param playerName name of player.
      */
-    public Player(final Context context, final String playerName) {
-        this.context = context;
+    public Player(final String playerName) {
+
         this.playerName = playerName;
     }
 
