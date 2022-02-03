@@ -19,24 +19,24 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="42dp"
             android:background="@drawable/circle"
             android:gravity="center"
             android:shadowColor="#CD3535"
             android:text="Welcome to Encore!"
             android:textColor="#070000"
-            android:textSize="24sp" />
-
+            android:textSize="18sp" />
         <EditText
-            android:id="@+id/playgroundInput"
+            android:id="@+id/playerNameInput"
             android:layout_width="250dp"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/custombutton"
             android:gravity="center"
-            android:hint="Spiel Layout"
+            android:hint="Spieler Name"
             android:textColorHint="#FFFBF6" />
         <EditText
+            android:id="@+id/serverNameInput"
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:layout_width="250dp"
@@ -44,14 +44,24 @@
             android:hint="host:port"
             android:textColorHint="#FFFBF6"
             android:background="@drawable/custombutton"/>
-
         <Button
             android:id="@+id/loginButton"
             android:layout_width="250dp"
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/customloginbutton"
-            android:text="Spiel Starten!"
+            android:onClick="onLoginPlayer"
+            android:text="Login Spieler"
+            android:textAllCaps="false"
+            android:textColor="#FFFBF6" />
+        <Button
+            android:id="@+id/startButton"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/customloginbutton"
+            android:onClick="onStartGame"
+            android:text="Mehrspieler Spiel Starten!"
             android:textAllCaps="false"
             android:textColor="#FFFBF6" />
 

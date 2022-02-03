@@ -8,6 +8,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.Observable;
@@ -28,6 +29,9 @@ public class StartServer extends Observable {
     private boolean isServerConnected;
     private String url;
 
+
+    private String serverResponseInfo;
+
     /**
      * This Class check server connection and Start the Server.
      *
@@ -46,7 +50,9 @@ public class StartServer extends Observable {
     public void start(final String boardString, final int port) {
 
         final SynchronizedGame game;
-
+        final ObjectMapper objectMapper = new ObjectMapper();
+        final String serverJsonBody;
+        url = "http://localhost:";
         try {
             final BoardParser boardParser = new BoardParserImpl();
             final BaseGame baseGame =
@@ -54,6 +60,7 @@ public class StartServer extends Observable {
             game = new SynchronizedGame(baseGame);
             server = new Server(port, game);
             server.start();
+
 
             // server.stop();
         } catch (IOException e) {
@@ -63,13 +70,12 @@ public class StartServer extends Observable {
         } catch (InvalidBoardLayoutException e) {
             e.printStackTrace();
         }
-        url = "http://localhost:" + port;
-
-
-        //Build GET request auf http://localhost:8080
-        final StringRequest request = buildRequest(url, "/");
+        // serverConnection = new ServerConnection(context, url, port);
+        final String finalUrl = url + port;
+        final StringRequest request = buildRequest(finalUrl, "/");
         final RequestQueue queue = Volley.newRequestQueue(context);
         queue.add(request);
+        //request.getBody();
 
 
     }
@@ -83,16 +89,24 @@ public class StartServer extends Observable {
      */
     private StringRequest buildRequest(final String url, final String name) {
         final String finalUrl = url + name;
+        final ObjectMapper objectMapper = new ObjectMapper();
+
         final Response.Listener<String> onResponse = response -> {
-            Log.w("Response", "Top!");
+
+            setServerResponseInfo(response);
+            Log.w("Response", "Server Connected!");
             setServerConnected(true);
+
+
         };
         final Response.ErrorListener onError = error -> {
 
             Log.w("Response", error.networkResponse.data.toString());
+            setServerResponseInfo(String.valueOf(error));
             setServerConnected(false);
         };
         return new StringRequest(Request.Method.GET, finalUrl, onResponse, onError);
+
 
     }
 
@@ -114,7 +128,9 @@ public class StartServer extends Observable {
         this.isServerConnected = isServerConnected;
         setChanged();
         notifyObservers();
+
     }
+
 
     /**
      * Check is Server Connected.
@@ -131,8 +147,25 @@ public class StartServer extends Observable {
      * @return connected Url.
      */
     public String getUrl() {
-        return url;
+        return url + getPort();
     }
 
 
+    /**
+     * return response info.
+     *
+     * @return return info as string. Server Response.
+     */
+    public String getServerResponseInfo() {
+        return serverResponseInfo;
+    }
+
+    /**
+     * Set Server Response info.
+     *
+     * @param serverResponseInfo as a String.
+     */
+    public void setServerResponseInfo(final String serverResponseInfo) {
+        this.serverResponseInfo = serverResponseInfo;
+    }
 }

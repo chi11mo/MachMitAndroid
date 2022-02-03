@@ -1,5 +1,7 @@
 package de.techfak.gse.dwenzel.game_screen.model;
 
+import android.util.Log;
+
 public class MapLayout {
     private final int maxRow;
     private final int maxCol;
@@ -29,7 +31,7 @@ public class MapLayout {
     private void initializeLayout() {
         layout = new int[maxRow][maxCol];
         isCrossed = new boolean[maxRow][maxCol];
-
+Log.d("String layout",boardLayout);
 
         final String[] spliced = boardLayout.split("\\n");
 

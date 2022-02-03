@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -19,6 +18,9 @@ import java.util.Observer;
 
 import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.game_screen.controller.BoardMainActivity;
+import de.techfak.gse.dwenzel.server_com.BoardServerInteraction;
+import de.techfak.gse.dwenzel.server_com.LoginClient;
+import de.techfak.gse.dwenzel.server_com.ServerConnection;
 import de.techfak.gse.dwenzel.server_com.StartServer;
 import de.techfak.gse.dwenzel.start_screen.view.LoginView;
 
@@ -30,10 +32,16 @@ public class GameStartActivity
         implements Serializable, LoginView, Observer {
 
     public static final int PORT_NUMBER_SIZE = 4;
-    /*Text input from playground data.*/    private EditText textInputPlaygroundInput;
-    /*Controller for the data validation.*/ private LoginController loginController;
-    /*to store data path in String.*/       private String playgroundInputString;
+
+    private LoginController loginController;
+
+    private String boardLayout;
     private StartServer startServer;
+    private LoginClient loginClient;
+    private BoardServerInteraction boardServerInteraction;
+
+    private EditText serverLoginAnswer;
+    private EditText userNameLoginAnswer;
 
     /**
      * Creates activity on first start.
@@ -46,28 +54,15 @@ public class GameStartActivity
         setContentView(R.layout.activity_login);
         startServer = new StartServer(this);
         startServer.addObserver(this);
-        loginController = new LoginController(this);
-
-        textInputPlaygroundInput = findViewById(R.id.playgroundInput);
 
 
-        /*Button to check validation.*/
-        Button loginButton = findViewById(R.id.loginButton);
-        textInputPlaygroundInput.setText("ggGyyyyGboboyyy\n"
-                + "ogygyyoogbboogg\n"
-                + "bgrggggrRryyogg\n"
-                + "brrgoobbggYyorb\n"
-                + "roOoorbbooorrrr\n"
-                + "rBbrrrryyorbbbo\n"
-                + "yybbbbryyygggog");
+        serverLoginAnswer = findViewById(R.id.serverNameInput);
+        userNameLoginAnswer = findViewById(R.id.playerNameInput);
 
-        loginButton.setOnClickListener(v -> {
-            playgroundInputString = String.valueOf(textInputPlaygroundInput.getText());
 
-            loginController.onLogin(playgroundInputString,
-                    getResources().getInteger(R.integer.PlaygroundRow),
-                    getResources().getInteger(R.integer.PlaygroundCol));
-        });
+        serverLoginAnswer.setText("http://localhost:8080");
+        userNameLoginAnswer.setText("Dominic");
+
     }
 
     /**
@@ -79,7 +74,7 @@ public class GameStartActivity
     public void onLoginSuccess(final String message) {
         final Intent myIntent = new Intent(this, BoardMainActivity.class);
         Log.d("Board is :", message);
-        myIntent.putExtra("File", playgroundInputString);
+        myIntent.putExtra("File", boardLayout);
         startActivity(myIntent);
 
     }
@@ -125,6 +120,7 @@ public class GameStartActivity
         alertDialogBuilder.setView(promptUserView);
 
         final EditText userAnswer = (EditText) promptUserView.findViewById(R.id.portText);
+        final EditText layoutUserAnswer = (EditText) promptUserView.findViewById(R.id.layoutText);
 
         alertDialogBuilder.setTitle("Port eingeben !");
         Log.d("port", String.valueOf(userAnswer.getText()));
@@ -133,10 +129,15 @@ public class GameStartActivity
                 new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog, final int id) {
                         String portAnswer = String.valueOf(userAnswer.getText());
+                        String layoutAnswer = String.valueOf(layoutUserAnswer.getText());
+
+
                         if (testString(portAnswer)) {
                             int port = Integer.parseInt(portAnswer);
-                            startServer.start(String.valueOf(textInputPlaygroundInput.getText()),
+                            startServer.start(layoutAnswer,
                                     port);
+
+
                         } else {
                             TextView serverInfoView = findViewById(R.id.serverInfoView);
                             serverInfoView.setText("Server Online : Die Verbindung schlug fehl!");
@@ -154,17 +155,6 @@ public class GameStartActivity
 
     }
 
-    @Override
-    public void update(final Observable observable, final Object o) {
-        if (startServer.isServerConnected()) {
-            TextView serverInfoView = findViewById(R.id.serverInfoView);
-            serverInfoView.setText("Server Online : " + startServer.getUrl());
-            findViewById(R.id.serverButton).setEnabled(false);
-        } else {
-            TextView serverInfoView = findViewById(R.id.serverInfoView);
-            serverInfoView.setText("Server Online : Die Verbindung schlug fehl!");
-        }
-    }
 
     /**
      * This Method checks if port string is Valid.
@@ -183,6 +173,64 @@ public class GameStartActivity
             }
         }
         return true;
+    }
+
+    /**
+     * Login the Player to the server if button Pressed.
+     *
+     * @param view view from login activity.
+     */
+    public void onLoginPlayer(final View view) {
+        if (view.getId() == R.id.loginButton) {
+            //handle the click here and make whatever you want
+
+            Log.i("test", "Login Player Button");
+            ServerConnection serverConnection = new ServerConnection();
+            serverConnection.testConnection(this, serverLoginAnswer.getText().toString());
+            loginClient = new LoginClient(this,
+                    serverLoginAnswer.getText().toString(),
+                    userNameLoginAnswer.getText().toString());
+        }
+
+    }
+
+    /**
+     * start the server to the server if button Pressed.
+     *
+     * @param view view from login activity.
+     */
+    public void onStartGame(final View view) {
+        boardServerInteraction =
+                new BoardServerInteraction(this,
+                        serverLoginAnswer.getText().toString(),
+                        userNameLoginAnswer.getText().toString());
+        boardServerInteraction.addObserver(this);
+    }
+
+    @Override
+    public void update(final Observable observable, final Object o) {
+        if (startServer.isServerConnected()) {
+            TextView serverInfoView = findViewById(R.id.serverInfoView);
+            serverInfoView.setText("Server Online : " + startServer.getUrl());
+            findViewById(R.id.serverButton).setEnabled(false);
+
+            Log.w("Response Server", startServer.getServerResponseInfo());
+
+            if (boardServerInteraction != null) {
+                if (boardServerInteraction.getBoardString() != null) {
+                    boardLayout = boardServerInteraction.getBoardString();
+                    loginController = new LoginController(this);
+
+                    int maxRow = getResources().getInteger(R.integer.PlaygroundRow);
+                    int maxCol = getResources().getInteger(R.integer.PlaygroundCol);
+                    loginController.onLogin(boardLayout, maxRow, maxCol);
+                }
+            }
+        } else {
+            TextView serverInfoView = findViewById(R.id.serverInfoView);
+            serverInfoView.setText("Server Online : Die Verbindung schlug fehl!");
+            Log.w("Response Server", startServer.getServerResponseInfo());
+        }
     }
 }
 
