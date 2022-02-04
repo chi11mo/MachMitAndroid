@@ -10,8 +10,8 @@ public class Dice extends Observable {
     static final int MAX_DICE = 3;
 
 
-    private final List<Integer> colorList = new ArrayList<Integer>();
-    private final List<Integer> numberList = new ArrayList<Integer>();
+    private List<Integer> colorList = new ArrayList<Integer>();
+    private List<Integer> numberList = new ArrayList<Integer>();
 
     /**
      * To generate Dices.
@@ -41,6 +41,7 @@ public class Dice extends Observable {
 
     /**
      * Method to get random Integer with min/max Range.
+     *
      * @param min min range.
      * @param max max range.
      * @return rnd number.
@@ -51,6 +52,7 @@ public class Dice extends Observable {
 
     /**
      * List with color idx.
+     *
      * @return List with color idx.
      */
     public List<Integer> getColorList() {
@@ -59,11 +61,21 @@ public class Dice extends Observable {
 
     /**
      * List with number idx.
+     *
      * @return List with number idx.
      */
     public List<Integer> getNumberList() {
         return numberList;
     }
 
-
+    /**
+     * setter
+     *
+     * @param colorList  color list.
+     * @param numberList number list.
+     */
+    public void setList(final List<Integer> colorList, final List<Integer> numberList) {
+        this.colorList = colorList;
+        this.numberList = numberList;
+    }
 }

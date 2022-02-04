@@ -26,10 +26,10 @@ public class Round extends Observable {
      */
     public void addRound() {
 
-        currentRound++;
+       // currentRound++;
         currentTurnTaps.clear();
-        setChanged();
-        notifyObservers();
+     //   setChanged();
+      //  notifyObservers();
 
 
     }

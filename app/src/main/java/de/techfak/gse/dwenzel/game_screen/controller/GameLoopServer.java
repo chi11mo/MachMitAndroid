@@ -126,18 +126,24 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
 
         } else {
 
-
+            if (rules.checkRules(round.getCurrentTurnTaps())) {
                 diceServerInteraction.getDiceRequest();
                 playerServerInteraction.getPlayerRequest();
 
+                fieldMap.updateFieldMap(round.getCurrentTurnTaps());
+                pointChecker.checkPoints(fieldMap, round.getCurrentTurnTaps());
                 fieldMapView.removeAllMarks(fieldMap);
-
+                player.setCurrentPoints(pointChecker.getPoints());
                 roundServerInteraction.setNextRoundRequestPOST(player.getCurrentPoints());
+                roundServerInteraction.getRoundRequest();
+                round.addRound();
+            } else {
+                for (Field field : round.getCurrentTurnTaps()) {
+                    field.setIsCrossed(false);
+                }
+                fieldMapView.removeAllMarks(fieldMap);
                 round.removeAllTaps();
-
-
-
-
+            }
         }
         isFirstRound = false;
 
@@ -157,11 +163,10 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
 
 
         }
-        roundServerInteraction.getRoundRequest();
+
         while (isRunning) {
             if (gameStatus != null && gameStatus == GameStatus.RUNNING) {
                 checkButtons();
-
             }
         }
     }
@@ -176,6 +181,7 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
 
             for (int iRow = 0; iRow
                     < context.getResources().getInteger(R.integer.PlaygroundRow); iRow++) {
+
                 for (int iCol = 0; iCol
                         < context.getResources().getInteger(R.integer.PlaygroundCol); iCol++) {
                     int finalIRow = iRow;
@@ -218,12 +224,23 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
 
     @Override
     public void update(final Observable observable, final Object o) {
-        gameStatus = gameStatusServerInteraction.getGameStatus();
-        textViewCurRound.setText(
-                context.getString(R.string.round_name_plate) + roundServerInteraction.getRoundNumber());
-        if(gameStatus == GameStatus.RUNNING&&diceServerInteraction.getDiceResponse()!=null){
-            diceView.setDiceFromServer(diceServerInteraction.getDiceResponse());
+
+        if (rules.getMissedRuleInfo() != null) {
+            alertBox.showAlert(context.getString(R.string.no_valid_turn),
+                    rules.getMissedRuleInfo());
+        } else {
+            textViewCurRound.setText(
+                    context.getString(R.string.round_name_plate) + roundServerInteraction.getRoundNumber());
+            if (gameStatus == GameStatus.RUNNING && diceServerInteraction.getDiceResponse() != null&&observable.equals(diceServerInteraction)) {
+                diceView.setDiceFromServer(diceServerInteraction.getDiceResponse());
+                updateRules();
+            }
+            fieldMapView.updateFieldMap(fieldMap);
+            pointView.setPoints(player, pointChecker);
         }
+        gameStatus = gameStatusServerInteraction.getGameStatus();
+
+
     }
 
     /**
@@ -231,7 +248,7 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
      */
     private void updateRules() {
         rules.setFieldMap(fieldMap);
-        updateDice();
+        rules.setDice(diceView.getDice());
     }
 
     /**

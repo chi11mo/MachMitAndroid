@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.techfak.gse.dwenzel.R;
+import de.techfak.gse.dwenzel.game_screen.model.Dice;
 import de.techfak.gse.dwenzel.sprite_sheet.DiceSpriteSheet;
 import de.techfak.gse.multiplayer.game.DieColor;
 import de.techfak.gse.multiplayer.game.DieNumber;
@@ -19,6 +20,7 @@ public class DiceView {
     private static final int FOUR_EYE = 4;
     private static final int FIVE_EYE = 5;
     private final Context context;
+    private Dice dice;
 
     /**
      * Dice view to update the view of the dices.
@@ -96,9 +98,27 @@ public class DiceView {
         colorList.add(convertDieColorToInt(diceResponse.getColors().get(0)));
         colorList.add(convertDieColorToInt(diceResponse.getColors().get(1)));
         colorList.add(convertDieColorToInt(diceResponse.getColors().get(2)));
-
+        setDiceFor(numberList, colorList);
         setDice(numberList, colorList);
 
+    }
+
+    /**
+     * getDice.
+     * @return dice from sever.
+     */
+    public Dice getDice() {
+        return dice;
+    }
+
+    /**
+     * set Dice From server.
+     * @param numberList number list.
+     * @param colorList color list.
+     */
+    public void setDiceFor(final List<Integer> numberList, final List<Integer> colorList) {
+        dice = new Dice();
+        dice.setList(colorList, numberList);
     }
 
     /**
