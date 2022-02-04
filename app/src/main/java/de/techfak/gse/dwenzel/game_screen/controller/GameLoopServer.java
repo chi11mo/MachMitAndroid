@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -16,6 +17,7 @@ import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.end_screen.EndGameActivity;
 import de.techfak.gse.dwenzel.game_screen.model.Field;
 import de.techfak.gse.dwenzel.game_screen.model.FieldMap;
+import de.techfak.gse.dwenzel.game_screen.model.Player;
 import de.techfak.gse.dwenzel.game_screen.model.PointChecker;
 import de.techfak.gse.dwenzel.game_screen.model.Round;
 import de.techfak.gse.dwenzel.game_screen.model.rules.Rules;
@@ -23,7 +25,10 @@ import de.techfak.gse.dwenzel.game_screen.view.AlertBox;
 import de.techfak.gse.dwenzel.game_screen.view.DiceView;
 import de.techfak.gse.dwenzel.game_screen.view.FieldMapView;
 import de.techfak.gse.dwenzel.game_screen.view.PointView;
+import de.techfak.gse.dwenzel.server_com.ServerController.DiceServerInteraction;
 import de.techfak.gse.dwenzel.server_com.ServerController.GameStatusServerInteraction;
+import de.techfak.gse.dwenzel.server_com.ServerController.PlayerServerInteraction;
+import de.techfak.gse.dwenzel.server_com.ServerController.RoundServerInteraction;
 import de.techfak.gse.multiplayer.game.GameStatus;
 
 public class GameLoopServer extends AppCompatActivity implements Runnable, Observer {
@@ -37,11 +42,15 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
     private final FieldMap fieldMap;
     private final FieldMapView fieldMapView;
 
+    private final DiceServerInteraction diceServerInteraction;
     private final DiceView diceView;
 
     private final Round round;
+    private final RoundServerInteraction roundServerInteraction;
     private final Rules rules;
-    //private final Player player;
+
+    private final Player player;
+    private final PlayerServerInteraction playerServerInteraction;
     private final PointChecker pointChecker;
 
     private final PointView pointView;
@@ -66,6 +75,9 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
         fieldMapView = new FieldMapView(context);
         fieldMapView.createFieldMapGameboard(fieldMap);
 
+        player = new Player(name);
+
+
         //change a server version.
         round = new Round();
         round.addObserver(this);
@@ -84,10 +96,15 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
         gameStatusServerInteraction = new GameStatusServerInteraction(context, url, name);
         gameStatusServerInteraction.addObserver(this);
 
+        diceServerInteraction = new DiceServerInteraction(context, url, name);
+        diceServerInteraction.addObserver(this);
 
-        if (gameStatus == GameStatus.NOT_STARTED) {
-            ifServerNotStarted();
-        }
+        playerServerInteraction = new PlayerServerInteraction(context, url, name);
+        playerServerInteraction.addObserver(this);
+
+        roundServerInteraction = new RoundServerInteraction(context, url, name);
+        roundServerInteraction.addObserver(this);
+
 
     }
 
@@ -106,11 +123,24 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
         isRunning = false;
         if (isFirstRound || gameStatus == GameStatus.NOT_STARTED) {
             ifServerNotStarted();
+
         } else {
-            fieldMapView.removeAllMarks(fieldMap);
-            round.removeAllTaps();
+
+
+                diceServerInteraction.getDiceRequest();
+                playerServerInteraction.getPlayerRequest();
+
+                fieldMapView.removeAllMarks(fieldMap);
+
+                roundServerInteraction.setNextRoundRequestPOST(player.getCurrentPoints());
+                round.removeAllTaps();
+
+
+
+
         }
         isFirstRound = false;
+
     }
 
     @Override
@@ -119,6 +149,7 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
         while (gameStatus == GameStatus.NOT_STARTED) {
             try {
                 gameStatusServerInteraction.getGameStatusRequest();
+
                 Thread.sleep(THREAD_SLEEP_SERVER);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -126,9 +157,9 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
 
 
         }
+        roundServerInteraction.getRoundRequest();
         while (isRunning) {
             if (gameStatus != null && gameStatus == GameStatus.RUNNING) {
-
                 checkButtons();
 
             }
@@ -188,6 +219,11 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
     @Override
     public void update(final Observable observable, final Object o) {
         gameStatus = gameStatusServerInteraction.getGameStatus();
+        textViewCurRound.setText(
+                context.getString(R.string.round_name_plate) + roundServerInteraction.getRoundNumber());
+        if(gameStatus == GameStatus.RUNNING&&diceServerInteraction.getDiceResponse()!=null){
+            diceView.setDiceFromServer(diceServerInteraction.getDiceResponse());
+        }
     }
 
     /**

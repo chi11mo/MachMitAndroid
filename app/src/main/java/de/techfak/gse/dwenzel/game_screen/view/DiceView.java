@@ -5,12 +5,19 @@ import android.content.Context;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.sprite_sheet.DiceSpriteSheet;
+import de.techfak.gse.multiplayer.game.DieColor;
+import de.techfak.gse.multiplayer.game.DieNumber;
+import de.techfak.gse.multiplayer.server.response_body.DiceResponse;
 
 public class DiceView {
+    private static final int THREE_EYE = 3;
+    private static final int FOUR_EYE = 4;
+    private static final int FIVE_EYE = 5;
     private final Context context;
 
     /**
@@ -71,5 +78,77 @@ public class DiceView {
                 .findViewById(R.id.DiceThree)
                 .setBackgroundDrawable(
                         diceSpriteSheet.getListOfDiceNumberDrawable().get(numberList.get(2)));
+    }
+
+    /**
+     * Get information from server Response.
+     *
+     * @param diceResponse body DiceResponse.
+     */
+    public void setDiceFromServer(final DiceResponse diceResponse) {
+        final List<Integer> numberList = new ArrayList<>();
+        numberList.add(convertDieNumberToInt(diceResponse.getNumbers().get(0)));
+        numberList.add(convertDieNumberToInt(diceResponse.getNumbers().get(1)));
+        numberList.add(convertDieNumberToInt(diceResponse.getNumbers().get(2)));
+
+        final List<Integer> colorList = new ArrayList<>();
+
+        colorList.add(convertDieColorToInt(diceResponse.getColors().get(0)));
+        colorList.add(convertDieColorToInt(diceResponse.getColors().get(1)));
+        colorList.add(convertDieColorToInt(diceResponse.getColors().get(2)));
+
+        setDice(numberList, colorList);
+
+    }
+
+    /**
+     * Convert server params to local Params.
+     *
+     * @param dieColor server param.
+     * @return local param.
+     */
+    private Integer convertDieColorToInt(final DieColor dieColor) {
+        if (dieColor == DieColor.YELLOW) {
+            return 0;
+        }
+        if (dieColor == DieColor.GREEN) {
+            return 1;
+        }
+        if (dieColor == DieColor.RED) {
+            return 2;
+        }
+        if (dieColor == DieColor.ORANGE) {
+            return THREE_EYE;
+        }
+        if (dieColor == DieColor.BLUE) {
+            return FOUR_EYE;
+        }
+        return 0;
+    }
+
+    /**
+     * Convert server params to local Params.
+     *
+     * @param dieNumber server param.
+     * @return local param.
+     */
+    private int convertDieNumberToInt(final DieNumber dieNumber) {
+        if (dieNumber == DieNumber.ONE) {
+            return 1;
+        }
+        if (dieNumber == DieNumber.TWO) {
+            return 2;
+        }
+        if (dieNumber == DieNumber.THREE) {
+            return THREE_EYE;
+        }
+        if (dieNumber == DieNumber.FOUR) {
+            return FOUR_EYE;
+        }
+        if (dieNumber == DieNumber.FIVE) {
+            return FIVE_EYE;
+        }
+        return 0;
+
     }
 }
