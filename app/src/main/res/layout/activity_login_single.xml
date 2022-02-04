@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/loginwallpaper"
+    tools:context=".start_screen.controller.GameStartSingleActivity">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#3fff"
+        android:gravity="center"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:background="@drawable/circle"
+            android:gravity="center"
+            android:shadowColor="#CD3535"
+            android:text="Welcome to Encore!"
+            android:textColor="#070000"
+            android:textSize="18sp" />
+        <EditText
+            android:id="@+id/boardLayoutInput"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/custombutton"
+            android:gravity="center"
+            android:hint="Board Layout"
+            android:text="ggGyyyyGboboyyy\nogygyyoogbboogg\nbgrggggrRryyogg\nbrrgoobbggYyorb\nroOoorbbooorrrr\nrBbrrrryyorbbbo\nyybbbbryyygggog"
+            android:textColorHint="#FFFBF6" />
+
+
+        <Button
+            android:id="@+id/startButton"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/customloginbutton"
+            android:onClick="onStartGame"
+            android:text=" Spiel Starten!"
+            android:textAllCaps="false"
+            android:textColor="#FFFBF6" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="#3fff"
+            android:layout_marginTop="15dp"/>
+
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

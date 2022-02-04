@@ -4,13 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -31,6 +30,7 @@ import de.techfak.gse.dwenzel.server_com.ServerController.GameStatusServerIntera
 import de.techfak.gse.dwenzel.server_com.ServerController.PlayerServerInteraction;
 import de.techfak.gse.dwenzel.server_com.ServerController.RoundServerInteraction;
 import de.techfak.gse.multiplayer.game.GameStatus;
+import de.techfak.gse.multiplayer.server.response_body.PlayerResponse;
 
 public class GameLoopServer extends AppCompatActivity implements Runnable, Observer {
     private static final int THREAD_SLEEP = 1000;
@@ -65,6 +65,15 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
 
     private GameStatusServerInteraction gameStatusServerInteraction;
 
+    /**
+     * Game loop Server site.
+     *
+     * @param context  app.
+     * @param fieldMap fieldmap.
+     * @param alertBox alertbox for invalid rules.
+     * @param url      server url.
+     * @param name     name to log serve.
+     */
     public GameLoopServer(final Context context, final FieldMap fieldMap,
                           final AlertBox alertBox, final String url, final String name) {
         this.context = context;
@@ -137,7 +146,12 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
                 player.setCurrentPoints(pointChecker.getPoints());
                 roundServerInteraction.setNextRoundRequestPOST(player.getCurrentPoints());
                 round.addRound();
+                if (pointChecker.isGameEnd()) {
+                    jumpToEndGame();
+                }
                 getServerInformation();
+
+
             } else {
                 for (Field field : round.getCurrentTurnTaps()) {
                     field.setIsCrossed(false);
@@ -159,7 +173,11 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
         try {
             roundServerInteraction.getRoundRequest();
             playerServerInteraction.getPlayerRequest();
+            if (gameStatusServerInteraction.getGameStatus() == GameStatus.FINISHED) {
 
+                jumpToEndGame();
+
+            }
 
             //Toast.makeText(context, "Laden", Toast.LENGTH_LONG).show();
             Thread.sleep(THREAD_SLEEP);
@@ -250,8 +268,11 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
                     rules.getMissedRuleInfo());
         } else {
             textViewCurRound.setText(
-                    context.getString(R.string.round_name_plate) + roundServerInteraction.getRoundNumber());
-            if (gameStatus == GameStatus.RUNNING && diceServerInteraction.getDiceResponse() != null && observable.equals(diceServerInteraction)) {
+                    context.getString(R.string.round_name_plate)
+                            + roundServerInteraction.getRoundNumber());
+            if (gameStatus == GameStatus.RUNNING
+                    && diceServerInteraction.getDiceResponse() != null
+                    && observable.equals(diceServerInteraction)) {
                 diceView.setDiceFromServer(diceServerInteraction.getDiceResponse());
                 updateRules();
             }
@@ -275,15 +296,24 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
     }
 
 
-
     /**
      * if win condition is accepted then go to end screen.
      */
     private void jumpToEndGame() {
         finishAffinity();
         final Intent myIntent = new Intent(context, EndGameActivity.class);
-        //String endCard = player.getPlayerName() + " : " + player.getCurrentPoints();
-        //  myIntent.putExtra("EndPoints", endCard);
+        final List<PlayerResponse> playerResponse = playerServerInteraction.getPlayers();
+
+        PlayerResponse play = playerResponse.get(0);
+        String endCard = play.getName() + play.getPoints();
+        for (PlayerResponse player : playerResponse) {
+            if (play.getPoints() < player.getPoints()) {
+                play = player;
+                endCard = play.getName() + play.getPoints();
+            }
+        }
+
+        myIntent.putExtra("EndPoints", endCard);
         context.startActivity(myIntent);
         finish();
     }

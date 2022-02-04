@@ -23,8 +23,6 @@ public class PlayerServerInteraction extends Observable {
     private Context context;
     private String finalUrl;
     private List<PlayerResponse> players = new ArrayList<>();
-    private String url;
-    private String name;
 
     /**
      * Player server Interaction.
@@ -35,9 +33,7 @@ public class PlayerServerInteraction extends Observable {
      */
     public PlayerServerInteraction(final Context context, final String url, final String name) {
         this.finalUrl = url + "/api/game/players?name=" + name;
-        this.url = url;
         this.context = context;
-        this.name = name;
         // getPlayerRequest();
     }
 

@@ -2,16 +2,14 @@ package de.techfak.gse.dwenzel.game_screen.view;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.widget.GridLayout;
 
 import androidx.appcompat.app.AlertDialog;
 
 import de.techfak.gse.dwenzel.R;
-import de.techfak.gse.dwenzel.game_screen.controller.GameLoopServer;
 import de.techfak.gse.dwenzel.game_screen.controller.GameLoop;
-import de.techfak.gse.dwenzel.game_screen.model.FieldMap;
 import de.techfak.gse.dwenzel.game_screen.model.DataLoader;
+import de.techfak.gse.dwenzel.game_screen.model.FieldMap;
 
 /* default */
 
@@ -20,7 +18,6 @@ public class GameDisplay implements AlertBox {
     private final Context context;
     private FieldMap fieldMap;
     private GameLoop gameLoop;
-    private GameLoopServer gameLoopServer;
 
     /**
      * to create the view for the GameBoard.
@@ -29,7 +26,7 @@ public class GameDisplay implements AlertBox {
      * @param context     context from main activity.
      * @param boardLayout string of boardLayout.
      */
-    public GameDisplay(final Context context, final String boardLayout, final String url, final String name) {
+    public GameDisplay(final Context context, final String boardLayout) {
         this.context = context;
         final int maxRow
                 = context.getResources().getInteger(R.integer.PlaygroundRow);
@@ -45,7 +42,7 @@ public class GameDisplay implements AlertBox {
         onCreate(dataLoader);
 
         setFieldsOnCreate(fieldMap);
-        startRun(url, name);
+        startRun();
 
 
     }
@@ -100,21 +97,19 @@ public class GameDisplay implements AlertBox {
     /**
      * start the Game Loop controller.
      */
-    public void startRun(final String url,final String name) {
-       // gameLoop = new GameLoop(context, fieldMap, this,url,name);
-        Log.d("RUNNING",name+url);
-        gameLoopServer = new GameLoopServer(context, fieldMap, this,url,name);
-        //gameLoop.run();
+    public void startRun() {
+        gameLoop = new GameLoop(context, fieldMap, this);
+
+        //  gameLoop.run();
     }
 
     /**
      * go to next round in game loop.
      */
     public void nextRound() {
-       // gameLoop.nextRound();
-        //gameLoop.startThread();
-        gameLoopServer.nextRound();
-        gameLoopServer.startThread();
+        gameLoop.nextRound();
+        gameLoop.startThread();
+
     }
 
 
@@ -145,3 +140,4 @@ public class GameDisplay implements AlertBox {
     }
 
 }
+

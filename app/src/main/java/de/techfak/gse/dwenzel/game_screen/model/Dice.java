@@ -69,7 +69,7 @@ public class Dice extends Observable {
     }
 
     /**
-     * setter
+     * setter.
      *
      * @param colorList  color list.
      * @param numberList number list.

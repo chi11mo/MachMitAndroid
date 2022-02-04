@@ -9,15 +9,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import de.techfak.gse.dwenzel.R;
-import de.techfak.gse.dwenzel.game_screen.view.GameDisplay;
-import de.techfak.gse.dwenzel.server_com.ServerController.GameStatusServerInteraction;
-import de.techfak.gse.multiplayer.game.GameStatus;
+import de.techfak.gse.dwenzel.game_screen.view.GameDisplayServer;
 
 /**
  * This activity controls all the stuff on the main game card.
  */
 public class BoardMainActivity extends AppCompatActivity {
-    private GameDisplay gameDisplay;
+    private GameDisplayServer gameDisplay;
 
     /**
      * on Create method for do things when activity starts.
@@ -34,11 +32,9 @@ public class BoardMainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_board);
-        String url =getIntent().getStringExtra("Url");
-        String name =getIntent().getStringExtra("Name");
-        gameDisplay = new GameDisplay(this, getIntent().getStringExtra("File"),url,name);
-
-
+        String url = getIntent().getStringExtra("Url");
+        String name = getIntent().getStringExtra("Name");
+        gameDisplay = new GameDisplayServer(this, getIntent().getStringExtra("File"), url, name);
 
 
     }

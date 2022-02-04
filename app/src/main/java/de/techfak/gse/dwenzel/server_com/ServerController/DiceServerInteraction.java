@@ -14,7 +14,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Observable;
 
-import de.techfak.gse.multiplayer.game.GameStatus;
 import de.techfak.gse.multiplayer.server.response_body.DiceResponse;
 
 public class DiceServerInteraction extends Observable {
@@ -81,7 +80,7 @@ public class DiceServerInteraction extends Observable {
             @Override
             protected Response<String> parseNetworkResponse(final NetworkResponse response) {
                 int mStatusCode = response.statusCode;
-                Log.d("Status Code Get Dice", String.valueOf(mStatusCode));
+                // Log.d("Status Code Get Dice", String.valueOf(mStatusCode));
                 return super.parseNetworkResponse(response);
             }
 

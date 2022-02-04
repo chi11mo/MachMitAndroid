@@ -25,12 +25,12 @@ import de.techfak.gse.dwenzel.game_screen.model.rules.Rules;
 import de.techfak.gse.dwenzel.game_screen.view.AlertBox;
 
 public class GameLoop extends AppCompatActivity implements Runnable, Observer {
+
     private static final int THREAD_SLEEP = 1000;
 
     private final Context context;
 
-    private final String url;
-    private final String name;
+
     private final FieldMap fieldMap;
     private final FieldMapView fieldMapView;
 
@@ -58,13 +58,10 @@ public class GameLoop extends AppCompatActivity implements Runnable, Observer {
      * @param fieldMap for control the playground.
      * @param alertBox to alert the invalid turns.
      */
-    public GameLoop(final Context context, final FieldMap fieldMap,
-                    final AlertBox alertBox, final String url, final String name) {
+    public GameLoop(final Context context, final FieldMap fieldMap, final AlertBox alertBox) {
         this.context = context;
         this.fieldMap = fieldMap;
         this.alertBox = alertBox;
-        this.url = url;
-        this.name = name;
 
         fieldMapView = new FieldMapView(context);
         fieldMapView.createFieldMapGameboard(fieldMap);

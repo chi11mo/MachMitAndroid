@@ -22,7 +22,6 @@ import de.techfak.gse.multiplayer.server.response_body.RoundResponse;
 public class RoundServerInteraction extends Observable {
     private Context context;
     private String finalUrl;
-    private String url;
     private String name;
     private int roundNumber;
 
@@ -35,7 +34,6 @@ public class RoundServerInteraction extends Observable {
      */
     public RoundServerInteraction(final Context context, final String url, final String name) {
         this.finalUrl = url + "/api/game/round?name=" + name;
-        this.url = url;
         this.context = context;
         this.name = name;
 

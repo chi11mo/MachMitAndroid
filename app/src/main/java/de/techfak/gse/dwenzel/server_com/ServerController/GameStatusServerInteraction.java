@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,10 +18,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Observable;
 
 import de.techfak.gse.multiplayer.game.GameStatus;
-import de.techfak.gse.multiplayer.server.request_body.RegisterBody;
 import de.techfak.gse.multiplayer.server.request_body.StatusBody;
-import de.techfak.gse.multiplayer.server.response_body.BoardResponse;
-import de.techfak.gse.multiplayer.server.response_body.ResponseObject;
 import de.techfak.gse.multiplayer.server.response_body.StatusResponse;
 
 public class GameStatusServerInteraction extends Observable {
@@ -32,7 +28,13 @@ public class GameStatusServerInteraction extends Observable {
     private GameStatus gameStatus;
     private String name;
 
-
+    /**
+     * get gamestatus from server.
+     *
+     * @param context app context.
+     * @param url     url server.
+     * @param name    name to log to server.
+     */
     public GameStatusServerInteraction(final Context context, final String url, final String name) {
         this.finalUrl = url + "/api/game/status?name=" + name;
         this.url = url;
@@ -54,9 +56,10 @@ public class GameStatusServerInteraction extends Observable {
 
     /**
      * Set Gamestatus for gameloob.
+     *
      * @param gameStatus gamestatus.
      */
-    public void setGameStatus(GameStatus gameStatus) {
+    public void setGameStatus(final GameStatus gameStatus) {
         this.gameStatus = gameStatus;
 
         setChanged();
@@ -64,12 +67,22 @@ public class GameStatusServerInteraction extends Observable {
 
     }
 
+    /**
+     * get gamestatus.
+     *
+     * @return gamestatus.
+     */
     public GameStatus getGameStatus() {
         return gameStatus;
     }
 
-
-    private StringRequest buildRequestGet(String finalUrl) {
+    /**
+     * build get Request.
+     *
+     * @param finalUrl url to log into server.
+     * @return request.
+     */
+    private StringRequest buildRequestGet(final String finalUrl) {
         final ObjectMapper objectMapper = new ObjectMapper();
 
 
@@ -110,17 +123,25 @@ public class GameStatusServerInteraction extends Observable {
         };
     }
 
-    public void setGameStatusRequestPOST(GameStatus gameStatus) {
+    /**
+     * build post request.
+     *
+     * @param gameStatus current gamestatus.
+     */
+    public void setGameStatusRequestPOST(final GameStatus gameStatus) {
         final ObjectMapper objectMapper = new ObjectMapper();
         final String jsonBody;
 
         try {
             if (gameStatus == GameStatus.NOT_STARTED) {
-                jsonBody = objectMapper.writeValueAsString(new StatusBody(GameStatus.RUNNING, name));
+                jsonBody = objectMapper.writeValueAsString(
+                        new StatusBody(GameStatus.RUNNING, name));
             } else if (gameStatus == GameStatus.RUNNING) {
-                jsonBody = objectMapper.writeValueAsString(new StatusBody(GameStatus.FINISHED, name));
+                jsonBody = objectMapper.writeValueAsString(
+                        new StatusBody(GameStatus.FINISHED, name));
             } else {
-                jsonBody = objectMapper.writeValueAsString(new StatusBody(GameStatus.NOT_STARTED, name));
+                jsonBody = objectMapper.writeValueAsString(
+                        new StatusBody(GameStatus.NOT_STARTED, name));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -138,7 +159,7 @@ public class GameStatusServerInteraction extends Observable {
      * @param jsonBody with change gamestatus.
      * @return gamestatus.
      */
-    private StringRequest buildRequestPOST(String jsonBody) {
+    private StringRequest buildRequestPOST(final String jsonBody) {
         final ObjectMapper objectMapper = new ObjectMapper();
 
 

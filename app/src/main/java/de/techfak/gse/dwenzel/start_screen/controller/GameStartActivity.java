@@ -18,12 +18,11 @@ import java.util.Observer;
 
 import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.game_screen.controller.BoardMainActivity;
-import de.techfak.gse.dwenzel.server_com.LoginClient;
+import de.techfak.gse.dwenzel.server_com.ServerController.LoginClient;
 import de.techfak.gse.dwenzel.server_com.ServerConnection;
 import de.techfak.gse.dwenzel.server_com.ServerController.BoardServerInteraction;
 import de.techfak.gse.dwenzel.server_com.StartServer;
 import de.techfak.gse.dwenzel.start_screen.view.LoginView;
-import de.techfak.gse.multiplayer.game.GameStatus;
 
 /**
  * Entry point activity for the app.
@@ -235,6 +234,8 @@ public class GameStartActivity
             Log.w("Response Server", startServer.getServerResponseInfo());
         }
     }
+
+
 }
 
 
