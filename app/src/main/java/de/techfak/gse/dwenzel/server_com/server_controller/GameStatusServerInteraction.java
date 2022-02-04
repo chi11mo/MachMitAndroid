@@ -22,6 +22,7 @@ import de.techfak.gse.multiplayer.server.request_body.StatusBody;
 import de.techfak.gse.multiplayer.server.response_body.StatusResponse;
 
 public class GameStatusServerInteraction extends Observable {
+    private static final String JSON = "application/json";
     private Context context;
     private String finalUrl;
     private String url;
@@ -109,7 +110,7 @@ public class GameStatusServerInteraction extends Observable {
         return new StringRequest(Request.Method.GET, finalUrl, onResponse, onError) {
             @Override
             public String getBodyContentType() {
-                return "application/json";
+                return JSON;
             }
 
 
@@ -182,7 +183,7 @@ public class GameStatusServerInteraction extends Observable {
         return new StringRequest(Request.Method.POST, finalUrl, onResponse, onError) {
             @Override
             public String getBodyContentType() {
-                return "application/json";
+                return JSON;
             }
 
             @Override

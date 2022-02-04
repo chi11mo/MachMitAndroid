@@ -261,7 +261,7 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
     }
 
     @Override
-    public void update(final Observable observable, final Object o) {
+    public void update(final Observable observable, final Object object) {
 
         if (rules.getMissedRuleInfo() != null) {
             alertBox.showAlert(context.getString(R.string.no_valid_turn),

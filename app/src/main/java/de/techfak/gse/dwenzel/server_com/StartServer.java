@@ -23,6 +23,7 @@ import de.techfak.gse.multiplayer.game.exceptions.InvalidFieldException;
 import de.techfak.gse.multiplayer.server.Server;
 
 public class StartServer extends Observable {
+    private static final String RESPONSE = "Response";
     private final Context context;
     private Server server;
 
@@ -94,14 +95,14 @@ public class StartServer extends Observable {
         final Response.Listener<String> onResponse = response -> {
 
             setServerResponseInfo(response);
-            Log.w("Response", "Server Connected!");
+            Log.w(RESPONSE, "Server Connected!");
             setServerConnected(true);
 
 
         };
         final Response.ErrorListener onError = error -> {
 
-            Log.w("Response", error.networkResponse.data.toString());
+            Log.w(RESPONSE, error.networkResponse.data.toString());
             setServerResponseInfo(String.valueOf(error));
             setServerConnected(false);
         };

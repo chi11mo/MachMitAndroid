@@ -20,6 +20,7 @@ import de.techfak.gse.multiplayer.server.request_body.EndRoundBody;
 import de.techfak.gse.multiplayer.server.response_body.RoundResponse;
 
 public class RoundServerInteraction extends Observable {
+    private static final String JSON = "application/json";
     private Context context;
     private String finalUrl;
     private String name;
@@ -79,7 +80,7 @@ public class RoundServerInteraction extends Observable {
         return new StringRequest(Request.Method.GET, finalUrl, onResponse, onError) {
             @Override
             public String getBodyContentType() {
-                return "application/json";
+                return JSON;
             }
 
 
@@ -163,7 +164,7 @@ public class RoundServerInteraction extends Observable {
         return new StringRequest(Request.Method.POST, finalUrl, onResponse, onError) {
             @Override
             public String getBodyContentType() {
-                return "application/json";
+                return JSON;
             }
 
             @Override
