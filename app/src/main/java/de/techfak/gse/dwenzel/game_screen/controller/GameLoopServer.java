@@ -25,10 +25,10 @@ import de.techfak.gse.dwenzel.game_screen.view.AlertBox;
 import de.techfak.gse.dwenzel.game_screen.view.DiceView;
 import de.techfak.gse.dwenzel.game_screen.view.FieldMapView;
 import de.techfak.gse.dwenzel.game_screen.view.PointView;
-import de.techfak.gse.dwenzel.server_com.ServerController.DiceServerInteraction;
-import de.techfak.gse.dwenzel.server_com.ServerController.GameStatusServerInteraction;
-import de.techfak.gse.dwenzel.server_com.ServerController.PlayerServerInteraction;
-import de.techfak.gse.dwenzel.server_com.ServerController.RoundServerInteraction;
+import de.techfak.gse.dwenzel.server_com.server_controller.DiceServerInteraction;
+import de.techfak.gse.dwenzel.server_com.server_controller.GameStatusServerInteraction;
+import de.techfak.gse.dwenzel.server_com.server_controller.PlayerServerInteraction;
+import de.techfak.gse.dwenzel.server_com.server_controller.RoundServerInteraction;
 import de.techfak.gse.multiplayer.game.GameStatus;
 import de.techfak.gse.multiplayer.server.response_body.PlayerResponse;
 

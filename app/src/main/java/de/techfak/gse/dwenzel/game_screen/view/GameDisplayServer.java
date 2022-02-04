@@ -9,7 +9,6 @@ import androidx.appcompat.app.AlertDialog;
 
 import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.game_screen.controller.GameLoopServer;
-import de.techfak.gse.dwenzel.game_screen.controller.GameLoop;
 import de.techfak.gse.dwenzel.game_screen.model.FieldMap;
 import de.techfak.gse.dwenzel.game_screen.model.DataLoader;
 

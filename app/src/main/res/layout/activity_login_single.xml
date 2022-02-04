@@ -34,7 +34,6 @@
             android:background="@drawable/custombutton"
             android:gravity="center"
             android:hint="Board Layout"
-            android:text="ggGyyyyGboboyyy\nogygyyoogbboogg\nbgrggggrRryyogg\nbrrgoobbggYyorb\nroOoorbbooorrrr\nrBbrrrryyorbbbo\nyybbbbryyygggog"
             android:textColorHint="#FFFBF6" />
 
 

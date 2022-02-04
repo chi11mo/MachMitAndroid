@@ -1,4 +1,4 @@
-package de.techfak.gse.dwenzel.server_com.ServerController;
+package de.techfak.gse.dwenzel.server_com.server_controller;
 
 import android.content.Context;
 import android.util.Log;
@@ -12,47 +12,42 @@ import com.android.volley.toolbox.Volley;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Observable;
 
-import de.techfak.gse.multiplayer.server.response_body.PlayerListResponse;
-import de.techfak.gse.multiplayer.server.response_body.PlayerResponse;
+import de.techfak.gse.multiplayer.server.response_body.DiceResponse;
 
-public class PlayerServerInteraction extends Observable {
+public class DiceServerInteraction extends Observable {
     private Context context;
     private String finalUrl;
-    private List<PlayerResponse> players = new ArrayList<>();
+    private String url;
+    private String name;
+    private DiceResponse diceResponse;
 
     /**
-     * Player server Interaction.
+     * Interaction between Die and Server.
      *
      * @param context app context.
-     * @param url     url server.
+     * @param url     server url.
      * @param name    name to server.
      */
-    public PlayerServerInteraction(final Context context, final String url, final String name) {
-        this.finalUrl = url + "/api/game/players?name=" + name;
+    public DiceServerInteraction(final Context context, final String url, final String name) {
+        this.finalUrl = url + "/api/game/dice?name=" + name;
+        this.url = url;
         this.context = context;
-        // getPlayerRequest();
-    }
+        this.name = name;
+        getDiceRequest();
 
+    }
 
     /**
      * Method to get current dice.
      */
-    public void getPlayerRequest() {
+    public void getDiceRequest() {
         final StringRequest request = buildRequestGet(finalUrl);
         final RequestQueue queue = Volley.newRequestQueue(context);
         queue.add(request);
     }
 
-    /**
-     * buidl get Request.
-     *
-     * @param finalUrl server url.
-     * @return request.
-     */
     private StringRequest buildRequestGet(final String finalUrl) {
         final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -60,9 +55,9 @@ public class PlayerServerInteraction extends Observable {
         final Response.Listener<String> onResponse = response -> {
 
             try {
-                PlayerListResponse
-                        body = objectMapper.readValue(response, PlayerListResponse.class);
-                setPlayerList(body.getPlayers());
+                DiceResponse
+                        body = objectMapper.readValue(response, DiceResponse.class);
+                setDice(body);
                 //Toast.makeText(context, body.getStatus().toString(), Toast.LENGTH_LONG).show();
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
@@ -72,9 +67,7 @@ public class PlayerServerInteraction extends Observable {
         };
         final Response.ErrorListener onError = error -> {
 
-            Log.d("Player Server Interaction", "get Error");
-            // Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show();
-
+            Log.d("Dice Server Interaction", "Dice Get Error");
 
         };
         return new StringRequest(Request.Method.GET, finalUrl, onResponse, onError) {
@@ -87,7 +80,7 @@ public class PlayerServerInteraction extends Observable {
             @Override
             protected Response<String> parseNetworkResponse(final NetworkResponse response) {
                 int mStatusCode = response.statusCode;
-                Log.d("Status Code Get Player List", String.valueOf(mStatusCode));
+                // Log.d("Status Code Get Dice", String.valueOf(mStatusCode));
                 return super.parseNetworkResponse(response);
             }
 
@@ -95,22 +88,24 @@ public class PlayerServerInteraction extends Observable {
     }
 
     /**
-     * set player list.
+     * Setting the get Response.
      *
-     * @param players playerlist.
+     * @param body dieResponse.
      */
-    private void setPlayerList(final List<PlayerResponse> players) {
-        // Log.d("Player List", String.valueOf(players));
-        this.players = players;
+    private void setDice(final DiceResponse body) {
+        this.diceResponse = body;
         setChanged();
         notifyObservers();
+
     }
 
     /**
-     * player list.
-     * @return player list.
+     * get Die Response.
+     *
+     * @return dieResponse.
      */
-    public List<PlayerResponse> getPlayers() {
-        return players;
+    public DiceResponse getDiceResponse() {
+        return diceResponse;
     }
+
 }

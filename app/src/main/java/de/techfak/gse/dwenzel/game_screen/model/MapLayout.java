@@ -31,7 +31,7 @@ public class MapLayout {
     private void initializeLayout() {
         layout = new int[maxRow][maxCol];
         isCrossed = new boolean[maxRow][maxCol];
-Log.d("String layout",boardLayout);
+        Log.d("String layout", boardLayout);
 
         final String[] spliced = boardLayout.split("\\n");
 

@@ -18,9 +18,9 @@ import java.util.Observer;
 
 import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.game_screen.controller.BoardMainActivity;
-import de.techfak.gse.dwenzel.server_com.ServerController.LoginClient;
+import de.techfak.gse.dwenzel.server_com.server_controller.LoginClient;
 import de.techfak.gse.dwenzel.server_com.ServerConnection;
-import de.techfak.gse.dwenzel.server_com.ServerController.BoardServerInteraction;
+import de.techfak.gse.dwenzel.server_com.server_controller.BoardServerInteraction;
 import de.techfak.gse.dwenzel.server_com.StartServer;
 import de.techfak.gse.dwenzel.start_screen.view.LoginView;
 
@@ -60,8 +60,8 @@ public class GameStartActivity
         userNameLoginAnswer = findViewById(R.id.playerNameInput);
 
 
-        serverLoginAnswer.setText("http://localhost:8080");
-        userNameLoginAnswer.setText("Dominic");
+       // serverLoginAnswer.setText("http://localhost:8080");
+       // userNameLoginAnswer.setText("Dominic");
 
     }
 
@@ -142,7 +142,7 @@ public class GameStartActivity
 
                         } else {
                             TextView serverInfoView = findViewById(R.id.serverInfoView);
-                            serverInfoView.setText("Server Online : Die Verbindung schlug fehl!");
+                            serverInfoView.setText(R.string.serverFailed);
                         }
 
 
@@ -210,13 +210,13 @@ public class GameStartActivity
     }
 
     @Override
-    public void update(final Observable observable, final Object o) {
+    public void update(final Observable observable, final Object object) {
         if (startServer.isServerConnected()) {
             TextView serverInfoView = findViewById(R.id.serverInfoView);
             serverInfoView.setText("Server Online : " + startServer.getUrl());
             findViewById(R.id.serverButton).setEnabled(false);
 
-            Log.w("Response Server", startServer.getServerResponseInfo());
+            Log.w(getString(R.string.responseServer), startServer.getServerResponseInfo());
 
             if (boardServerInteraction != null) {
                 if (boardServerInteraction.getBoardString() != null) {
@@ -230,8 +230,8 @@ public class GameStartActivity
             }
         } else {
             TextView serverInfoView = findViewById(R.id.serverInfoView);
-            serverInfoView.setText("Server Online : Die Verbindung schlug fehl!");
-            Log.w("Response Server", startServer.getServerResponseInfo());
+            serverInfoView.setText(R.string.serverFailed);
+            Log.w(getString(R.string.responseServer), startServer.getServerResponseInfo());
         }
     }
 

@@ -1,4 +1,4 @@
-package de.techfak.gse.dwenzel.server_com.ServerController;
+package de.techfak.gse.dwenzel.server_com.server_controller;
 
 import android.content.Context;
 import android.util.Log;

@@ -1,4 +1,4 @@
-package de.techfak.gse.dwenzel.server_com.ServerController;
+package de.techfak.gse.dwenzel.server_com.server_controller;
 
 import android.content.Context;
 import android.util.Log;
@@ -193,7 +193,7 @@ public class GameStatusServerInteraction extends Observable {
             @Override
             protected Response<String> parseNetworkResponse(final NetworkResponse response) {
                 int mStatusCode = response.statusCode;
-                Log.d("Status Code GameStatus POST", String.valueOf(mStatusCode));
+              //  Log.d("Status Code GameStatus POST", String.valueOf(mStatusCode));
                 return super.parseNetworkResponse(response);
             }
 
