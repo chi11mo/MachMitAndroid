@@ -22,6 +22,7 @@ import de.techfak.gse.multiplayer.server.response_body.ResponseObject;
 public class LoginClient {
     private final String url;
     private Context context;
+    private String name;
 
     /**
      * Login Client to login players.
@@ -33,6 +34,7 @@ public class LoginClient {
     public LoginClient(final Context context, final String url, final String name) {
         this.context = context;
         this.url = url;
+        this.name = name;
         final ObjectMapper objectMapper = new ObjectMapper();
         final String jsonBody;
 
@@ -99,5 +101,13 @@ public class LoginClient {
         };
 
 
+    }
+
+    /**
+     * Get logged name.
+     * @return logged name as String.
+     */
+    public String getName() {
+        return name;
     }
 }

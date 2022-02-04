@@ -2,11 +2,13 @@ package de.techfak.gse.dwenzel.game_screen.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.widget.GridLayout;
 
 import androidx.appcompat.app.AlertDialog;
 
 import de.techfak.gse.dwenzel.R;
+import de.techfak.gse.dwenzel.game_screen.controller.GameLoopServer;
 import de.techfak.gse.dwenzel.game_screen.controller.GameLoop;
 import de.techfak.gse.dwenzel.game_screen.model.FieldMap;
 import de.techfak.gse.dwenzel.game_screen.model.DataLoader;
@@ -18,15 +20,16 @@ public class GameDisplay implements AlertBox {
     private final Context context;
     private FieldMap fieldMap;
     private GameLoop gameLoop;
+    private GameLoopServer gameLoopServer;
 
     /**
      * to create the view for the GameBoard.
      * And upgrade after changes.
      *
-     * @param context context from main activity.
+     * @param context     context from main activity.
      * @param boardLayout string of boardLayout.
      */
-    public GameDisplay(final Context context, final String boardLayout) {
+    public GameDisplay(final Context context, final String boardLayout, final String url, final String name) {
         this.context = context;
         final int maxRow
                 = context.getResources().getInteger(R.integer.PlaygroundRow);
@@ -42,7 +45,7 @@ public class GameDisplay implements AlertBox {
         onCreate(dataLoader);
 
         setFieldsOnCreate(fieldMap);
-        startRun();
+        startRun(url, name);
 
 
     }
@@ -97,8 +100,10 @@ public class GameDisplay implements AlertBox {
     /**
      * start the Game Loop controller.
      */
-    public void startRun() {
-        gameLoop = new GameLoop(context, fieldMap, this);
+    public void startRun(final String url,final String name) {
+       // gameLoop = new GameLoop(context, fieldMap, this,url,name);
+        Log.d("RUNNING",name+url);
+        gameLoopServer = new GameLoopServer(context, fieldMap, this,url,name);
         //gameLoop.run();
     }
 
@@ -106,8 +111,10 @@ public class GameDisplay implements AlertBox {
      * go to next round in game loop.
      */
     public void nextRound() {
-        gameLoop.nextRound();
-        gameLoop.startThread();
+       // gameLoop.nextRound();
+        //gameLoop.startThread();
+        gameLoopServer.nextRound();
+        gameLoopServer.startThread();
     }
 
 
