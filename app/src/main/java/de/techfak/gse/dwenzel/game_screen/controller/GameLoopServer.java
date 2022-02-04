@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -128,15 +129,15 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
 
             if (rules.checkRules(round.getCurrentTurnTaps())) {
                 diceServerInteraction.getDiceRequest();
-                playerServerInteraction.getPlayerRequest();
+
 
                 fieldMap.updateFieldMap(round.getCurrentTurnTaps());
                 pointChecker.checkPoints(fieldMap, round.getCurrentTurnTaps());
                 fieldMapView.removeAllMarks(fieldMap);
                 player.setCurrentPoints(pointChecker.getPoints());
                 roundServerInteraction.setNextRoundRequestPOST(player.getCurrentPoints());
-                roundServerInteraction.getRoundRequest();
                 round.addRound();
+                getServerInformation();
             } else {
                 for (Field field : round.getCurrentTurnTaps()) {
                     field.setIsCrossed(false);
@@ -145,8 +146,27 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
                 round.removeAllTaps();
             }
         }
+
         isFirstRound = false;
 
+    }
+
+    /**
+     * Polling server Information.
+     */
+    private void getServerInformation() {
+        // boolean serverPolling = true;
+        try {
+            roundServerInteraction.getRoundRequest();
+            playerServerInteraction.getPlayerRequest();
+
+
+            //Toast.makeText(context, "Laden", Toast.LENGTH_LONG).show();
+            Thread.sleep(THREAD_SLEEP);
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -231,12 +251,15 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
         } else {
             textViewCurRound.setText(
                     context.getString(R.string.round_name_plate) + roundServerInteraction.getRoundNumber());
-            if (gameStatus == GameStatus.RUNNING && diceServerInteraction.getDiceResponse() != null&&observable.equals(diceServerInteraction)) {
+            if (gameStatus == GameStatus.RUNNING && diceServerInteraction.getDiceResponse() != null && observable.equals(diceServerInteraction)) {
                 diceView.setDiceFromServer(diceServerInteraction.getDiceResponse());
                 updateRules();
             }
+            if (observable.equals(playerServerInteraction)) {
+                pointView.setPlayers(playerServerInteraction.getPlayers());
+            }
             fieldMapView.updateFieldMap(fieldMap);
-            pointView.setPoints(player, pointChecker);
+            // pointView.setPoints(player, pointChecker);
         }
         gameStatus = gameStatusServerInteraction.getGameStatus();
 
@@ -251,14 +274,7 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
         rules.setDice(diceView.getDice());
     }
 
-    /**
-     * Roll new Dice every Round.
-     */
-    private void updateDice() {
-        //dice.rollDice();
-        //rules.setDice(dice);
 
-    }
 
     /**
      * if win condition is accepted then go to end screen.

@@ -12,6 +12,7 @@ import com.android.volley.toolbox.Volley;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
@@ -21,6 +22,7 @@ import de.techfak.gse.multiplayer.server.response_body.PlayerResponse;
 public class PlayerServerInteraction extends Observable {
     private Context context;
     private String finalUrl;
+    private List<PlayerResponse> players = new ArrayList<>();
     private String url;
     private String name;
 
@@ -102,7 +104,17 @@ public class PlayerServerInteraction extends Observable {
      * @param players playerlist.
      */
     private void setPlayerList(final List<PlayerResponse> players) {
-        Log.d("Player List", String.valueOf(players));
+        // Log.d("Player List", String.valueOf(players));
+        this.players = players;
+        setChanged();
+        notifyObservers();
+    }
 
+    /**
+     * player list.
+     * @return player list.
+     */
+    public List<PlayerResponse> getPlayers() {
+        return players;
     }
 }

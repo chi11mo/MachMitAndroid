@@ -52,6 +52,7 @@ public class DiceRules {
      * @return bool if dice is fine with marked fields.
      */
     private boolean diceRules(final List<Field> currentTurnTaps) {
+        //return true;
         return isDiceColor(currentTurnTaps) && isDiceEyeNumber(currentTurnTaps);
     }
 

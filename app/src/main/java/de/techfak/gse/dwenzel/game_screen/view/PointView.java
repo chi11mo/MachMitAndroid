@@ -12,6 +12,7 @@ import java.util.List;
 import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.game_screen.model.Player;
 import de.techfak.gse.dwenzel.game_screen.model.PointChecker;
+import de.techfak.gse.multiplayer.server.response_body.PlayerResponse;
 
 public class PointView {
     private static final int COLOR_COUNT = 5;
@@ -147,6 +148,15 @@ public class PointView {
         String playerViewText = player.getPlayerName() + player.getCurrentPoints();
         playerPointsView.setText(playerViewText);
 
+
+    }
+
+    public void setPlayers(final List<PlayerResponse> players) {
+        String allPlayers = "";
+        for (PlayerResponse player : players) {
+            allPlayers = allPlayers + "," + player.getName() + player.getPoints();
+        }
+        playerPointsView.setText(allPlayers);
 
     }
 }
