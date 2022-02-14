@@ -1,7 +1,10 @@
 package de.techfak.gse.dwenzel.start_screen.controller;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,11 +16,16 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.nio.ByteOrder;
 import java.util.Observable;
 import java.util.Observer;
 
 import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.game_screen.controller.BoardMainActivity;
+import de.techfak.gse.dwenzel.game_screen.controller.WifiManagement;
 import de.techfak.gse.dwenzel.server_com.server_controller.LoginClient;
 import de.techfak.gse.dwenzel.server_com.ServerConnection;
 import de.techfak.gse.dwenzel.server_com.server_controller.BoardServerInteraction;
@@ -60,8 +68,8 @@ public class GameStartActivity
         userNameLoginAnswer = findViewById(R.id.playerNameInput);
 
 
-       // serverLoginAnswer.setText("http://localhost:8080");
-       // userNameLoginAnswer.setText("Dominic");
+        // serverLoginAnswer.setText("http://localhost:8080");
+        // userNameLoginAnswer.setText("Dominic");
 
     }
 
@@ -124,9 +132,19 @@ public class GameStartActivity
         final EditText userAnswer = (EditText) promptUserView.findViewById(R.id.portText);
         final EditText layoutUserAnswer = (EditText) promptUserView.findViewById(R.id.layoutText);
 
+
+        layoutUserAnswer.setText("gggyyyygbbboyyy\n" +
+                "ogygyyoorbboogg\n" +
+                "bgrggggrrryyogg\n" +
+                "brrgoobbggyyorb\n" +
+                "roooorbbooorrrr\n" +
+                "rbbrrrryyorbbbo\n" +
+                "yybbbbryyygggoo\n");
+
         alertDialogBuilder.setTitle("Port eingeben !");
         Log.d("port", String.valueOf(userAnswer.getText()));
 
+        final String ipAdress = WifiManagement.wifiIpAddress(this);
         alertDialogBuilder.setPositiveButton("Server Starten",
                 new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog, final int id) {
@@ -136,7 +154,8 @@ public class GameStartActivity
 
                         if (testString(portAnswer)) {
                             int port = Integer.parseInt(portAnswer);
-                            startServer.start(layoutAnswer,
+
+                            startServer.start(layoutAnswer, ipAdress,
                                     port);
 
 

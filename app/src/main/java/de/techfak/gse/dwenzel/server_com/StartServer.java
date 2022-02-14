@@ -1,6 +1,7 @@
 package de.techfak.gse.dwenzel.server_com;
 
 import android.content.Context;
+import android.net.wifi.WifiManager;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -44,16 +45,16 @@ public class StartServer extends Observable {
 
     /**
      * Method to start Server.
-     *
-     * @param boardString string with board Layout.
+     *  @param boardString string with board Layout.
+     * @param ipAdress
      * @param port        port to start.
      */
-    public void start(final String boardString, final int port) {
-
+    public void start(final String boardString, final String ipAdress, final int port) {
         final SynchronizedGame game;
+
         final ObjectMapper objectMapper = new ObjectMapper();
         final String serverJsonBody;
-        url = "http://localhost:";
+        url = "http://"+ipAdress+":";
         try {
             final BoardParser boardParser = new BoardParserImpl();
             final BaseGame baseGame =
@@ -61,7 +62,6 @@ public class StartServer extends Observable {
             game = new SynchronizedGame(baseGame);
             server = new Server(port, game);
             server.start();
-
 
             // server.stop();
         } catch (IOException e) {
@@ -95,7 +95,7 @@ public class StartServer extends Observable {
         final Response.Listener<String> onResponse = response -> {
 
             setServerResponseInfo(response);
-            Log.w(RESPONSE, "Server Connected!");
+            Log.w(RESPONSE, response);
             setServerConnected(true);
 
 

@@ -1,5 +1,7 @@
 package de.techfak.gse.multiplayer.server;
 
+import android.util.Log;
+
 import java.io.IOException;
 
 import de.techfak.gse.multiplayer.game.BaseGame;
@@ -63,7 +65,6 @@ public class Server {
         app.post(URI_STATUS, new PostStatusHandler(baseGame));
         app.get(URI_ROUND, new GetRoundHandler(baseGame));
         app.post(URI_ROUND, new PostRoundHandler(baseGame));
-
         //register exception handlers
         app.exception(MissingNameException.class,
             (e, ctx) -> ctx.status(STATUS_BAD_REQUEST).json(ResponseObject.failure(e)));
