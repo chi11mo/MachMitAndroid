@@ -145,6 +145,7 @@ public class GameStartActivity
         Log.d("port", String.valueOf(userAnswer.getText()));
 
         final String ipAdress = WifiManagement.wifiIpAddress(this);
+        Log.d("Network Adress", ipAdress);
         alertDialogBuilder.setPositiveButton("Server Starten",
                 new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog, final int id) {
@@ -205,7 +206,7 @@ public class GameStartActivity
         if (view.getId() == R.id.loginButton) {
             //handle the click here and make whatever you want
 
-            Log.i("test", "Login Player Button");
+            //Log.i("test", "Login Player Button");
             ServerConnection serverConnection = new ServerConnection();
             serverConnection.testConnection(this, serverLoginAnswer.getText().toString());
             loginClient = new LoginClient(this,
@@ -228,6 +229,10 @@ public class GameStartActivity
         boardServerInteraction.addObserver(this);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
     @Override
     public void update(final Observable observable, final Object object) {
         if (startServer.isServerConnected()) {
