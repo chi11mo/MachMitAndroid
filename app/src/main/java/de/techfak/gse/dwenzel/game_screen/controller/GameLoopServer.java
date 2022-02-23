@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -62,7 +63,7 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
     private boolean isFirstRound = true;
 
     private GameStatus gameStatus;
-
+    private Thread myThread;
     private GameStatusServerInteraction gameStatusServerInteraction;
 
     /**
@@ -106,6 +107,8 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
         gameStatusServerInteraction = new GameStatusServerInteraction(context, url, name);
         gameStatusServerInteraction.addObserver(this);
 
+        gameStatusServerInteraction.getGameStatusRequest();
+
         diceServerInteraction = new DiceServerInteraction(context, url, name);
         diceServerInteraction.addObserver(this);
 
@@ -116,13 +119,17 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
         roundServerInteraction.addObserver(this);
 
 
+        gameStatus = GameStatus.NOT_STARTED;
+
+
     }
+
 
     /**
      * This will be start the loop thread.
      */
     public void startThread() {
-        final Thread myThread = new Thread(this);
+        myThread = new Thread(this);
         myThread.start();
     }
 
@@ -131,6 +138,7 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
      */
     public void nextRound() {
         isRunning = false;
+
         if (isFirstRound || gameStatus == GameStatus.NOT_STARTED) {
             ifServerNotStarted();
 
@@ -190,6 +198,7 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
     @Override
     public void run() {
         isRunning = true;
+        int i = 0;
         while (gameStatus == GameStatus.NOT_STARTED) {
             try {
                 gameStatusServerInteraction.getGameStatusRequest();
@@ -199,11 +208,12 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
                 e.printStackTrace();
             }
 
-
         }
 
         while (isRunning) {
-            if (gameStatus != null && gameStatus == GameStatus.RUNNING) {
+            if (gameStatus != null
+                    && gameStatus == GameStatus.RUNNING
+                    && !playerServerInteraction.isPlayerFinnishedRound(player.getPlayerName())) {
                 checkButtons();
             }
         }
@@ -330,7 +340,10 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
                     public void onClick(final DialogInterface dialog, final int which) {
                         gameStatusServerInteraction.setGameStatusRequestPOST(gameStatus);
                     }
-                }).setNegativeButton("Nein", null);
+                }).setNegativeButton("Nein", new DialogInterface.OnClickListener() {
+            public void onClick(final DialogInterface dialog, final int which) {
+            }
+        });
         builder.show();
 
     }

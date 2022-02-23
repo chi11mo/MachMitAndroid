@@ -110,6 +110,7 @@ public class GameDisplayServer implements AlertBox {
         // gameLoop = new GameLoop(context, fieldMap, this,url,name);
         Log.d("RUNNING", name + url);
         gameLoopServer = new GameLoopServer(context, fieldMap, this, url, name);
+        gameLoopServer.startThread();
         //gameLoop.run();
     }
 

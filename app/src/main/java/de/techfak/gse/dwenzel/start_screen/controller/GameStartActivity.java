@@ -1,10 +1,7 @@
 package de.techfak.gse.dwenzel.start_screen.controller;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,10 +13,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.Serializable;
-import java.math.BigInteger;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.nio.ByteOrder;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -45,11 +38,15 @@ public class GameStartActivity
 
     private String boardLayout;
     private StartServer startServer;
+    private ServerConnection serverConnection;
     private LoginClient loginClient;
     private BoardServerInteraction boardServerInteraction;
 
+private String serverAdress ;
     private EditText serverLoginAnswer;
     private EditText userNameLoginAnswer;
+
+    private boolean isPlayerLoggedIn = false;
 
     /**
      * Creates activity on first start.
@@ -63,6 +60,8 @@ public class GameStartActivity
         startServer = new StartServer(this);
         startServer.addObserver(this);
 
+        serverConnection = new ServerConnection();
+        serverConnection.addObserver(this);
 
         serverLoginAnswer = findViewById(R.id.serverNameInput);
         userNameLoginAnswer = findViewById(R.id.playerNameInput);
@@ -83,7 +82,7 @@ public class GameStartActivity
         final Intent myIntent = new Intent(this, BoardMainActivity.class);
         Log.d("Board is :", message);
         myIntent.putExtra("File", boardLayout);
-        myIntent.putExtra("Url", startServer.getUrl());
+        myIntent.putExtra("Url", serverAdress);
         myIntent.putExtra("Name", loginClient.getName());
         startActivity(myIntent);
 
@@ -205,13 +204,16 @@ public class GameStartActivity
     public void onLoginPlayer(final View view) {
         if (view.getId() == R.id.loginButton) {
             //handle the click here and make whatever you want
-
+            // serverLoginAnswer.setText("http://10.0.2.16:8080");
+            //userNameLoginAnswer.setText("Dominic");
             //Log.i("test", "Login Player Button");
-            ServerConnection serverConnection = new ServerConnection();
+
             serverConnection.testConnection(this, serverLoginAnswer.getText().toString());
             loginClient = new LoginClient(this,
                     serverLoginAnswer.getText().toString(),
                     userNameLoginAnswer.getText().toString());
+
+
         }
 
     }
@@ -233,30 +235,57 @@ public class GameStartActivity
     protected void onDestroy() {
         super.onDestroy();
     }
+
     @Override
     public void update(final Observable observable, final Object object) {
-        if (startServer.isServerConnected()) {
-            TextView serverInfoView = findViewById(R.id.serverInfoView);
-            serverInfoView.setText("Server Online : " + startServer.getUrl());
-            findViewById(R.id.serverButton).setEnabled(false);
 
-            Log.w(getString(R.string.responseServer), startServer.getServerResponseInfo());
+        if (observable == startServer) {
+            if (startServer.isServerConnected()) {
+                TextView serverInfoView = findViewById(R.id.serverInfoView);
+                serverInfoView.setText("Server Online : " + startServer.getUrl());
+                findViewById(R.id.serverButton).setEnabled(false);
 
-            if (boardServerInteraction != null) {
-                if (boardServerInteraction.getBoardString() != null) {
-                    boardLayout = boardServerInteraction.getBoardString();
-                    loginController = new LoginController(this);
+                Log.w(getString(R.string.responseServer), startServer.getServerResponseInfo());
 
-                    int maxRow = getResources().getInteger(R.integer.PlaygroundRow);
-                    int maxCol = getResources().getInteger(R.integer.PlaygroundCol);
-                    loginController.onLogin(boardLayout, maxRow, maxCol);
+                if (boardServerInteraction != null) {
+                    if (boardServerInteraction.getBoardString() != null) {
+                        boardLayout = boardServerInteraction.getBoardString();
+                        loginController = new LoginController(this);
+
+                        int maxRow = getResources().getInteger(R.integer.PlaygroundRow);
+                        int maxCol = getResources().getInteger(R.integer.PlaygroundCol);
+                        loginController.onLogin(boardLayout, maxRow, maxCol);
+                    }
                 }
+            } else {
+                TextView serverInfoView = findViewById(R.id.serverInfoView);
+                serverInfoView.setText(R.string.serverFailed);
+                // Log.w(getString(R.string.responseServer), startServer.getServerResponseInfo());
             }
-        } else {
-            TextView serverInfoView = findViewById(R.id.serverInfoView);
-            serverInfoView.setText(R.string.serverFailed);
-            Log.w(getString(R.string.responseServer), startServer.getServerResponseInfo());
+
         }
+        if (observable == boardServerInteraction) {
+            if (boardServerInteraction.getBoardString() != null) {
+                boardLayout = boardServerInteraction.getBoardString();
+                loginController = new LoginController(this);
+
+                int maxRow = getResources().getInteger(R.integer.PlaygroundRow);
+                int maxCol = getResources().getInteger(R.integer.PlaygroundCol);
+                loginController.onLogin(boardLayout, maxRow, maxCol);
+            }
+        }
+        if (observable == serverConnection) {
+            if(serverConnection.isServerOnline()) {
+                isPlayerLoggedIn = serverConnection.isServerOnline();
+                findViewById(R.id.loginButton).setEnabled(false);
+                findViewById(R.id.startButton).setEnabled(true);
+
+               serverAdress = serverLoginAnswer.getText().toString();
+               // Log.d("SPlit", String.valueOf(split));
+                //serverInfo = new ServerInfo(split[0],Integer.parseInt(split[1]));
+            }
+        }
+
     }
 
 

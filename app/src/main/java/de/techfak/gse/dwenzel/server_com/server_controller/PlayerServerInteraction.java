@@ -23,6 +23,7 @@ public class PlayerServerInteraction extends Observable {
     private Context context;
     private String finalUrl;
     private List<PlayerResponse> players = new ArrayList<>();
+    private boolean isAllFinnishedRound;
 
     /**
      * Player server Interaction.
@@ -101,9 +102,24 @@ public class PlayerServerInteraction extends Observable {
      */
     private void setPlayerList(final List<PlayerResponse> players) {
         // Log.d("Player List", String.valueOf(players));
+        for(PlayerResponse player: players){
+            if(player.isFinishedRound()){
+                setIsAllRoundFinnished(true);
+            }
+            else{
+                setIsAllRoundFinnished(false);
+            }
+        }
         this.players = players;
         setChanged();
         notifyObservers();
+    }
+
+    private void setIsAllRoundFinnished(boolean isFinnishedRound) {
+        this.isAllFinnishedRound = isFinnishedRound;
+    }
+    public boolean isAllFinnishedRound(){
+        return isAllFinnishedRound;
     }
 
     /**
@@ -112,5 +128,19 @@ public class PlayerServerInteraction extends Observable {
      */
     public List<PlayerResponse> getPlayers() {
         return players;
+    }
+
+    public boolean isPlayerFinnishedRound(String playerName) {
+        for(PlayerResponse player: players){
+            if(player.getName().equals(playerName)){
+               if(player.isFinishedRound()){
+                   return true;
+               }
+               else{
+                   return false;
+               }
+            }
+        }
+        return false;
     }
 }
