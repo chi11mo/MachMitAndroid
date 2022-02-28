@@ -52,7 +52,7 @@ public class DiceRules {
      * @return bool if dice is fine with marked fields.
      */
     private boolean diceRules(final List<Field> currentTurnTaps) {
-        //return true;
+       // return true;
         return isDiceColor(currentTurnTaps) && isDiceEyeNumber(currentTurnTaps);
     }
 
@@ -67,7 +67,7 @@ public class DiceRules {
         final int turnTapsSize = currentTurnTaps.size();
 
         for (int diceEye : dice.getNumberList()) {
-            if (diceEye + 1 == turnTapsSize) {
+            if (diceEye  == turnTapsSize) {
                 return true;
             }
         }

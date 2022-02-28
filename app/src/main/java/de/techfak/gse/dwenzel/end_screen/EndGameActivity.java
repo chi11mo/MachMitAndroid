@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.start_screen.controller.GameStartActivity;
 
@@ -23,10 +25,16 @@ public class EndGameActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_endgame);
-
+        ArrayList<String> endCardList = getIntent().getStringArrayListExtra("EndCardList");
         TextView winnerView = findViewById(R.id.winnerView);
+
+        StringBuilder endCardRankings = new StringBuilder();
+        for (String player : endCardList) {
+            endCardRankings.append(player).append("\n");
+        }
+
         winnerView.setText(getString(R.string.winner_text)
-                + getIntent().getStringExtra("EndPoints"));
+                + endCardRankings);
 
     }
 

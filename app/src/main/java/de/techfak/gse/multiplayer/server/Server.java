@@ -1,7 +1,5 @@
 package de.techfak.gse.multiplayer.server;
 
-import android.util.Log;
-
 import java.io.IOException;
 
 import de.techfak.gse.multiplayer.game.BaseGame;

@@ -109,7 +109,9 @@ public class PointView {
      * @param pointChecker to get list of marked colors and rows.
      */
     public void setPoints(final Player player, final PointChecker pointChecker) {
-        setPlayerPoints(player);
+        if (player != null) {
+            setPlayerPoints(player);
+        }
         setRowPoints(pointChecker.getPickedFullRow());
         setColorPoints(pointChecker.getPickedFullColor());
     }
@@ -151,12 +153,20 @@ public class PointView {
 
     }
 
+    /**
+     * Setting up Player list from server .
+     *
+     * @param players player list.
+     */
     public void setPlayers(final List<PlayerResponse> players) {
-        String allPlayers = "";
+        StringBuilder allPlayers = new StringBuilder();
         for (PlayerResponse player : players) {
-            allPlayers = allPlayers + "," + player.getName() + player.getPoints();
+
+            allPlayers.append(player.getName());
+            allPlayers.append(player.getPoints());
+            allPlayers.append("\n");
         }
-        playerPointsView.setText(allPlayers);
+        playerPointsView.setText(allPlayers.toString());
 
     }
 }

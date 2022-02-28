@@ -12,38 +12,33 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import java.util.Observable;
-import java.util.Observer;
 
 public class ServerConnection extends Observable {
 
     private Context context;
     private int mStatusCode;
 
-    private static final String TEST_ADRESS = "http://10.0.2.2:";
 
 
     private boolean isServerOnline = false;
-    private boolean isOtherServerOnline = false;
 
     public void testConnection(final Context context, final String url) {
         this.context = context;
-        final StringRequest request = buildRequest(url, "/");
+        final StringRequest request = buildRequest(url);
         final RequestQueue queue = Volley.newRequestQueue(context);
         queue.add(request);
 
     }
 
 
-
     /**
      * Build the Request to check is Server Online.
      *
      * @param url  server url.
-     * @param name just link .
      * @return StringRequest.
      */
-    private StringRequest buildRequest(final String url, final String name) {
-        final String finalUrl = url + name;
+    private StringRequest buildRequest(final String url) {
+        final String finalUrl = url + "/";
         final Response.Listener<String> onResponse = response -> {
 
             Toast.makeText(context, "Server unter der IP erreichbar!", Toast.LENGTH_SHORT).show();
@@ -68,6 +63,7 @@ public class ServerConnection extends Observable {
 
     /**
      * is Server Connected.
+     *
      * @return bool.
      */
     public boolean isServerOnline() {
@@ -76,9 +72,10 @@ public class ServerConnection extends Observable {
 
     /**
      * Setting server connected.
+     *
      * @param serverOnline serverbool.
      */
-    public void setServerOnline(boolean serverOnline) {
+    public void setServerOnline(final boolean serverOnline) {
         this.isServerOnline = serverOnline;
         setChanged();
         notifyObservers();

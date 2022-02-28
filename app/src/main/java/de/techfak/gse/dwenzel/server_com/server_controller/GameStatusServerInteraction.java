@@ -2,7 +2,6 @@ package de.techfak.gse.dwenzel.server_com.server_controller;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -23,11 +22,11 @@ import de.techfak.gse.multiplayer.server.response_body.StatusResponse;
 
 public class GameStatusServerInteraction extends Observable {
     private static final String JSON = "application/json";
-    private Context context;
-    private String finalUrl;
-    private String url;
+    private final Context context;
+    private final String finalUrl;
+    private final String name;
     private GameStatus gameStatus;
-    private String name;
+
 
     /**
      * get gamestatus from server.
@@ -38,7 +37,6 @@ public class GameStatusServerInteraction extends Observable {
      */
     public GameStatusServerInteraction(final Context context, final String url, final String name) {
         this.finalUrl = url + "/api/game/status?name=" + name;
-        this.url = url;
         this.context = context;
         this.name = name;
         getGameStatusRequest();
@@ -93,7 +91,6 @@ public class GameStatusServerInteraction extends Observable {
                 StatusResponse
                         body = objectMapper.readValue(response, StatusResponse.class);
                 setGameStatus(body.getStatus());
-                Toast.makeText(context, body.getStatus().toString(), Toast.LENGTH_LONG).show();
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
@@ -116,8 +113,6 @@ public class GameStatusServerInteraction extends Observable {
 
             @Override
             protected Response<String> parseNetworkResponse(final NetworkResponse response) {
-                int mStatusCode = response.statusCode;
-                Log.d("Status Code Get GameStatus", String.valueOf(mStatusCode));
                 return super.parseNetworkResponse(response);
             }
 
@@ -155,10 +150,10 @@ public class GameStatusServerInteraction extends Observable {
     }
 
     /**
-     * method to request POSt change GamstStatus.
+     * method to request POSt change GameStatus.
      *
-     * @param jsonBody with change gamestatus.
-     * @return gamestatus.
+     * @param jsonBody with change GameStatus.
+     * @return GameStatus.
      */
     private StringRequest buildRequestPOST(final String jsonBody) {
         final ObjectMapper objectMapper = new ObjectMapper();
@@ -194,7 +189,7 @@ public class GameStatusServerInteraction extends Observable {
             @Override
             protected Response<String> parseNetworkResponse(final NetworkResponse response) {
                 int mStatusCode = response.statusCode;
-              //  Log.d("Status Code GameStatus POST", String.valueOf(mStatusCode));
+                Log.d("Status Code GameStatus POST", String.valueOf(mStatusCode));
                 return super.parseNetworkResponse(response);
             }
 

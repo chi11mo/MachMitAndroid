@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.game_screen.view.GameDisplayServer;
+import de.techfak.gse.dwenzel.server_com.StartServer;
 
 /**
  * This activity controls all the stuff on the main game card.
@@ -34,9 +35,10 @@ public class BoardMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_board);
         String url = getIntent().getStringExtra("Url");
         String name = getIntent().getStringExtra("Name");
+        StartServer startServer = getIntent().getParcelableExtra("Server");
         gameDisplay = new GameDisplayServer(this, getIntent().getStringExtra("File"), url, name);
 
-
+//        startServer.stopServer();
     }
 
 

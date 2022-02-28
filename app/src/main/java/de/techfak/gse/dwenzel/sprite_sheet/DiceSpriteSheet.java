@@ -38,6 +38,7 @@ public class DiceSpriteSheet {
                 context.getResources().getColor(R.color.orange));
         listOfDiceColorDrawable.add(
                 context.getResources().getColor(R.color.blue));
+        listOfDiceNumberDrawable.add(null);
         listOfDiceNumberDrawable.add(getOneDiceDrawable());
         listOfDiceNumberDrawable.add(getTwoDiceDrawable());
         listOfDiceNumberDrawable.add(getThreeDiceDrawable());

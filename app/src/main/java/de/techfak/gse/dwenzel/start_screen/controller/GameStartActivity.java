@@ -1,6 +1,5 @@
 package de.techfak.gse.dwenzel.start_screen.controller;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,11 +17,10 @@ import java.util.Observer;
 
 import de.techfak.gse.dwenzel.R;
 import de.techfak.gse.dwenzel.game_screen.controller.BoardMainActivity;
-import de.techfak.gse.dwenzel.game_screen.controller.WifiManagement;
-import de.techfak.gse.dwenzel.server_com.server_controller.LoginClient;
 import de.techfak.gse.dwenzel.server_com.ServerConnection;
-import de.techfak.gse.dwenzel.server_com.server_controller.BoardServerInteraction;
 import de.techfak.gse.dwenzel.server_com.StartServer;
+import de.techfak.gse.dwenzel.server_com.server_controller.BoardServerInteraction;
+import de.techfak.gse.dwenzel.server_com.server_controller.LoginClient;
 import de.techfak.gse.dwenzel.start_screen.view.LoginView;
 
 /**
@@ -42,11 +40,9 @@ public class GameStartActivity
     private LoginClient loginClient;
     private BoardServerInteraction boardServerInteraction;
 
-private String serverAdress ;
+    private String serverAdress;
     private EditText serverLoginAnswer;
     private EditText userNameLoginAnswer;
-
-    private boolean isPlayerLoggedIn = false;
 
     /**
      * Creates activity on first start.
@@ -67,9 +63,6 @@ private String serverAdress ;
         userNameLoginAnswer = findViewById(R.id.playerNameInput);
 
 
-        // serverLoginAnswer.setText("http://localhost:8080");
-        // userNameLoginAnswer.setText("Dominic");
-
     }
 
     /**
@@ -85,7 +78,7 @@ private String serverAdress ;
         myIntent.putExtra("Url", serverAdress);
         myIntent.putExtra("Name", loginClient.getName());
         startActivity(myIntent);
-
+        finish();
     }
 
     /**
@@ -118,6 +111,15 @@ private String serverAdress ;
     /**
      * Server Start view. (Dialog).
      *
+     * Layout placeholder.
+     * layoutUserAnswer.setText("gggyyyygbbboyyy\n" +
+     * "ogygyyoorbboogg\n" +
+     * "bgrggggrrryyogg\n" +
+     * "brrgoobbggyyorb\n" +
+     * "roooorbbooorrrr\n" +
+     * "rbbrrrryyorbbbo\n" +
+     * "yybbbbryyygggoo\n");
+     *
      * @param view view from Dialog xml.
      */
     public void onServerStart(final View view) {
@@ -128,44 +130,33 @@ private String serverAdress ;
 
         alertDialogBuilder.setView(promptUserView);
 
-        final EditText userAnswer = (EditText) promptUserView.findViewById(R.id.portText);
-        final EditText layoutUserAnswer = (EditText) promptUserView.findViewById(R.id.layoutText);
+        final EditText userAnswer = promptUserView.findViewById(R.id.portText);
+        final EditText layoutUserAnswer = promptUserView.findViewById(R.id.layoutText);
 
-
-        layoutUserAnswer.setText("gggyyyygbbboyyy\n" +
-                "ogygyyoorbboogg\n" +
-                "bgrggggrrryyogg\n" +
-                "brrgoobbggyyorb\n" +
-                "roooorbbooorrrr\n" +
-                "rbbrrrryyorbbbo\n" +
-                "yybbbbryyygggoo\n");
 
         alertDialogBuilder.setTitle("Port eingeben !");
         Log.d("port", String.valueOf(userAnswer.getText()));
 
-        final String ipAdress = WifiManagement.wifiIpAddress(this);
-        Log.d("Network Adress", ipAdress);
+        final String ipAddress = "10.0.2.2";
+
         alertDialogBuilder.setPositiveButton("Server Starten",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, final int id) {
-                        String portAnswer = String.valueOf(userAnswer.getText());
-                        String layoutAnswer = String.valueOf(layoutUserAnswer.getText());
+                (dialog, id) -> {
+                    String portAnswer = String.valueOf(userAnswer.getText());
+                    String layoutAnswer = String.valueOf(layoutUserAnswer.getText());
 
 
-                        if (testString(portAnswer)) {
-                            int port = Integer.parseInt(portAnswer);
+                    if (testString(portAnswer)) {
+                        int port = Integer.parseInt(portAnswer);
 
-                            startServer.start(layoutAnswer, ipAdress,
-                                    port);
-
-
-                        } else {
-                            TextView serverInfoView = findViewById(R.id.serverInfoView);
-                            serverInfoView.setText(R.string.serverFailed);
-                        }
+                        startServer.start(layoutAnswer, ipAddress,
+                                port);
 
 
+                    } else {
+                        TextView serverInfoView = findViewById(R.id.serverInfoView);
+                        serverInfoView.setText(R.string.serverFailed);
                     }
+
 
                 });
 
@@ -203,11 +194,6 @@ private String serverAdress ;
      */
     public void onLoginPlayer(final View view) {
         if (view.getId() == R.id.loginButton) {
-            //handle the click here and make whatever you want
-            // serverLoginAnswer.setText("http://10.0.2.16:8080");
-            //userNameLoginAnswer.setText("Dominic");
-            //Log.i("test", "Login Player Button");
-
             serverConnection.testConnection(this, serverLoginAnswer.getText().toString());
             loginClient = new LoginClient(this,
                     serverLoginAnswer.getText().toString(),
@@ -240,8 +226,8 @@ private String serverAdress ;
     public void update(final Observable observable, final Object object) {
 
         if (observable == startServer) {
+            TextView serverInfoView = findViewById(R.id.serverInfoView);
             if (startServer.isServerConnected()) {
-                TextView serverInfoView = findViewById(R.id.serverInfoView);
                 serverInfoView.setText("Server Online : " + startServer.getUrl());
                 findViewById(R.id.serverButton).setEnabled(false);
 
@@ -258,7 +244,6 @@ private String serverAdress ;
                     }
                 }
             } else {
-                TextView serverInfoView = findViewById(R.id.serverInfoView);
                 serverInfoView.setText(R.string.serverFailed);
                 // Log.w(getString(R.string.responseServer), startServer.getServerResponseInfo());
             }
@@ -275,14 +260,11 @@ private String serverAdress ;
             }
         }
         if (observable == serverConnection) {
-            if(serverConnection.isServerOnline()) {
-                isPlayerLoggedIn = serverConnection.isServerOnline();
+            if (serverConnection.isServerOnline()) {
                 findViewById(R.id.loginButton).setEnabled(false);
                 findViewById(R.id.startButton).setEnabled(true);
 
-               serverAdress = serverLoginAnswer.getText().toString();
-               // Log.d("SPlit", String.valueOf(split));
-                //serverInfo = new ServerInfo(split[0],Integer.parseInt(split[1]));
+                serverAdress = serverLoginAnswer.getText().toString();
             }
         }
 

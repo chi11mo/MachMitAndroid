@@ -1,7 +1,6 @@
 package de.techfak.gse.dwenzel.server_com;
 
 import android.content.Context;
-import android.net.wifi.WifiManager;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -9,7 +8,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.Observable;
@@ -45,16 +43,14 @@ public class StartServer extends Observable {
 
     /**
      * Method to start Server.
-     *  @param boardString string with board Layout.
-     * @param ipAdress
+     *
+     * @param boardString string with board Layout.
+     * @param ipAddress   server address.
      * @param port        port to start.
      */
-    public void start(final String boardString, final String ipAdress, final int port) {
+    public void start(final String boardString, final String ipAddress, final int port) {
         final SynchronizedGame game;
-
-        final ObjectMapper objectMapper = new ObjectMapper();
-        final String serverJsonBody;
-        url = "http://"+ipAdress+":";
+        url = "http://" + ipAddress + ":";
         try {
             final BoardParser boardParser = new BoardParserImpl();
             final BaseGame baseGame =
@@ -64,19 +60,15 @@ public class StartServer extends Observable {
             server.start();
 
             // server.stop();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InvalidFieldException e) {
-            e.printStackTrace();
-        } catch (InvalidBoardLayoutException e) {
+        } catch (IOException | InvalidFieldException | InvalidBoardLayoutException e) {
             e.printStackTrace();
         }
         // serverConnection = new ServerConnection(context, url, port);
         final String finalUrl = url + port;
-        final StringRequest request = buildRequest(finalUrl, "/");
+        final StringRequest request = buildRequest(finalUrl);
         final RequestQueue queue = Volley.newRequestQueue(context);
         queue.add(request);
-        //request.getBody();
+        // request.getBody();
 
 
     }
@@ -85,12 +77,10 @@ public class StartServer extends Observable {
      * Build the Request to check is Server Online.
      *
      * @param url  server url.
-     * @param name just link .
      * @return StringRequest.
      */
-    private StringRequest buildRequest(final String url, final String name) {
-        final String finalUrl = url + name;
-        final ObjectMapper objectMapper = new ObjectMapper();
+    private StringRequest buildRequest(final String url) {
+        final String finalUrl = url + "/";
 
         final Response.Listener<String> onResponse = response -> {
 
@@ -102,7 +92,7 @@ public class StartServer extends Observable {
         };
         final Response.ErrorListener onError = error -> {
 
-            Log.w(RESPONSE, error.networkResponse.data.toString());
+            //  Log.w(RESPONSE, error.networkResponse.data.toString());
             setServerResponseInfo(String.valueOf(error));
             setServerConnected(false);
         };
@@ -168,5 +158,12 @@ public class StartServer extends Observable {
      */
     public void setServerResponseInfo(final String serverResponseInfo) {
         this.serverResponseInfo = serverResponseInfo;
+    }
+
+    /**
+     * Method to Stop the server after a game.
+     */
+    public void stopServer() {
+        server.stop();
     }
 }

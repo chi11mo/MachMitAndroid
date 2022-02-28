@@ -20,8 +20,8 @@ import de.techfak.gse.multiplayer.server.response_body.PlayerListResponse;
 import de.techfak.gse.multiplayer.server.response_body.PlayerResponse;
 
 public class PlayerServerInteraction extends Observable {
-    private Context context;
-    private String finalUrl;
+    private final Context context;
+    private final String finalUrl;
     private List<PlayerResponse> players = new ArrayList<>();
     private boolean isAllFinnishedRound;
 
@@ -102,43 +102,51 @@ public class PlayerServerInteraction extends Observable {
      */
     private void setPlayerList(final List<PlayerResponse> players) {
         // Log.d("Player List", String.valueOf(players));
-        for(PlayerResponse player: players){
-            if(player.isFinishedRound()){
-                setIsAllRoundFinnished(true);
-            }
-            else{
-                setIsAllRoundFinnished(false);
-            }
+        for (PlayerResponse player : players) {
+            setIsAllRoundFinnished(player.isFinishedRound());
         }
         this.players = players;
         setChanged();
         notifyObservers();
     }
 
-    private void setIsAllRoundFinnished(boolean isFinnishedRound) {
+    /**
+     * Setting all round finished.
+     *
+     * @param isFinnishedRound isFinished.
+     */
+    private void setIsAllRoundFinnished(final boolean isFinnishedRound) {
         this.isAllFinnishedRound = isFinnishedRound;
     }
-    public boolean isAllFinnishedRound(){
+
+    /**
+     * Check is all round finished.
+     *
+     * @return isAllRoundsFinnish.
+     */
+    public boolean isAllFinnishedRound() {
         return isAllFinnishedRound;
     }
 
     /**
      * player list.
+     *
      * @return player list.
      */
     public List<PlayerResponse> getPlayers() {
         return players;
     }
 
-    public boolean isPlayerFinnishedRound(String playerName) {
-        for(PlayerResponse player: players){
-            if(player.getName().equals(playerName)){
-               if(player.isFinishedRound()){
-                   return true;
-               }
-               else{
-                   return false;
-               }
+    /**
+     * Checks is Player finished his/her round.
+     *
+     * @param playerName player name to check.
+     * @return isPlayerRoundFinished.
+     */
+    public boolean isPlayerFinnishedRound(final String playerName) {
+        for (PlayerResponse player : players) {
+            if (player.getName().equals(playerName)) {
+                return player.isFinishedRound();
             }
         }
         return false;

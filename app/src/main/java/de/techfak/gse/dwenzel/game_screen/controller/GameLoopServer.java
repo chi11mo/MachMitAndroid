@@ -4,12 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -60,11 +60,11 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
     private final TextView textViewCurRound;
     private final AlertBox alertBox;
     private boolean isRunning;
-    private boolean isFirstRound = true;
 
     private GameStatus gameStatus;
     private Thread myThread;
     private GameStatusServerInteraction gameStatusServerInteraction;
+    private boolean isGameEnd = false;
 
     /**
      * Game loop Server site.
@@ -119,6 +119,7 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
         roundServerInteraction.addObserver(this);
 
 
+
         gameStatus = GameStatus.NOT_STARTED;
 
 
@@ -134,42 +135,58 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
     }
 
     /**
+     * Stop the thread.
+     */
+    private void stopThread() {
+        myThread.stop();
+    }
+
+    /**
+     * Changes in View for new round.
+     */
+    public void updateNewRound() {
+        if (rules.checkRules(round.getCurrentTurnTaps())) {
+            fieldMap.updateFieldMap(round.getCurrentTurnTaps());
+            pointChecker.checkPoints(fieldMap, round.getCurrentTurnTaps());
+            fieldMapView.removeAllMarks(fieldMap);
+            player.setCurrentPoints(pointChecker.getPoints());
+            roundServerInteraction.setNextRoundRequestPOST(player.getCurrentPoints());
+            round.addRound();
+            getServerInformation();
+            if (pointChecker.isGameEnd()) {
+                gameStatusServerInteraction.setGameStatusRequestPOST(gameStatus);
+            }
+
+
+        } else {
+            for (Field field : round.getCurrentTurnTaps()) {
+                field.setIsCrossed(false);
+            }
+            fieldMapView.removeAllMarks(fieldMap);
+            round.removeAllTaps();
+        }
+
+    }
+
+    /**
      * to set next Round and if gameStatus is NOT Running run dialog to start it.
      */
     public void nextRound() {
-        isRunning = false;
 
-        if (isFirstRound || gameStatus == GameStatus.NOT_STARTED) {
+
+        if (gameStatus == GameStatus.NOT_STARTED) {
+            isRunning = false;
             ifServerNotStarted();
 
-        } else {
-
-            if (rules.checkRules(round.getCurrentTurnTaps())) {
-                diceServerInteraction.getDiceRequest();
-
-
-                fieldMap.updateFieldMap(round.getCurrentTurnTaps());
-                pointChecker.checkPoints(fieldMap, round.getCurrentTurnTaps());
-                fieldMapView.removeAllMarks(fieldMap);
-                player.setCurrentPoints(pointChecker.getPoints());
-                roundServerInteraction.setNextRoundRequestPOST(player.getCurrentPoints());
-                round.addRound();
-                if (pointChecker.isGameEnd()) {
-                    jumpToEndGame();
-                }
-                getServerInformation();
-
-
-            } else {
-                for (Field field : round.getCurrentTurnTaps()) {
-                    field.setIsCrossed(false);
-                }
-                fieldMapView.removeAllMarks(fieldMap);
-                round.removeAllTaps();
-            }
         }
+        if (!playerServerInteraction.isPlayerFinnishedRound(player.getPlayerName())
+                && gameStatus == GameStatus.RUNNING) {
+            isRunning = false;
+            getServerInformation();
+            updateNewRound();
 
-        isFirstRound = false;
+        }
+        getServerInformation();
 
     }
 
@@ -177,40 +194,42 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
      * Polling server Information.
      */
     private void getServerInformation() {
-        // boolean serverPolling = true;
         try {
+            diceServerInteraction.getDiceRequest();
             roundServerInteraction.getRoundRequest();
             playerServerInteraction.getPlayerRequest();
-            if (gameStatusServerInteraction.getGameStatus() == GameStatus.FINISHED) {
-
+            gameStatusServerInteraction.getGameStatusRequest();
+            if (gameStatus == GameStatus.FINISHED) {
                 jumpToEndGame();
-
+                isRunning = false;
             }
-
-            //Toast.makeText(context, "Laden", Toast.LENGTH_LONG).show();
             Thread.sleep(THREAD_SLEEP);
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
+
     @Override
     public void run() {
         isRunning = true;
-        int i = 0;
+        //If server not started wait for start.
         while (gameStatus == GameStatus.NOT_STARTED) {
             try {
                 gameStatusServerInteraction.getGameStatusRequest();
-
                 Thread.sleep(THREAD_SLEEP_SERVER);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
+        }
+        getServerInformation();
+        while (playerServerInteraction.isPlayerFinnishedRound(player.getPlayerName())) {
+            getServerInformation();
         }
 
+        //When server Start go running Button Observer.
         while (isRunning) {
+
             if (gameStatus != null
                     && gameStatus == GameStatus.RUNNING
                     && !playerServerInteraction.isPlayerFinnishedRound(player.getPlayerName())) {
@@ -223,36 +242,26 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
      * Checking buttons.
      */
     public void checkButtons() {
-
         try {
-
-
             for (int iRow = 0; iRow
                     < context.getResources().getInteger(R.integer.PlaygroundRow); iRow++) {
-
                 for (int iCol = 0; iCol
                         < context.getResources().getInteger(R.integer.PlaygroundCol); iCol++) {
                     int finalIRow = iRow;
-
                     int finalICol = iCol;
+
                     fieldMapView.getButtonGameGroupe()[iRow][iCol]
                             .setOnClickListener(event -> {
                                 Field field = fieldMap.getFields()[finalIRow][finalICol];
-
                                 if (fieldMap.getFields()[finalIRow][finalICol].isCrossed()) {
                                     round.removeTap(field);
                                     field.setIsCrossed(false);
                                     fieldMapView.removeFieldMark(finalIRow, finalICol);
-
                                 } else {
-
                                     round.addTap(field);
                                     field.setIsCrossed(true);
                                     fieldMapView.addFieldMark(finalIRow, finalICol);
-
                                 }
-
-
                             });
                 }
             }
@@ -263,12 +272,6 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
 
     }
 
-    /**
-     * To stop thread.
-     */
-    public void stop() {
-        isRunning = false;
-    }
 
     @Override
     public void update(final Observable observable, final Object object) {
@@ -290,8 +293,9 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
                 pointView.setPlayers(playerServerInteraction.getPlayers());
             }
             fieldMapView.updateFieldMap(fieldMap);
-            // pointView.setPoints(player, pointChecker);
+            pointView.setPoints(null, pointChecker);
         }
+
         gameStatus = gameStatusServerInteraction.getGameStatus();
 
 
@@ -310,22 +314,18 @@ public class GameLoopServer extends AppCompatActivity implements Runnable, Obser
      * if win condition is accepted then go to end screen.
      */
     private void jumpToEndGame() {
-        finishAffinity();
-        final Intent myIntent = new Intent(context, EndGameActivity.class);
-        final List<PlayerResponse> playerResponse = playerServerInteraction.getPlayers();
-
-        PlayerResponse play = playerResponse.get(0);
-        String endCard = play.getName() + play.getPoints();
-        for (PlayerResponse player : playerResponse) {
-            if (play.getPoints() < player.getPoints()) {
-                play = player;
-                endCard = play.getName() + play.getPoints();
-            }
+        if (!isGameEnd) {
+            isGameEnd = true;
+            finishAffinity();
+            final Intent myIntent = new Intent(context, EndGameActivity.class);
+            final List<PlayerResponse> playerResponse = playerServerInteraction.getPlayers();
+            EndCardSorter endCard = new EndCardSorter();
+            List<String> endCardList = endCard.sortForEndCard(playerResponse);
+            myIntent.putStringArrayListExtra("EndCardList", (ArrayList<String>) endCardList);
+            context.startActivity(myIntent);
+            // stopThread();
+            finish();
         }
-
-        myIntent.putExtra("EndPoints", endCard);
-        context.startActivity(myIntent);
-        finish();
     }
 
     /**
