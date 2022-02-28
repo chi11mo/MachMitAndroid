@@ -13,11 +13,19 @@ import java.nio.ByteOrder;
 
 public class WifiManagement {
     /**
+     * For using wifi processes.
+     */
+    public WifiManagement() {
+
+    }
+
+    /**
      * this Method convert and get the needed Ip adress to create a Server.
+     *
      * @param context AppView.
      * @return ip adress as String.
      */
-    public static String wifiIpAddress(final Context context) {
+    public String wifiIpAddress(final Context context) {
         WifiManager wifiManager = (WifiManager) context.getSystemService(WIFI_SERVICE);
         int ipAddress = wifiManager.getConnectionInfo().getIpAddress();
 
